@@ -433,12 +433,17 @@ function player_updated(_, server, player) {
         .prepend(player.is_synced ?
                  $('<span>')
                  .addClass('sync-icon fa fa-link') : '');
+    if(player.track_album !== player.track_title) {
+        $elm.find('.album')
+            .text(player.track_album || '');
+    } else {
+        $elm.find('.artist')
+            .text('');
+    }
     $elm.find('.artist')
-        .text(player.track_artist || 'No Artist');
-    $elm.find('.album')
-        .text(player.track_album || 'No Album');
+        .text(player.track_artist || '');
     $elm.find('.track')
-        .text(player.track_title || 'No Title');
+        .text(player.track_title || '');
 
     log('Cover dimensions (' +
         $elm.find('img.cover').width() + 'x' +

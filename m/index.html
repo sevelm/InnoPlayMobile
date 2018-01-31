@@ -215,7 +215,7 @@
                                     style="text-align: center">
                                     <div class="progress-title"></div>
                                 </div>
-                                <div class="volume row" style="margin-top: 1%; margin-bottom: 5%">
+                                <div class="volume row volume-row">
                                     <div>
                                         <button type="button" class="volume_down">
                                             <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI+SURBVGhD7ZhLyA1RAICvRwoLpCgLoSyEIrZ2NiilLOyxkqW837GxsbZVUsJKibKRvMuCpWRhIwsRJc/vm+6p+W9z/3vvmWvmnLpfff2dM9Oc+3W7c2b+zoQJebEAr+Bn/ITHMTuW4mv82/VP9+9uzAYj3qAf/CWuxH3d8U3MgnLEC1yEsgGde1iMEqc3YiEG1mMWIeWI51iOkCxCBkVI8iFLsBzhLbeKpEPKEc+wX4QkG1KOeIrTRUiSIaNGSHIhMRHSeIh3nFV9XIch4gkOGyGNhSzGO+hig3yMo0RIYyHX0IW+49sKf2JshDQW8hVdaHUxmspMNPA3uvnFUBWyCW/jAZzrxDhwEa3Cb8BjvlfEUhVyCMO673Az1iZcsIr/FTID9+ArDNdfi7VoIyQwB2+gx31/MTCaNkNkHn5Az9nmRCxth8gZ9JzLxSiSFEJ8n/ecW8UokhRC9qLnuKdFk0LIVfScw8UokrZDNuIv9AlihROxtBmyBT+ix2v90KWNkDX4AMPad9E9pRbhYrOK0VTmo8e+YexmVRVyDMN1z+JsrM179KKncWuFX9DjuzCGqhAfFLej3/jY2I8uNMgfGLPzDvqxj5WdeB3v9/ERxsY0GjIMFzAmJrkQiYlJMkTO4ygxyYaIt8xhY5IOkWFjkg+RUzgoJosQOYnTxWQTIiewX0xWIRKen3pjsguRo9gbswOd8wkhK46gH9wXpUt4rzu+iNlxEMP/jNWXp2WYJb48udecw+VOTJiQHZ3OP3FlHAkUw0StAAAAAElFTkSuQmCC">
@@ -291,7 +291,7 @@
                                 <template id="menu-item-template">
                                     <li class="list-group-item">
                                         <div class="media item-content">
-                                            <img style="width: 10%" class="icon cover d-flex align-self-start mr-2" src="">
+                                            <img style="width: 10%; margin: auto" class="icon cover d-flex align-self-start mr-2" src="">
                                             <img class="icon2 cover d-flex align-self-start mr-2" src="">
                                             <div class="media-body">
                                                 <div class="title"></div>
@@ -334,21 +334,19 @@
                             <template>
                                 <li class="list-group-item player">
                                     <div class="media">
-                                        <img class="cover align-self-start mr-3" src="" style="width: 20%">
+                                        <img class="cover align-self-start mr-3 item-art" src="">
                                         <div class="media-body">
                                             <div class="player-name"></div>
                                             <div class="track"></div>
                                             <div class="artist"></div>
                                             <div class="row justify-content-center align-items-center">
-                                                <button type="button" class="volume_down"
-                                                        style="width: auto; padding: 0">
+                                                <button type="button" class="volume_down btn">
                                                     <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI+SURBVGhD7ZhLyA1RAICvRwoLpCgLoSyEIrZ2NiilLOyxkqW837GxsbZVUsJKibKRvMuCpWRhIwsRJc/vm+6p+W9z/3vvmWvmnLpfff2dM9Oc+3W7c2b+zoQJebEAr+Bn/ITHMTuW4mv82/VP9+9uzAYj3qAf/CWuxH3d8U3MgnLEC1yEsgGde1iMEqc3YiEG1mMWIeWI51iOkCxCBkVI8iFLsBzhLbeKpEPKEc+wX4QkG1KOeIrTRUiSIaNGSHIhMRHSeIh3nFV9XIch4gkOGyGNhSzGO+hig3yMo0RIYyHX0IW+49sKf2JshDQW8hVdaHUxmspMNPA3uvnFUBWyCW/jAZzrxDhwEa3Cb8BjvlfEUhVyCMO673Az1iZcsIr/FTID9+ArDNdfi7VoIyQwB2+gx31/MTCaNkNkHn5Az9nmRCxth8gZ9JzLxSiSFEJ8n/ecW8UokhRC9qLnuKdFk0LIVfScw8UokrZDNuIv9AlihROxtBmyBT+ix2v90KWNkDX4AMPad9E9pRbhYrOK0VTmo8e+YexmVRVyDMN1z+JsrM179KKncWuFX9DjuzCGqhAfFLej3/jY2I8uNMgfGLPzDvqxj5WdeB3v9/ERxsY0GjIMFzAmJrkQiYlJMkTO4ygxyYaIt8xhY5IOkWFjkg+RUzgoJosQOYnTxWQTIiewX0xWIRKen3pjsguRo9gbswOd8wkhK46gH9wXpUt4rzu+iNlxEMP/jNWXp2WYJb48udecw+VOTJiQHZ3OP3FlHAkUw0StAAAAAElFTkSuQmCC">
                                                 </button>
                                                 <div class="volume progress w-50 mx-2">
                                                     <div class="progress-bar"></div>
                                                 </div>
-                                                <button type="button" class="volume_up"
-                                                        style="width: auto; padding: 0">
+                                                <button type="button" class="volume_up btn">
                                                     <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARfSURBVGhD7Zl5yGVjHMffQYylMGOJZCskMyFLURRRlkkpf0hZiikx84ci+zpDmJQl/1gSiikhfyjZEskukyElyR+yNJNddj6fp/d5u+fpd+ee89xFt95PfXrPs9xzz/fe+yznvDPzzDNdbI/34fe4Aa/GqWNXXI//zvrP7N8zcGowxEfohb+H++AFs+UncSroDfEu7ohyCFr3Wiq1Ywf0Q5g4ZQgvJLMUuwZ5Af9Gx9lOVkyC3hDvYG8IqQniz/FX9HXf4ek4VgaFkJogsic+jb7WCWM1boYjZxfsDeGUG1EbJLMcf0PP8SAuwJHRG+Jt7BdChg0iR6Frkue524pR0BviLdxUCGkT5Ej8Ch/ARVYEGOZn9FwXWjEMXUNI2yD55/M1Ho0Ry9Dx8gseZEUNNSGk7U/rAHwV7Wuo0zDiLrTPmxiOF2ecffu4BHMIT9A2hHQZI1vgPWj/3/E4LNkKP0f7NLY9i/FZtGGQb2CXEFIz2HMYx83OVhScjbZ/jHPfymNopQvQZ4F/Ym0IqQnievEi+jqvr8T2T9H2Y62Qn9CK/VKpiS8woNsFF78aoiCHoYvdxbi1FQF7YH7vg60ouAY9rzNdwoJG+A3Y5hxeSxTkMszv6+/9cIy4He3zUCo1cVNp20ZMP698wohxBfGNz8QPMJ8/mk6daJxuf8CFVhTkQe+Mlw40YlxBMlviE2i79y/RdOrOwfa5sdDD42jbORY80IhxB5Ft8Eu0z8lWFNyJtl2aSk2uRduut+CBRkwiiNyA9vGiS1Zgv7aL0DYXyXSgEZMK4sJmn6dSqclZaNsjqdTEcWbboxY80IhJBTkf7ROtGeehbXPTbA/nom1u79OBRkwqiJ+ofS5PpSZ5qr41lZpcgratseCBRkwiyKH4F7qD2NuKgjwz+emX3Ia2GTYdaMS4gxyD36Lt0WDeHN1v2b6/FQUvoW0nWvBAI8YV5EB8GfN7P4euKSUnoe3uvEsM6fbKBTM9esons6FkW7TNG5lw79+CKMhVmM97I7p9j3gF7RetIX4Ltq1LJfgCrXBROSHwR7S99pFMFMSN4inoN96PPCV/g9tZUZAniDQ+xKcUVgzSG51o5R3EoMEe4aB3M+jrfMZV4k7cb9NJYjcrMt5WrkWf8EW+jrVhugbxIvO9xjNWBNyLtqeFsCs3Y02YLkF8Tpx/6t5Suw8rcZf8B3od1c+Ha8K0CeJE46D3vPZ1kHsLXuLY+hDtkxbBYViFXcK0CXI82sff/B0YTcXOmg+j/d7HqE9n/PTahmkTxIu6Ao9IpZj8GMg1Ld1IjYq2YboO9hIf//jvBc/hTNXv4d1QXIeDwgwTZC900Pt617PoOdfIyHdp/cLUBPH+3PPm/5F8gm5rxk5+NBOFqQni2uVrfBR0P25qBzBy8v6pDFMTxJnLMD7c/l+4Esswp6J1XthU4TTqhXuj5KL1/Gz5Fpw6VmJ+ZqzePO2OU4mzjGvNTeg/NueZZ/qYmfkP+Xqtp0seHcEAAAAASUVORK5CYII=">
                                                 </button>
                                             </div>
@@ -390,20 +388,20 @@
                         <template id="playlist-item-template">
                             <li class="list-group-item">
                                 <div class="media">
-                                    <img class="cover d-flex align-self-start mr-3" src="" style="width: 20%">
+                                    <img class="cover d-flex align-self-start mr-3 item-art" src="">
                                     <div class="media-body">
                                         <div class="track"></div>
                                         <div class="artist"></div>
-                                        <button type="button" class="btn" style="width: auto; padding: 0">
+                                        <button type="button" class="btn">
                                             <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAERSURBVGhD7dg7CsJAGMTxIOJRbER8HcTSE1lbegXBwvcBxNY7WIrPK+hM3IVFTNTGfCvzh8GsNvlBmpgopZT616pY5XEZbx3siq2waDFtjIibW5QYIi6YR0SJaWEesXWfO+zorpeYeUyIGLszrzdYDfOYBWYWw5s+Yx5RxuruTAgzj2lizwj2DGEhZo6ZwWQh2CsII+aA8bcZVjiGiBP2CsGyICzETLHCMA0sD8HyICzETLCfY4jwz3kWgr2DsMIwvOk99g7BPoGwENPnF7+ohI2wIZaHYJ9CGDFrrJeejPUNxHSCWEsQawliLUGsJYi1BLGWINYSxFqCWIvv4YTwXTzq+OfEAOumJ6WUUspkSXIHdgF62NDZ1zMAAAAASUVORK5CYII=">
                                         </button>
-                                        <button type="button" class="btn" style="width: auto; padding: 0">
+                                        <button type="button" class="btn">
                                             <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEUSURBVGhD7dNNasJQGIXh4EA61V2IdCHO1epa3EVX0Emntf50Bd2Hc8W5gkJ7TswHl5KYOLl+t54XDiYXwTwEM6WUUv+1J6x1uUy3LrbH3vK7hHvGfrDv/C7hBPGWIN4SxFuCeEsQbwniLUG8JYi3BIlVp1hdt0J6WPtyGacNtsX6+V11t0BmGL/7mt9F6h3jj+6wa5imEEOcsAEPYsXXP8fqME0gIWLIg9g1wdRBQsSIB/eKmE+MD1P2n7kGMcQZuyvCImaBlWGqIO4QVhWmDBIixjzwFjFLLMT8hbhHWMSsMMNMimtCQsQL5r4Qcyw+D8UnEcQlEzFrjA9vSw5hEfOFGWKKJRsxH1iSb0IppdSjlGW/B816tRdsqOwAAAAASUVORK5CYII=">
                                         </button>
-                                        <button type="button" class="btn" style="width: auto; padding: 0">
+                                        <button type="button" class="btn">
                                             <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJhSURBVGhD7dlLqE1hGMbx7ZpbqCNioMRIDGRAp0xMSCZKLjOJAZnIRMpEYiKnyEjExEhMpAwQEybMXMpASkoGklKSy/+v3vrSOZyz9/etS9ZTvzpn77Uvzzlrrfdbe/e6dOnSJc1sHMH037+1OPPwEy+x2RvamigSbmIFWpco8gUfk59Pwt2uNYkib7AIl/A9uW0nWpG0SGQ9HsPbdR+r0eiMVsRMxl68h/d/w3nMRyMzVpGIb3wEFnG7D9gPizYq/yoSWYl7cFs9gbtgYzLeIpHtcFsf8wNXsRi1Z6JFzEycgKdpH/sZta8O+ikSWYYb8PF6gdpWB4MUiWzCc0QhVwfLUWlyFDHuVu5en+DzxepgFipJriIRD/wr8EQQz7sDxZO7SMRTs6don1uuDlahWEoVMQ5Nh6dD1NdwqJ5DkdVBySIR37jLm3R1sA9ZVwdVFIm48HQX8/WUdXVQZZHILjhEfV1PCpcxAwOl6iKu2e4i/itPMYyBU1URj5OzSI+TA8h2nJQuMtp1zQUMIWtKFlmH9ErzAdagSEoUWYj02v8tdmMSiiVnkak4jPg05itOYQ6KJ1eRjXgGn0u3UOnnY4MWWYrriAKvsAWVp98iXiUeR3qVeBS1XSX2U2QbXsPHOZmvYQlqzUSKOJXvwO3lVN6ARmQ8RebiDDwLua1T+SCmoDH5WxHP+3vwDm7jXHAqL0DjMlaRtXgE79NDFJvKOfJnEf/aFxFT2f9G8amcI1HEZcQhpFP5NCqZyjkSRVK30bpvrdIiTuWtaGUs4lQ+hlZ/szsNjfg0vUuXLv91er1fykXRLp2+nSUAAAAASUVORK5CYII=">
                                         </button>
-                                        <button type="button" class="btn" style="width: auto; padding: 0">
+                                        <button type="button" class="btn">
                                             <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANHSURBVGhD7ZlJyE1RHMA/8xwW5iHFxlBsEEKJlZBhRQiJQsnGmAUlsjJsFBKSIiEyrChjpEjGIgsLypx5/P2O79Tnq89373v3fe8t7q9+vXdO75x7zr33TP9XlZOTk5OTU0YaY+u/X4uiTfVng9EBF+JJfI7f8Te+wlu4Efvj/2iGk/AwPsLPaB0f8R7uwHHYCDOnBa7EN+hFo9/wNf6skafHsAfWZjI+w5q//YRva+XpVRyNmdENr2C8wCmcjeZHvMvDcDv6dPzde7Th0hz3Y6zjJi7GXhjxZg3GtRg76w1ahUU/nS4YK32II7E+2uIetIxPzE6fqE7byRlYHy1xNcZX1xtUMFZ2Da3oAnbENMzHX2h5fYw1n0ASxqNjx/KLzCgEx4QV+CTam1EA69A6HAP1TQJ1MR29IXao5uucCO9+HNijzCgQ3+2zaGOK4SDall0hlQJfCwueDqniaFf9WQx90IH/AZ0UEuM6YUfmhFRlcAlt08SQSshTtFDPkKoMNqBtWhNSCfmCPsqmIVUZOGvZkZ0hlQAbbwE7U0n4mtsu16jEvEMLZbEhzIrlaJu2hlRC7qOFBoZUZbANbdOKkErIIbTQvJCqDK6jbRobUglZihY6ElLlpzO67/qK7uUS0x2dtTwreAYpN3F8HA+plJxBC7tfKiceEeK6NtWMtIxBC3tw6mRGmViCtuMuerQuiPNoJW7ayoE7i3h6nGZGofRFj6JWNMuMBqQJXkSv7cGsaOKj9Tww1IwGwiCE132Bqc8hdXEArdTxMsSMErMJvZ5TrmM1MzwDeECy8pc4CEvFevQ6ngrnmpE1rfAcxsc9ArPEGWkzxk64dpQMN5FxJnN3bIQkC1ytY6TFhbjgQEMajK7sQy+qW7CYc0s/vIPWZSxsCjYoPvofaAMuY29My0yMRwbDRQOwLExAB78NMeqSNFriq7QXLacGOdLGzTKnK8Z9me7G/+1QXYuMlflbN6XLsCQB60KwITYoRtaNstdePJ2VDIMaRvU3t7GSDm7/4Dt+A22oDTbiYQccP4ZdzXdcOc2mik+VA2cwOxDvvH8PuCPw+wPMev0pOcPxCdoB9W+FVKe7SsLT5VFcEFI5OTk5OYGqqj9XWeCu2RXOqAAAAABJRU5ErkJggg==">
                                         </button>
                                     </div>

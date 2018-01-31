@@ -13,16 +13,33 @@
     position: absolute;
 }
 
+button.btn {
+    width: auto;
+    padding: 0;
+}
+
+.item-art {
+    width: 20%;
+}
+
+.volume-row {
+    margin-top: 1%;
+    margin-bottom: 5%;
+}
+
+/* Tablet Portrait */
 @media (min-width: 767px) and (orientation: portrait) {
     .covermain {
         width: 75%;
         height: 75%;
     }
+
     .bottomcontrols {
         bottom: 10%;
     }
 }
 
+/* Tablet Landscape */
 @media (orientation: landscape) {
     .covermain {
         width: 40%;
@@ -31,6 +48,38 @@
 
     .bottomcontrols {
         bottom: 10%;
+    }
+
+    .volume-row {
+        margin-top: 1%;
+        margin-bottom: 4%;
+    }
+}
+
+/* Phone Landscape */
+@media (max-width: 766px) and (orientation: landscape) {
+    .covermain {
+        width: 10%;
+        height: 10%;
+    }
+
+    .bottomcontrols {
+        bottom: 4%;
+    }
+
+    .volume-row {
+        margin-bottom: 2%;
+    }
+}
+
+/* iPhone 5 portrait */
+@media (max-width: 320px) and (orientation: portrait) {
+    button.btn {
+        width: 21%;
+    }
+
+    .item-art {
+        width: 15%;
     }
 }
 
@@ -79,6 +128,12 @@ ol.playlist.active {
     transition: transform 0.3s ease, -webkit-transform 0.3s ease;
 }
 
+.carousel-indicators li {
+    height: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .carousel-indicators .active {
     background-color: #007AFF;
 }
@@ -91,3 +146,8 @@ button {
     appearance: none;
     -moz-appearance: none;
 }
+
+.ios .page {
+    background-color: lightgray;
+}
+
