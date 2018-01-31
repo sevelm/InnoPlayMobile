@@ -21,7 +21,6 @@
 /* FIXME: Why no icons for favorites? */
 /* FIXME: On screen/non-touch: hide playlist controls until hover,
           then display on top  */
-/* FIXME: Overflow: scroll for modal dialogs */
 /* FIXME: Terminology Unsync/Include */
 /* FIXME: When selected player in group of >=3 players, offer to unlink it from
           the rest of group with one click, i.e. Unsync from P2+P3 */
@@ -163,13 +162,18 @@ function server_ready(_, server) {
         player_activated(server.players[ev.to]);
     });
 
+    //let shortcuts = [
+    //    {title: 'Favorites',   cmd: 'favorites',   icon: 'fa-star'},
+    //    {title: 'Radio',       cmd: 'presets',     icon: 'fa-podcast'}, /* no fa-antenna */
+    //    {title: 'Podcasts',    cmd: 'podcasts',    icon: 'fa-rss'}, /* later, switch to fa-podcast */
+    //    {title: 'Pocketcasts', cmd: 'pocketcasts', icon: 'fa-rss'}, /* later, switch to brand icon */
+    //    {title: 'Spotify',     cmd: 'spotty',      icon: 'fa-spotify'},
+    //    {title: 'Blah',        cmd: 'dummy',       icon: 'fa-question'}];
     let shortcuts = [
-        {title: 'Favorites',   cmd: 'favorites',   icon: 'fa-star'},
-        {title: 'Radio',       cmd: 'presets',     icon: 'fa-podcast'}, /* no fa-antenna */
-        {title: 'Podcasts',    cmd: 'podcasts',    icon: 'fa-rss'}, /* later, switch to fa-podcast */
-        {title: 'Pocketcasts', cmd: 'pocketcasts', icon: 'fa-rss'}, /* later, switch to brand icon */
-        {title: 'Spotify',     cmd: 'spotty',      icon: 'fa-spotify'},
-        {title: 'Blah',        cmd: 'dummy',       icon: 'fa-question'}];
+        {title: 'Favoriten',    cmd: 'favorites',   icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANHSURBVGhD7ZlJyE1RHMA/8xwW5iHFxlBsEEKJlZBhRQiJQsnGmAUlsjJsFBKSIiEyrChjpEjGIgsLypx5/P2O79Tnq89373v3fe8t7q9+vXdO75x7zr33TP9XlZOTk5OTU0YaY+u/X4uiTfVng9EBF+JJfI7f8Te+wlu4Efvj/2iGk/AwPsLPaB0f8R7uwHHYCDOnBa7EN+hFo9/wNf6skafHsAfWZjI+w5q//YRva+XpVRyNmdENr2C8wCmcjeZHvMvDcDv6dPzde7Th0hz3Y6zjJi7GXhjxZg3GtRg76w1ahUU/nS4YK32II7E+2uIetIxPzE6fqE7byRlYHy1xNcZX1xtUMFZ2Da3oAnbENMzHX2h5fYw1n0ASxqNjx/KLzCgEx4QV+CTam1EA69A6HAP1TQJ1MR29IXao5uucCO9+HNijzCgQ3+2zaGOK4SDall0hlQJfCwueDqniaFf9WQx90IH/AZ0UEuM6YUfmhFRlcAlt08SQSshTtFDPkKoMNqBtWhNSCfmCPsqmIVUZOGvZkZ0hlQAbbwE7U0n4mtsu16jEvEMLZbEhzIrlaJu2hlRC7qOFBoZUZbANbdOKkErIIbTQvJCqDK6jbRobUglZihY6ElLlpzO67/qK7uUS0x2dtTwreAYpN3F8HA+plJxBC7tfKiceEeK6NtWMtIxBC3tw6mRGmViCtuMuerQuiPNoJW7ayoE7i3h6nGZGofRFj6JWNMuMBqQJXkSv7cGsaOKj9Tww1IwGwiCE132Bqc8hdXEArdTxMsSMErMJvZ5TrmM1MzwDeECy8pc4CEvFevQ6ngrnmpE1rfAcxsc9ArPEGWkzxk64dpQMN5FxJnN3bIQkC1ytY6TFhbjgQEMajK7sQy+qW7CYc0s/vIPWZSxsCjYoPvofaAMuY29My0yMRwbDRQOwLExAB78NMeqSNFriq7QXLacGOdLGzTKnK8Z9me7G/+1QXYuMlflbN6XLsCQB60KwITYoRtaNstdePJ2VDIMaRvU3t7GSDm7/4Dt+A22oDTbiYQccP4ZdzXdcOc2mik+VA2cwOxDvvH8PuCPw+wPMev0pOcPxCdoB9W+FVKe7SsLT5VFcEFI5OTk5OYGqqj9XWeCu2RXOqAAAAABJRU5ErkJggg=='},
+        {title: 'Apps',         _cmd: 'apps',        icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKXSURBVGhD7ZZJyE1hGIB/ZCYzmSWSjTJlQ0JJhsQCGxtSslCKwspQimJlzEayEpJZyYaFoaREiUSZCQuU2fN83dP9O/8597/XUu9Tz+J9v/c7937nm05TEARBEARBEARBENRFexyMA7GtiQbpiENxQIoapzOOwD4p+gf88cP4Cf9UfI07sQe2xlg8jl8x6/8UN2MnbI0peAm/Y9b/Pq7GdlgXk/Ed2vk3PsPnlVgf4UgsYx5+QWt/4hN8W4n1FvbCMlah/ax1II/xQyXWs9gBa9IXsx89gcMxYxxeR9vuossujzORDWI/+ryMqfgAbbtgooAZ6CB0C3ZHcVnPxRdo/wNYE5eOheexjYkcXfAeWrPSRA6Xk237UtSSfugStWamiRw30bb1KWrJGHS5OtDRJspw2figiSkqZila42Cb43RnP+IfLsN9Yv+9KaoyBM2/x6LZzjiE1m1IUQk/8BcWzUbGKPRBD1NUZRia92XUYhZadzlFVaaj+SspKmcFWncwRSV8Rou6paiY8WjNnRRV6Y/m3WO1WIzWnUxRFQ8Z87dTVM46tG5Pikq4ihYtT1Ex29AapziPR6xtbuwyjqE1G1NUxf2XLc3mh0yea2j/ZSkqwUaL3qBLKM809FTyWJ5gIscmtL+nkzOUZwna12d40eZxudjfF1q0KjwEbH+JXU2U4d44jRZ7Ge7AObgA3Zzf0LZdWISX3Q205hU6sNm4CI+i+8+2NViEx7X3hjXutbXonvKAOYPmnbH52Cr+mSPom7Njcz0MtmOtz5XeeBHzfdWlUzaIDA8NL82i/h/Rl9IQk3A3nkPfxlb0HK8XLzfvEy+/U+ieGIT14ItaiH4m+ani/eTs9MQgCIIgCIIgCIIg+P9pavoLWBG3ImGgY+cAAAAASUVORK5CYII='},
+        {title: 'Webradio',     _cmd: 'radios',      icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAN2SURBVGhD7dlbyE1pHMfx12BIJKeQw8WEFBeOJQrhiis0hskFmYhyg0RxgYhCiDEOaeSQS4e5cMgk5VSMG+eSKWpyyCEJ4/j97vd93pbdfr1r7b3be232rz6119rvXuv5r/WstZ71vDXVVPN9pwl24i3OowsqKj9gMNbhU8RapD7dMROH8AjRAoIVSF1aYzw24QayG30dG7Ee93EY7VD22F2GYCn+hv0+2nDPwkHMgGcnVbFBs2B3eYxowy3kNJZgECw0NbG7TMBm3ES04boGu4tdqhVSE4/iUNhdziCV3aUFmtd+/CI98RvsLk8QbfgbpKa7DMdFvIdH+C9MwRZUTHfxIfQK4ei+q/sclcq7i0fwp4hTsLHH0A8D8U/dOu/rk9EL0d+UQw84fMnEp2j2xVlJ7ObdUH+h3q1A4Zm0GvWVVWLmwrb/7kK1kCKlA7xwO2eWkqWshXiXcfjig/Qhwv71P85iISywsZStEJ/ylxH2KZ9Xd/AfPtat0zM4MmiKhpKokK5oX/uxoDj69Yi7rwewkXapaFpiIo4itOs4Gnr/iF3IcniUbMB0V+QZn/7haDuMcXTcWMbCgv3NBfyI7MQqpBkcnoTvfXvLJwMQHrh/wuFPXJNgF/O3u5Gd2GfkHsL3J1yRR3INMPPhGR2GaGIX4tE8gv1w2J40I+C2X8CLPF+34XayD2aii72Q7IHbXpxZyj9t8BK+UnRyRV1KVsi/cNuOUguNvcJt/ZpZqk2iQnojn4Z4K/2A5xhXBM402s5lCIldiDN6fmeD5rgiQfoibLuY7K4hsQrx9hseYLqFJHF+1t/55PZFrVBh8m4DQmKfkXC3kG+LSePd6jVyTV4kzRrYjvmZpdrELsTusQ/bkc/o9Bzc9sjMUmEJ23JSJCTRxV5Iwo4cO+W6gOOaCrfjkCU6tVSyQhzsFXM+wLFfNCUrxHhxhn1cQq4L+Wuewt86E589X1bSQnyfcNbRfVxFkv82LYJjLM/qaFdkpaSFmLa4AvfjzMc8fO1O1h8n4d/7CJiGXCl5IcZ3kAMI+7PL7MUCOOyYDad1QsHyVXgUGkpZCglxbtgXpbDfXCxyJRp7AStrISF9YEO2wjnkbXAcNQaOKuIkFYUUI99mIb6suPBzBdoF2273zPxnNZyVSvULajpiFXZUoD8QfWOsppripqbmM6qic+YPcHB3AAAAAElFTkSuQmCC'},
+        {title: 'Medien',       _cmd: 'musicfolder', icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIISURBVGhD7dm/S9xgAMbxWJWqqNClDtalgxRBsPgHVNzrZAeLP8Cxg9Kxmx1EcGyp0C5F6GLpJo5O4mBx1aUWddBJbFEE8Uft9wkXCPHucvGS3Pu27wMf9NVLeJ8ceS+XeC4uLhWnGe/xCzcVOMAgjMs7aILXOI7xG3rtKR7DqBzhD7r9UXwWoTLrqNcfTIkmpSNdadqxC233Fg9y0oaySVpEeYYraNs87eEFikYvSFpEGcYPFDuXshCcnzqA/biVuxapRWah+c75o0hsKvISmu+CP4okKNIELammeoTYIlp+Lwu/m+yi8LNkETnDT4PtQwe8bBF9quutMz0zKFvknzrZbYgrUk10TaZls9UfpZPci3TgBNq3LilW0INqk3uRXmi/YVoZlzCFMahs0hhRJOobksbIImtImpoV0WXPKnYK4zCrimz6I8+rwyT0xSgo8gVJU7MixY76Q2hZbvRHyWJUkWriitw1rkhMci/SByuL3MMTDOA5PsO6Iq9wCO0nypoibxCeeJQVRfSBFlyql2JFkU6EJ13MMtJMJkUaoO3CE496jTST2TkyinOEJx/4jhakmcyKKF3Qkf+Ir/iECdxH2sm0SJ75P4ropoDu+9qQcajIB38UyRb0z3nosZapRrABzXUatzIEGx4pBLZR8qbfU+gd0apjKn3H1+oY+3TXxcUliOf9BZfW+6GF1BL2AAAAAElFTkSuQmCC'}];
 
     /* FIXME: Only display podcasts shortcuts if pocketcasts not available */
 
@@ -192,11 +196,11 @@ function server_ready(_, server) {
         });
 
     let main_menu = {
-        title: 'Home', items: [
-            {title: 'Favorites', cmd: 'favorites',   icon: 'fa-star'},
-            {title: 'Apps',     _cmd: 'apps',        icon: 'fa-rocket'},
-            {title: 'Radio',    _cmd: 'radios',      icon: 'fa-bullhorn'},
-            {title: 'Folder',   _cmd: 'musicfolder', icon: 'fa-folder'}]};
+        title: 'Browser', items: [
+            {title: 'Favoriten', cmd: 'favorites',   icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANHSURBVGhD7ZlJyE1RHMA/8xwW5iHFxlBsEEKJlZBhRQiJQsnGmAUlsjJsFBKSIiEyrChjpEjGIgsLypx5/P2O79Tnq89373v3fe8t7q9+vXdO75x7zr33TP9XlZOTk5OTU0YaY+u/X4uiTfVng9EBF+JJfI7f8Te+wlu4Efvj/2iGk/AwPsLPaB0f8R7uwHHYCDOnBa7EN+hFo9/wNf6skafHsAfWZjI+w5q//YRva+XpVRyNmdENr2C8wCmcjeZHvMvDcDv6dPzde7Th0hz3Y6zjJi7GXhjxZg3GtRg76w1ahUU/nS4YK32II7E+2uIetIxPzE6fqE7byRlYHy1xNcZX1xtUMFZ2Da3oAnbENMzHX2h5fYw1n0ASxqNjx/KLzCgEx4QV+CTam1EA69A6HAP1TQJ1MR29IXao5uucCO9+HNijzCgQ3+2zaGOK4SDall0hlQJfCwueDqniaFf9WQx90IH/AZ0UEuM6YUfmhFRlcAlt08SQSshTtFDPkKoMNqBtWhNSCfmCPsqmIVUZOGvZkZ0hlQAbbwE7U0n4mtsu16jEvEMLZbEhzIrlaJu2hlRC7qOFBoZUZbANbdOKkErIIbTQvJCqDK6jbRobUglZihY6ElLlpzO67/qK7uUS0x2dtTwreAYpN3F8HA+plJxBC7tfKiceEeK6NtWMtIxBC3tw6mRGmViCtuMuerQuiPNoJW7ayoE7i3h6nGZGofRFj6JWNMuMBqQJXkSv7cGsaOKj9Tww1IwGwiCE132Bqc8hdXEArdTxMsSMErMJvZ5TrmM1MzwDeECy8pc4CEvFevQ6ngrnmpE1rfAcxsc9ArPEGWkzxk64dpQMN5FxJnN3bIQkC1ytY6TFhbjgQEMajK7sQy+qW7CYc0s/vIPWZSxsCjYoPvofaAMuY29My0yMRwbDRQOwLExAB78NMeqSNFriq7QXLacGOdLGzTKnK8Z9me7G/+1QXYuMlflbN6XLsCQB60KwITYoRtaNstdePJ2VDIMaRvU3t7GSDm7/4Dt+A22oDTbiYQccP4ZdzXdcOc2mik+VA2cwOxDvvH8PuCPw+wPMev0pOcPxCdoB9W+FVKe7SsLT5VFcEFI5OTk5OYGqqj9XWeCu2RXOqAAAAABJRU5ErkJggg=='},
+            {title: 'Apps',     _cmd: 'apps',        icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKXSURBVGhD7ZZJyE1hGIB/ZCYzmSWSjTJlQ0JJhsQCGxtSslCKwspQimJlzEayEpJZyYaFoaREiUSZCQuU2fN83dP9O/8597/XUu9Tz+J9v/c7937nm05TEARBEARBEARBENRFexyMA7GtiQbpiENxQIoapzOOwD4p+gf88cP4Cf9UfI07sQe2xlg8jl8x6/8UN2MnbI0peAm/Y9b/Pq7GdlgXk/Ed2vk3PsPnlVgf4UgsYx5+QWt/4hN8W4n1FvbCMlah/ax1II/xQyXWs9gBa9IXsx89gcMxYxxeR9vuossujzORDWI/+ryMqfgAbbtgooAZ6CB0C3ZHcVnPxRdo/wNYE5eOheexjYkcXfAeWrPSRA6Xk237UtSSfugStWamiRw30bb1KWrJGHS5OtDRJspw2figiSkqZila42Cb43RnP+IfLsN9Yv+9KaoyBM2/x6LZzjiE1m1IUQk/8BcWzUbGKPRBD1NUZRia92XUYhZadzlFVaaj+SspKmcFWncwRSV8Rou6paiY8WjNnRRV6Y/m3WO1WIzWnUxRFQ8Z87dTVM46tG5Pikq4ihYtT1Ex29AapziPR6xtbuwyjqE1G1NUxf2XLc3mh0yea2j/ZSkqwUaL3qBLKM809FTyWJ5gIscmtL+nkzOUZwna12d40eZxudjfF1q0KjwEbH+JXU2U4d44jRZ7Ge7AObgA3Zzf0LZdWISX3Q205hU6sNm4CI+i+8+2NViEx7X3hjXutbXonvKAOYPmnbH52Cr+mSPom7Njcz0MtmOtz5XeeBHzfdWlUzaIDA8NL82i/h/Rl9IQk3A3nkPfxlb0HK8XLzfvEy+/U+ieGIT14ItaiH4m+ani/eTs9MQgCIIgCIIgCIIg+P9pavoLWBG3ImGgY+cAAAAASUVORK5CYII='},
+            {title: 'Webradio',    _cmd: 'radios',      icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAN2SURBVGhD7dlbyE1pHMfx12BIJKeQw8WEFBeOJQrhiis0hskFmYhyg0RxgYhCiDEOaeSQS4e5cMgk5VSMG+eSKWpyyCEJ4/j97vd93pbdfr1r7b3be232rz6119rvXuv5r/WstZ71vDXVVPN9pwl24i3OowsqKj9gMNbhU8RapD7dMROH8AjRAoIVSF1aYzw24QayG30dG7Ee93EY7VD22F2GYCn+hv0+2nDPwkHMgGcnVbFBs2B3eYxowy3kNJZgECw0NbG7TMBm3ES04boGu4tdqhVSE4/iUNhdziCV3aUFmtd+/CI98RvsLk8QbfgbpKa7DMdFvIdH+C9MwRZUTHfxIfQK4ei+q/sclcq7i0fwp4hTsLHH0A8D8U/dOu/rk9EL0d+UQw84fMnEp2j2xVlJ7ObdUH+h3q1A4Zm0GvWVVWLmwrb/7kK1kCKlA7xwO2eWkqWshXiXcfjig/Qhwv71P85iISywsZStEJ/ylxH2KZ9Xd/AfPtat0zM4MmiKhpKokK5oX/uxoDj69Yi7rwewkXapaFpiIo4itOs4Gnr/iF3IcniUbMB0V+QZn/7haDuMcXTcWMbCgv3NBfyI7MQqpBkcnoTvfXvLJwMQHrh/wuFPXJNgF/O3u5Gd2GfkHsL3J1yRR3INMPPhGR2GaGIX4tE8gv1w2J40I+C2X8CLPF+34XayD2aii72Q7IHbXpxZyj9t8BK+UnRyRV1KVsi/cNuOUguNvcJt/ZpZqk2iQnojn4Z4K/2A5xhXBM402s5lCIldiDN6fmeD5rgiQfoibLuY7K4hsQrx9hseYLqFJHF+1t/55PZFrVBh8m4DQmKfkXC3kG+LSePd6jVyTV4kzRrYjvmZpdrELsTusQ/bkc/o9Bzc9sjMUmEJ23JSJCTRxV5Iwo4cO+W6gOOaCrfjkCU6tVSyQhzsFXM+wLFfNCUrxHhxhn1cQq4L+Wuewt86E589X1bSQnyfcNbRfVxFkv82LYJjLM/qaFdkpaSFmLa4AvfjzMc8fO1O1h8n4d/7CJiGXCl5IcZ3kAMI+7PL7MUCOOyYDad1QsHyVXgUGkpZCglxbtgXpbDfXCxyJRp7AStrISF9YEO2wjnkbXAcNQaOKuIkFYUUI99mIb6suPBzBdoF2273zPxnNZyVSvULajpiFXZUoD8QfWOsppripqbmM6qic+YPcHB3AAAAAElFTkSuQmCC'},
+            {title: 'Medien',   _cmd: 'musicfolder', icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIISURBVGhD7dm/S9xgAMbxWJWqqNClDtalgxRBsPgHVNzrZAeLP8Cxg9Kxmx1EcGyp0C5F6GLpJo5O4mBx1aUWddBJbFEE8Uft9wkXCPHucvGS3Pu27wMf9NVLeJ8ceS+XeC4uLhWnGe/xCzcVOMAgjMs7aILXOI7xG3rtKR7DqBzhD7r9UXwWoTLrqNcfTIkmpSNdadqxC233Fg9y0oaySVpEeYYraNs87eEFikYvSFpEGcYPFDuXshCcnzqA/biVuxapRWah+c75o0hsKvISmu+CP4okKNIELammeoTYIlp+Lwu/m+yi8LNkETnDT4PtQwe8bBF9quutMz0zKFvknzrZbYgrUk10TaZls9UfpZPci3TgBNq3LilW0INqk3uRXmi/YVoZlzCFMahs0hhRJOobksbIImtImpoV0WXPKnYK4zCrimz6I8+rwyT0xSgo8gVJU7MixY76Q2hZbvRHyWJUkWriitw1rkhMci/SByuL3MMTDOA5PsO6Iq9wCO0nypoibxCeeJQVRfSBFlyql2JFkU6EJ13MMtJMJkUaoO3CE496jTST2TkyinOEJx/4jhakmcyKKF3Qkf+Ir/iECdxH2sm0SJ75P4ropoDu+9qQcajIB38UyRb0z3nosZapRrABzXUatzIEGx4pBLZR8qbfU+gd0apjKn3H1+oY+3TXxcUliOf9BZfW+6GF1BL2AAAAAElFTkSuQmCC'}]};
 
     $('#browser').on('show.bs.modal', (ev) => {
         /* FIXME: make back button close modal
@@ -207,12 +211,23 @@ function server_ready(_, server) {
         if (shortcut) {
             /* FIXME: reuse browse_level function below */
             /* FIXME: delay modal display until dynamic content finished loaded */
-            active_player.query(shortcut, 'items', 0, 99).then(
-                res => {
-                    browse_menu([{title: shortcuts.find(s => s.cmd == shortcut).title,
-                                  items: res.result[Object.keys(res.result).find(key => /loop/.test(key))],
-                                  context: shortcut}])
+            let sc = shortcuts.find(s => s.cmd == shortcut);
+            if(sc == undefined) {
+                sc = shortcuts.find(s => s._cmd == shortcut);
+                active_player.query(shortcut, 0, 99).then(
+                    res => {
+                    browse_menu([{title: sc.title,
+                                    items: res.result[Object.keys(res.result).find(key => /loop/.test(key))],
+                                    context: sc}])
                 });
+            } else {
+                active_player.query(shortcut, 'items', 0, 99).then(
+                    res => {
+                    browse_menu([{title: sc.title,
+                                    items: res.result[Object.keys(res.result).find(key => /loop/.test(key))],
+                                    context: shortcut}])
+                });
+            }
         } else
             browse_menu([main_menu]);
     });
@@ -257,7 +272,7 @@ function player_created(_, server, player) {
     [false, true]
         .forEach(sync =>
                  $('.dropdown-header.' + (sync ? 'sync' : 'unsync'))
-                 .after($('<a>')
+                 .after($('<li class="item-content"><div class="item-inner"><a>')
                         .addClass('dropdown-item')
                         .addClass(player.html_id)
                         .addClass(sync ? 'sync' : 'unsync')
@@ -325,6 +340,7 @@ function player_activated(player) {
 
 function browse_menu(menus) {
 
+    $('#browsetitle').text(menus[menus.length - 1].title);
     $('#browser .breadcrumb')
         .empty()
         .append(menus.map(
@@ -353,6 +369,8 @@ function browse_menu(menus) {
         if (item.id && item.isaudio) {
             active_player._command(context, 'playlist', 'play', {item_id: item.id});
             $('.modal.show').modal('hide');
+            $('#b').removeClass('tab-active');
+            $('#index').addClass('tab-active');
         } else if (item.url && item.type == 'audio') {
             active_player.playlist_play(decodeURIComponent(item.url));
             $('.modal.show').modal('hide');
@@ -378,8 +396,8 @@ function browse_menu(menus) {
                 .find('.title')
                 .text(item.name || item.title || item.filename)
                 .end()
-                .find('span.icon')
-                .addClass(/fa-/.test(item.icon) ? 'fa ' + item.icon : '')
+                .find('img.icon2')
+                    .attr('src', /fa-/.test(item.icon) ? item.icon : '')
                 .end()
                 .find('img.icon')
                 .each((_, img) => rescaled(
@@ -416,11 +434,11 @@ function player_updated(_, server, player) {
                  $('<span>')
                  .addClass('sync-icon fa fa-link') : '');
     $elm.find('.artist')
-        .text(player.track_artist || '');
+        .text(player.track_artist || 'No Artist');
     $elm.find('.album')
-        .text(player.track_album || '');
+        .text(player.track_album || 'No Album');
     $elm.find('.track')
-        .text(player.track_title || '');
+        .text(player.track_title || 'No Title');
 
     log('Cover dimensions (' +
         $elm.find('img.cover').width() + 'x' +
@@ -437,8 +455,8 @@ function player_updated(_, server, player) {
         .text(player.is_stream ?
               format_time(player.track_position) :
               [format_time(player.track_position),
-               format_time(player.track_duration),
-               format_time(player.track_remaining)].join(' | '));
+               format_time(player.track_duration)/*,
+               format_time(player.track_remaining)*/].join(' | '));
     $elm.find('.volume .progress-bar')
         .width(player.volume + '%');
 

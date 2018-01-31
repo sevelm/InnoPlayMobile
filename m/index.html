@@ -1,37 +1,22 @@
-[%# <!-- -*- mode: html; indent-tabs-mode: nil; -*- --> -%]
-[% DEFAULT debug = 0 -%]
-[% IF url_query == "debug" OR url_query == "debug-screen" -%]
-[% debug = 1 -%]
-[% END -%]
 <!DOCTYPE html>
 <html>
-  <head>
-
-    [%# <!-- Google Analytics --> -%]
-    <script>
-      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-      ga('create', 'UA-109619412-1', 'auto');
-      ga('set', 'appName', 'lms-mobileskin');
-      ga('set', 'appVersion', '0.0.31');
-      ga('send', 'pageview');
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    [%# <!-- End Google Analytics --> -%]
-
+<head>
+    <!-- Required meta tags-->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#414141">
-    <meta name="apple-mobile-web-app-status-bar-style" content="#414141">
-    <meta name="version" content="0.0.31">
+    <!-- Color theme for statusbar -->
+    <meta name="theme-color" content="#3f51b5">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#3f51b5">
+    <meta name="version" content="0.1">
 
-    [% IF debug %]
-    <meta http-equiv="cache-control" content="no-cache" />
-    [% END %]
+    <!-- Your app title -->
+    <title>InnoPlay Mobile</title>
+    <!-- Path to Framework7 Library CSS, Material Theme -->
+    <link rel="stylesheet" href="[% webroot %]f7/css/framework7.min.css">
 
-    <title>[% "SQUEEZEBOX_SERVER" | string %]</title>
-
+    <!-- external stylesheets from base project-->
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
     <link rel="stylesheet"
@@ -44,403 +29,460 @@
           integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0="
           crossorigin="anonymous" />
 
-    <link rel="stylesheet" href="[% webroot %]style.css" />
-
-    <link rel="manifest" href="manifest.js" />  [%#  <!-- because .json extension not served by lms --> %]
+    <!-- Path to your custom app styles
+    <link rel="stylesheet" href="path/to/my-app.css">-->
+    <link rel="stylesheet" href="[% webroot %]style.css"/>
     <link rel="apple-touch-icon" href="[% webroot %]html/images/apple-touch-icon.png"/>
     <link rel="icon" href="[% webroot %]favicon.ico"/>
-  </head>
 
-  <body>
+    <link rel="manifest" href="manifest.js"/>
+</head>
+<body>
+<!-- App root element -->
+<div id="app">
+    <!-- Statusbar overlay -->
+    <div class="statusbar"></div>
 
-    [%# <!-- FIXME: Move navbar to page bottom instead for easier thumb reach --> %]
-
-    <nav class="navbar navbar-expand navbar-dark bg-dark fixed-bottom">
-
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#content">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="content">
-
-        <ul id="playerslist" class="navbar-nav mr-auto">
-          <template id="playerslist-template">
-            <li class="player nav-item d-none d-sm-block"><a class="nav-link player-name" href="#"></a></li>
-          </template>
-        </ul>
-
-        <ul id="toolbar" class="navbar-nav ml-auto">
-
-          <template id="shortcut-template">
-            <li class="nav-item" data-toggle="tooltip" data-placement="bottom">
-              <a class="nav-link" href="#"
-                 data-toggle="modal" data-target="#browser">
-                <span class="fa fa-2x"></span></a></li>
-          </template>
-
-          [%#
-          <!-- FIXME: Implement search -->
-          <li class="nav-item" data-toggle="tooltip" title="Search">
-            <a class="nav-link" id="search" href="#">
-              <span class="fa fa-2x fa-search"></span>
-          </a></li>
-
-          <!-- FIXME: Implement mute all -->
-          <li class="nav-item" data-toggle="tooltip" title="Mute all">
-            <a class="nav-link" id="mute-all" href="#">
-              <span class="fa fa-2x fa-volume-off"></span>
-          </a></li>
-          %]
-
-          <li class="nav-item" data-toggle="tooltip" title="All players">
-            <a class="nav-link" id="show-volumes" href="#"
-               data-toggle="modal" data-target="#volumes">
-              <span class="fa fa-2x fa-volume-up"></span></a></li>
-
-          <li class="nav-item dropup" data-toggle="tooltip" title="Syncing">
-
-            <a class="nav-link dropdown-toggle" href="#"
-               data-toggle="dropdown">
-              <span class="fa fa-2x fa-link"></span></a>
-
-            <div class="syncing dropdown-menu">
-              <h6 class="sync dropdown-header">Include</h6>
-              <div class="dropdown-divider"></div>
-              <h6 class="unsync dropdown-header">Unsync</h6>
-              <div class="dropdown-divider"></div>
-              <h6 id="preset" class="dropdown-header">Preset groups</h6>
-              <a class="dropdown-item disabled" href="#">Not implemented</a>
-              <a id="party" class="dropdown-item" href="#">Party mode</a>
-              <a id="no-party" class="dropdown-item" href="#">Unsync all</a>
+    <!-- Panel left-->
+    <div class="panel panel-left panel-cover">
+        <div class="list">
+            <div class="list-group">
+                <ul id="toolbar">
+                    <li class="list-group-title">Quellen</li>
+                    <li>
+                        <a href="#b" class="nav-item item-link item-content tab-link" data-shortcut="radios"
+                           data-target="#browser" data-toggle="modal" onclick="{app.panel.close('left', true);}">
+                            <div class="item-media">
+                                <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAN2SURBVGhD7dlbyE1pHMfx12BIJKeQw8WEFBeOJQrhiis0hskFmYhyg0RxgYhCiDEOaeSQS4e5cMgk5VSMG+eSKWpyyCEJ4/j97vd93pbdfr1r7b3be232rz6119rvXuv5r/WstZ71vDXVVPN9pwl24i3OowsqKj9gMNbhU8RapD7dMROH8AjRAoIVSF1aYzw24QayG30dG7Ee93EY7VD22F2GYCn+hv0+2nDPwkHMgGcnVbFBs2B3eYxowy3kNJZgECw0NbG7TMBm3ES04boGu4tdqhVSE4/iUNhdziCV3aUFmtd+/CI98RvsLk8QbfgbpKa7DMdFvIdH+C9MwRZUTHfxIfQK4ei+q/sclcq7i0fwp4hTsLHH0A8D8U/dOu/rk9EL0d+UQw84fMnEp2j2xVlJ7ObdUH+h3q1A4Zm0GvWVVWLmwrb/7kK1kCKlA7xwO2eWkqWshXiXcfjig/Qhwv71P85iISywsZStEJ/ylxH2KZ9Xd/AfPtat0zM4MmiKhpKokK5oX/uxoDj69Yi7rwewkXapaFpiIo4itOs4Gnr/iF3IcniUbMB0V+QZn/7haDuMcXTcWMbCgv3NBfyI7MQqpBkcnoTvfXvLJwMQHrh/wuFPXJNgF/O3u5Gd2GfkHsL3J1yRR3INMPPhGR2GaGIX4tE8gv1w2J40I+C2X8CLPF+34XayD2aii72Q7IHbXpxZyj9t8BK+UnRyRV1KVsi/cNuOUguNvcJt/ZpZqk2iQnojn4Z4K/2A5xhXBM402s5lCIldiDN6fmeD5rgiQfoibLuY7K4hsQrx9hseYLqFJHF+1t/55PZFrVBh8m4DQmKfkXC3kG+LSePd6jVyTV4kzRrYjvmZpdrELsTusQ/bkc/o9Bzc9sjMUmEJ23JSJCTRxV5Iwo4cO+W6gOOaCrfjkCU6tVSyQhzsFXM+wLFfNCUrxHhxhn1cQq4L+Wuewt86E589X1bSQnyfcNbRfVxFkv82LYJjLM/qaFdkpaSFmLa4AvfjzMc8fO1O1h8n4d/7CJiGXCl5IcZ3kAMI+7PL7MUCOOyYDad1QsHyVXgUGkpZCglxbtgXpbDfXCxyJRp7AStrISF9YEO2wjnkbXAcNQaOKuIkFYUUI99mIb6suPBzBdoF2273zPxnNZyVSvULajpiFXZUoD8QfWOsppripqbmM6qic+YPcHB3AAAAAElFTkSuQmCC">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Webradio</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#b" class="nav-item item-link item-content link tab-link" data-shortcut="favorites"
+                           data-target="#browser" data-toggle="modal" onclick="{app.panel.close('left', true);}">
+                            <div class="item-media">
+                                <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANHSURBVGhD7ZlJyE1RHMA/8xwW5iHFxlBsEEKJlZBhRQiJQsnGmAUlsjJsFBKSIiEyrChjpEjGIgsLypx5/P2O79Tnq89373v3fe8t7q9+vXdO75x7zr33TP9XlZOTk5OTU0YaY+u/X4uiTfVng9EBF+JJfI7f8Te+wlu4Efvj/2iGk/AwPsLPaB0f8R7uwHHYCDOnBa7EN+hFo9/wNf6skafHsAfWZjI+w5q//YRva+XpVRyNmdENr2C8wCmcjeZHvMvDcDv6dPzde7Th0hz3Y6zjJi7GXhjxZg3GtRg76w1ahUU/nS4YK32II7E+2uIetIxPzE6fqE7byRlYHy1xNcZX1xtUMFZ2Da3oAnbENMzHX2h5fYw1n0ASxqNjx/KLzCgEx4QV+CTam1EA69A6HAP1TQJ1MR29IXao5uucCO9+HNijzCgQ3+2zaGOK4SDall0hlQJfCwueDqniaFf9WQx90IH/AZ0UEuM6YUfmhFRlcAlt08SQSshTtFDPkKoMNqBtWhNSCfmCPsqmIVUZOGvZkZ0hlQAbbwE7U0n4mtsu16jEvEMLZbEhzIrlaJu2hlRC7qOFBoZUZbANbdOKkErIIbTQvJCqDK6jbRobUglZihY6ElLlpzO67/qK7uUS0x2dtTwreAYpN3F8HA+plJxBC7tfKiceEeK6NtWMtIxBC3tw6mRGmViCtuMuerQuiPNoJW7ayoE7i3h6nGZGofRFj6JWNMuMBqQJXkSv7cGsaOKj9Tww1IwGwiCE132Bqc8hdXEArdTxMsSMErMJvZ5TrmM1MzwDeECy8pc4CEvFevQ6ngrnmpE1rfAcxsc9ArPEGWkzxk64dpQMN5FxJnN3bIQkC1ytY6TFhbjgQEMajK7sQy+qW7CYc0s/vIPWZSxsCjYoPvofaAMuY29My0yMRwbDRQOwLExAB78NMeqSNFriq7QXLacGOdLGzTKnK8Z9me7G/+1QXYuMlflbN6XLsCQB60KwITYoRtaNstdePJ2VDIMaRvU3t7GSDm7/4Dt+A22oDTbiYQccP4ZdzXdcOc2mik+VA2cwOxDvvH8PuCPw+wPMev0pOcPxCdoB9W+FVKe7SsLT5VFcEFI5OTk5OYGqqj9XWeCu2RXOqAAAAABJRU5ErkJggg==">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Favoriten</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#b" class="nav-item item-link item-content link tab-link" data-shortcut="apps"
+                           data-target="#browser" data-toggle="modal" onclick="{app.panel.close('left', true);}">
+                            <div class="item-media">
+                                <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKXSURBVGhD7ZZJyE1hGIB/ZCYzmSWSjTJlQ0JJhsQCGxtSslCKwspQimJlzEayEpJZyYaFoaREiUSZCQuU2fN83dP9O/8597/XUu9Tz+J9v/c7937nm05TEARBEARBEARBENRFexyMA7GtiQbpiENxQIoapzOOwD4p+gf88cP4Cf9UfI07sQe2xlg8jl8x6/8UN2MnbI0peAm/Y9b/Pq7GdlgXk/Ed2vk3PsPnlVgf4UgsYx5+QWt/4hN8W4n1FvbCMlah/ax1II/xQyXWs9gBa9IXsx89gcMxYxxeR9vuossujzORDWI/+ryMqfgAbbtgooAZ6CB0C3ZHcVnPxRdo/wNYE5eOheexjYkcXfAeWrPSRA6Xk237UtSSfugStWamiRw30bb1KWrJGHS5OtDRJspw2figiSkqZila42Cb43RnP+IfLsN9Yv+9KaoyBM2/x6LZzjiE1m1IUQk/8BcWzUbGKPRBD1NUZRia92XUYhZadzlFVaaj+SspKmcFWncwRSV8Rou6paiY8WjNnRRV6Y/m3WO1WIzWnUxRFQ8Z87dTVM46tG5Pikq4ihYtT1Ex29AapziPR6xtbuwyjqE1G1NUxf2XLc3mh0yea2j/ZSkqwUaL3qBLKM809FTyWJ5gIscmtL+nkzOUZwna12d40eZxudjfF1q0KjwEbH+JXU2U4d44jRZ7Ge7AObgA3Zzf0LZdWISX3Q205hU6sNm4CI+i+8+2NViEx7X3hjXutbXonvKAOYPmnbH52Cr+mSPom7Njcz0MtmOtz5XeeBHzfdWlUzaIDA8NL82i/h/Rl9IQk3A3nkPfxlb0HK8XLzfvEy+/U+ieGIT14ItaiH4m+ani/eTs9MQgCIIgCIIgCIIg+P9pavoLWBG3ImGgY+cAAAAASUVORK5CYII=">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Apps</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#b" class="item-link item-content link tab-link" id="show-browser"
+                           data-target="#browser" data-toggle="modal" onclick="{app.panel.close('left', true);}">
+                            <div class="item-media">
+                                <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIISURBVGhD7dm/S9xgAMbxWJWqqNClDtalgxRBsPgHVNzrZAeLP8Cxg9Kxmx1EcGyp0C5F6GLpJo5O4mBx1aUWddBJbFEE8Uft9wkXCPHucvGS3Pu27wMf9NVLeJ8ceS+XeC4uLhWnGe/xCzcVOMAgjMs7aILXOI7xG3rtKR7DqBzhD7r9UXwWoTLrqNcfTIkmpSNdadqxC233Fg9y0oaySVpEeYYraNs87eEFikYvSFpEGcYPFDuXshCcnzqA/biVuxapRWah+c75o0hsKvISmu+CP4okKNIELammeoTYIlp+Lwu/m+yi8LNkETnDT4PtQwe8bBF9quutMz0zKFvknzrZbYgrUk10TaZls9UfpZPci3TgBNq3LilW0INqk3uRXmi/YVoZlzCFMahs0hhRJOobksbIImtImpoV0WXPKnYK4zCrimz6I8+rwyT0xSgo8gVJU7MixY76Q2hZbvRHyWJUkWriitw1rkhMci/SByuL3MMTDOA5PsO6Iq9wCO0nypoibxCeeJQVRfSBFlyql2JFkU6EJ13MMtJMJkUaoO3CE496jTST2TkyinOEJx/4jhakmcyKKF3Qkf+Ir/iECdxH2sm0SJ75P4ropoDu+9qQcajIB38UyRb0z3nosZapRrABzXUatzIEGx4pBLZR8qbfU+gd0apjKn3H1+oY+3TXxcUliOf9BZfW+6GF1BL2AAAAAElFTkSuQmCC">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Medien-Browser</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="list-group-title">Zonen</li>
+                    <li>
+                        <a href="#" class="item-link item-content link popup-open" id="show-playlist"
+                           data-popup=".popup-playlist" data-target="#playlist" onclick="{app.panel.close('left', true);}">
+                            <div class="item-media">
+                                <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFySURBVGhD7dg/KIRxHMfxsyrlTxkMipLJgqwiE5OByWi6UV0xGCgZKauFUiiLZDFa2QxKlLIpA4MseP/U1a/vfePuee6559v5vus1XD3P9fvQ01NX8DzP87x/UjsmUcIh7rCGijpy0gZZC8YRH/oTX8IBKpIXNcolZOEvr10rqUNecnIO2Qy0g0vqEEv5EGtVO2QPpvttyCNOsII+mK485BWnWMU0uvFn/Tnpgaw85OznU43F/75G0t4jqYbc5+QIslRDLOVDrOVDrJVqyEhOBiFLNSTcmIe6v0eucrILmT8j1vIh1ppFUwzZROIhUxkaRbXN4wOJh4Qbs6K9K+KGUMIN4vsSDbnI0BZk4SfQDTwgPnzM/DMyhmdoh4+ZHhJ+172FdnDJ9JABaIfW7MNsw9AOrVmG2TqhHVp6Ry9qbi5DE4i7hnb42BISpX1Zvcj3SHhvPEG79g1FJO44Q+uQtWIB2wgP9Q4W0QXP87ymrlD4BiLf1mikQoXnAAAAAElFTkSuQmCC">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">aktuelle Wiedergabeliste</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item-link item-content link popup-open" id="show-volumes"
+                           data-target="#volumes" data-popup=".popup-volumes" onclick="{app.panel.close('left', true)}">
+                            <div class="item-media">
+                                <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARzSURBVGhD7ZpHiCVVFIbbnJ1RRMxpFMxiwoArA2ICXTiDiqiYFQwoghsFs6Jg1oViWKkguhAHM4ZGRUXFhTm7MOeA2e+704dXnKl6Xa+n+wXsHz7oG6pe/fXuPffc+3psVv9TLT3ByGpNuAt+hZ/hQhg5rQtvwr/w1wT+fTiMjNaDt8AHfxU2gFMnyvfBSGh9eBt86FfA4aX2AuueLaUhl2/+HfCBX4Y1IJSNLAvLL/pzuLQhvAc+7EswF6rKRqL8G7wGBoWjYQ4MTBvB+9BkQmUju4ORzLoqRjhNbQV91cbwAfgQL0LTG22aIyvBjnAejMPfYD+j3PWwOsy4NoEPwQ9+HroNiyYjWb6Y2yEMvQs7wYxpU/gI/DDf5GRju62R0DbgMPWan2A/mHZtBh+DH/IctPn6s5HlwGHVTbbfA17n3Nkbpk3z4BOIh1oN2igbifK3sBBOgrp7LQU3QvR1OLfSquAbr2M3+BS86TNg37bKRnaBH8G64Cs4HXKCuQw8AvYZh64JqCHzAYicqBtPwyrQi5rmiIvmEfAoxP0fhPySnIMxnE+0oknGbjv5llwTMn+C7U/BytCrmoxUdQB8AfZz7uWV/xiw7TNozAq+B0OeCV+WX62TTTNTXXnbGFEuroZc+95mRUUOKbMA2zRVKxs1Uycf3na/2qkqG1kR1lr052Iy9Doy/oE9rKjoBPA+T5RSjfptJMqvw4FWJJ0Ptj9ZSh2tDY6cP6A2YvbbyM7wC1jnmz8FqnIeNg1354/X7V9KSf02opx75lga+R1co6q6F7wmR6lrwfozSylpEEZCETEvKqWOzgHrryiljs4A668upSQbBmVkAdh2fyl1dBRYf2cpdXQcWH9zKSXZMCgjsZ+/u5Q6Oh6sv7WUOjoZrL+plJJsGIQRE8M4bfFNV3UxWH9BKXUUES0PxSIb+mnEe/rgb4D1mlkBqnoBbMvRyaFm/bGllGRDP41EWTx1MSmtamswmvlMVYNmw5G47mBFlg39NLItOLldP+r2JQ+B/XNk2hWs/xI0tZhs9DCgTma6tn8DtRe3UNMcqdPZYN+voXqkpK4E22ojloqjnHNh3xp+ANvnw1TU1oiLXByxHmRFReuA217v07iPjxR5MlyBD4FeNZmRLcB9iH1MS9xgZd0Ctj9cSl1kdDCWP9bAOEzVTDbiRs4NlaHUPU5s6L6DgyFrH7CPyaKBYIkVsb1XM9lIlAMTyOugLrXfHNyv2y+vKUukS8Cb9mImG/Gt+u2bRx0KTbtOE8k4T3Y7bKI5rerVzGRzpE4e/xgpvc4DwLYnNj3rUmhrphcjDq8bIM4J/CZmzEToMmhjpo2R7cA56MJsX42YT037cGpSGzPZiG/9SDgLDKuxjgWPw/bQd10O3cxkI1Gu4qJ7B/iTw0BlBPKB6sxkI1uCWawh9zTYE/wVa2jUZKbNHBk6RWJXNXMYWOeB9UjpKvDBTSuuAc+LLdfu6oZd/qeDmyMNyOdgBjuSMt123vhN+MvvrGY1Ohob+w8lV7W45aiJ3wAAAABJRU5ErkJggg==">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Lautstärke</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="item-link item-content link popup-open" id="show-sync"
+                            data-target="#sync" data-popup=".popup-sync" onclick="{app.panel.close('left', true)}">
+                            <div class="item-media">
+                                <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAMuSURBVGhD7ZlZqE1RGICvWZlDxmRKKJ68oBR5kAcpeZEHihIiyViI8kAZXhQJRcgLKaWMGVI8UDwoRWZF5nn2ffueVafTOc60971n1/nq65617jl7rX9P619rNdSpU6fZaZX5mxo64jTciRfwGf7Avxnf4l08hitxFJZKm8zfRBmDh/Ajhk5n+wl/59QF7+MK7IqFGI1fcW1USoAReBpDp+zsRbTBidgXs+mEI3E27kKvWPjtB/R3bTGXWeh3DkelGPGeX4ff0QZe40bsj+XQEidh9sm4h17hbBIJpBueRw/8E3dgF6yWcXgbPe43XICB2APpg3fQgz5CG48TH+gt+AdtYz1KrIF41sMZu4m9MCnseLhtV2fKsQTiM3EGPdgtjONWKsYM/IVenRMYSyA+2B7I26mnFU3EQrTdYFWBDEcvsw/2eCsSwDFkcAHDi6XqQMKr0bdTEgxB31Khs/+z4kB8n3uAN9jZigTogdfQEb6YFZ/Mg2ggDnapxXQi5Ejljtg1hVmsV8MsNtV4PxpIYhlnU2EWayBmsanmKRpIv6iUYkKuU2sMxdaNH4vjFw3CGV8tMQHt19aoVCK7cXPjx5phDhrI3qiUYpaggWyPSinG1RkDWRqVUsw5NJApUSmltMMv6GTLdYPUMhW9GjeiUoo5igayPCqViePJ5BLtjkkxEJ2hOkj3tqJcXGTwLJTiVUyK/Wgbe6JSBeQGcgnP5tEVlvmYBGPRlZTPOMCKSsgNZBs2JbbvFNe2q5pOhEDC/emZcbGsKXAt7STa/hUsOVHMRwjkHc7LfHa/YzomiZ0+grb3BKueamcHIpswBLPIigSwzVNoO24MlbMZVJDcQMS1WOvUzZ04X7suij9Aj/0c3eCJhXyByEx8j/7vJboF0B4rxXFiH4ZV+MsY68y0UCAyCLM3aF6g61+lnkVzJ9MOR+ywz2gutQarerDz0QFt4FVUyo/LRtcxBKQP8Tga2GJ0q21u5rOpuOu5jgvh+74RHewqHidKYRXaiWI4cLkv+BizgyqkWawJ4DJ0A6nmaIHD0OdoA3oFDqBn3AHVSZHziVSn4nXq1Gk2Ghr+AfMdDVr4J70SAAAAAElFTkSuQmCC">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Synchronisieren</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="list-group-title">Einstellungen</li>
+                    <li>
+                        <a href="/master-volume/" class="item-link item-content" onclick="{app.panel.close('left', true)}">
+                            <div class="item-media">
+                                <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJYSURBVGhD7dk7aFRBFMbx9YmFD8RChaCYRlG08AGClkIKFUQIkViI2FikEGIlWogIopWNYKFWCmogKNokFkoEm2CIjZqg4IMUFhoLFV/o/xvmsuvu3Mkasndzwnzwg52BCeewmXvv3C2lzJAsxhV8wh/vLbphKjeQNVDtMExkAX7gC1o04XMAauSBGxnIKqjgN25UzkZo/pkbNTFzsbQOWcGxRuYgtHYqLURN1MRrqJB6xRrJPjfaMfyT2XiIj3UYh/5IrJH1CK2dSh9wEJPOtN8j9WbGNKL99BXfsQPaeMtwHGrkPszkIlR0yB6YyTycxFO88h5hP1JSUlJyswKtni4k5qKbqG6glZfvbzgBM9GNdQQqXqfLQQxDZx3N7YOJZI80z6HH/ixHoflrbmQgO6GCB9yonN3Q/D03mkSWY0uBjmCiRpYgtFY2ofKbdJmPyjciRYo1kn3Ocxo1uQptuKK8gIqJNaJ/v9BaeYI2ND0N2yNFJ68RHQM0f9eNDGQlVLDeAeyFNvB23Ibmz8NMtC9VdDU1txpmostnF+6g37uENUhJSWlidOjZil3eOsyCqazFS1RfKvsQfDM+XfMYKlwnulvowTs/dwEmol+pfkM3Kj0pZ9kMNTLkRgaic4EKrn5xnfdCu6nRs057jkOYqBE1G1rbKDrT1+xNFfETKiom1kh2Bi9ScG+ehTZxSC+0MNaIPofWNsp16FbwXzG1R2JZBBU85kbl6M2g5kfdyEjeQ0WfgTZbB276OX3VZtKJX1DhlT5jA0xlG87hsncKpk5yKcWkVPoL+FR+sXQrOLEAAAAASUVORK5CYII=">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Master-Lautstärke</div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/general/" class="item-link item-content" onclick="{app.panel.close('left', true)}">
+                            <div class="item-media">
+                                <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAWCSURBVGhD7ZkHiC01FIbXjoq9d58NexcsoKjYUMSKXRRRQUVFUWwo9t5REfVZsCEqCnYUsWLHXsHee+/t++IeNjs7M3fu3dkrq++Hj91kZjI5meTknNyBSfqf6E74q4QfYQMYF5oJyowILoRxoTXBDj+eSkNaD6x/KJXGgfYAO3x5Kg1pDrD+61T6F7USHAWzpVK1zgA7fGgqDddH4LX5U6laa4PPT5tKLWot+AbsxAewPlTpDvC+TVNpuO4Br22cSiM1FZwCf4D33Q3TQSvKjXh/8K8vOh2mhlxzQtyziBUFnQleOxUmtyLTYvAEeP1X+Gzw/1aMyY1wzjtifnJfZN3TsCT4hfwSv4P1X0Kxo2on8Lr4ZY8Dp+pu8B1Y/wasBktADMqojFkeciOmgNAq8Bp4LTovjuJlYEfK5EDsB49ATJ9fBv+K75kBQrkxDlRP2hds4HMoW3TTw6XgPY7irjAlNNUE0OjfQE+2PZTJdn2HBvf0VXzoFbCR06yokB4o/1rdal6Y9Z9/R2hmeBvsw5FW9KpVwfXgNFjHij7rGtAIN9HRDFaSI2Fjjowj1C/tAL73WyjzgF3LkXgUbPQqK/qgBUDP5zv1aK3JEQnv1GlXzuXinw9mSaXmOgt8162p1KI2ARt+Gcr2h1x23njrAchds97vClgROmk78JmnUqlF3Qc2XOUiQ4vCcxCd/xnegY+zOh2H8Vjd4nWwXgTvN2puRc5XX27AV/c1DDE+BV/ul9sa8v1nITgRfgLvuRomgyrtDd5XjKIbyblsPrEnnA2GBjGaF0CVnE7Pg/fdDHVRq1FBGLy/FRWaHdws5Rm4FvSgDtBSYJRQqqr0VD6BFaBKkYO8BE12X6Nf7/8C8pCkKLPJPyHvS+C0LZ3qXnQKPQaXwMGwESwIneTC9vltUqmZ7gWf2TGVqmUo5FfcGU4Cv/h74LOlabMXesnenFZ6J2OhbhKhfcB3XpxK3UnjWzdkHvBZvVM32hB8rpe9YkwM0UH4rOuoG20FPndDKnWnjob8AOtCp7y8KBetz+tim8r57jMnpFIzufcsDmanlYZohBcDM7i7wBB+W6jbwNyxu+mUaykWrO6+SuYsB8FEeBI84Mv7aOo8QqarF4Ehs1Msf0D0GlXSNevxfJGhfyedB7ZpplinVyHvg674TbgFjoW5oKOcJpvB+WAjt0Od4hjImMqFXCa/RBjhDKjbm1YG73sL3KBXh7o9p6Omga9A9+opSZWcepEIiUc/ulgDzi3hZHgXvPY9lB0X5YoTl1FlhkWdCzbqqNfJ2Mmww68SBhUxt6n7EspTSU9VHDzTgNZk4Oim5xrwkLqTZgQzPDe720AXq5eqW9i5jgGNvjKVWtReYMOdYqO2FCc4H0K3W0GlPIBzTtuwkWc/ZLoQOZA7f12430geiZql2aCBZD/lMVGsNZ3GqORmaEOeKhqF9lubg+93bS5rRS/yaN9NTs9hGF0mnYButdef0zyY86cK10RV5GAYojEvQF10UanDwAbM5oxvivKAII5s5GEw0Wny5ZYBByDOluVBWBiKOgS8bqaoW+5aZnrxe4ZxURij+803PjPL17Oy08CfDcpkkvYsxL12zrZio9Qwz3pDB4Jhia5/dyt6VdGYXcC8I14ajetltoAbweloB40IijoAfNaOGyvFFzAVuA68Ju47R4BG2N6ojAjlxgROIyPTMsUhxHKpNFxxeu++VCbzjDxgbc2IkMY4hVz4h0Pdorse7IQ7e1H+0uu1NVKpXE6/+8F3tWpEriYnJEeDnT0+lYbk9HNjdbo0iQ6avGtM5UmKhtyUSkPyAM9684lxoaXBDvszhJllEKlt6wfTYyVPAONYtAx/AB03ihC+yDkwN0zSf1wDA38DZVe90fPSIOoAAAAASUVORK5CYII=">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title">Allgemein</div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
             </div>
-          </li>
+        </div>
+    </div>
+    <!-- Panel end-->
 
-          <li class="nav-item" data-toggle="tooltip" title="Playlist">
-            <a class="nav-link" id="show-playlist" href="#"
-               data-toggle="modal" data-target="#playlist">
-              <span class="fa fa-2x fa-list-ol"></span></a></li>
+<!-- views container -->
+<div class="views tabs">
+    <!-- MainView -->
+    <div class="view view-main tab tab-active" id="index">
+    <!-- Initial Page, "data-name" contains page name -->
+    <div data-name="home" class="page">
 
-          <li class="nav-item" data-toggle="tooltip" title="Music sources">
-            <a class="nav-link" id="show-browser" href="#"
-               data-toggle="modal" data-target="#browser">
-              <span class="fa fa-2x fa-music"></span></a></li>
-
-          <li class="nav-item" data-toggle="tooltip" title="Settings">
-            <a class="nav-link" id="show-settings" href="#"
-               data-toggle="modal" data-target="#settings">
-              <span class="fa fa-2x fa-cog"></span></a></li>
-
-        </ul>
-      </div>
-    </nav>
-
-    <div id="players" class="carousel slide" data-interval="false" data-ride="false">
-
-      <ol class="carousel-indicators"></ol>
-      <template id="carousel-indicator-template">
-        <li data-target="#players" data-slide-to="0" class=""></li>
-      </template>
-
-      <div class="carousel-inner">
-        <template id="player-template">
-          <div class="player carousel-item">
-            <div class="metadata mx-auto">
-              <div class="cover w-100 h-100">
-                <img class="cover w-100 h-100" src="">
-                <div class="overlay">
-                  <div class="trackdata">
-                    <h2 class="track text-center"></h2>
-                    <h4 class="artist text-center"></h4>
-                  </div>
-                  <div class="duration progress d-block mx-auto">
-                    <div class="progress-bar">
-                      <div class="progress-title"></div>
+        <!-- Top Navbar -->
+        <div class="navbar">
+            <div class="navbar-inner sliding">
+                <div class="left">
+                    <div class="content-block">
+                        <!-- If no data-panel attribute, Left panel will be opened by default -->
+                        <a href="#" class="panel-open">
+                            <img style="width: 50%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJUSURBVGhD7ZlNqA5RGMcPoXwldZXysfCxUpR7U0LZUFZYsLCWyOp28c6Z99Wsb6mbRNmxsZDcLslGsaNQkuRjISVc6kpKiOfxfz5ejZ2FxTmcX/2bmWfO4v/vzDTnmRMKhcIf0KWVoaZr0DfoS4h0CbVlfjcTKl4B4x9DzYzjDwQhPa/pXTjCi31UBtQ04SEuhA4vCA0P4PyKheFzPspoeDqCL0xODc8JMP1JTUuAPhWt8nCvvGJ0eLkHTEx0RoJ80Asx2SfSWh/wwivGMVqK2lSCOiGmz6vpSDdDh9ahOATd8dqYR8iASItg/KXNQFv0NByl+T4qE+SFiXQKegY91qnKLkShUCgUCn8LXRTSEr/KkC5vxhf9SWt58gAa8ruZUNN6CJ2hBniDQO/9/HPo0WoflQGy6jXjo9o4NTwDtbNeG/dRRsOzsC4bTE7agkiPLqbbi0TtOzTIW68YSTdWYlYuerTG7cosbdKavDdtpIev+V5yilyJ6TFciOlHCLUbx704PvdazyNkwAjNheG7avx33dJ3IisO8EyEGcZMXIeuQgf1xS8UCoVC4b+j4XnoS7biw7glDNNsr2ZGpH34mk/9Wp5EmsRCbJffzYRI2xDCdqki3YbuWyD6Dm3wURnQNx7psFdkaX/cw9zwiiE7Q13ek5yky0WAr2paVsF95AeEhZv0ipF4Y2V7IxVtdLtS26G1SA+9Yuj+Il9MTjXtlxnpuenX0AhuVDjaD4hIhzxCBtjPhss2RS3JllzgaT4qI2raCfOnoZN4zLZ7tVAo/BOE8BNU60wbc5WlGQAAAABJRU5ErkJggg==">
+                        </a>
                     </div>
-                  </div>
                 </div>
-              </div>
+                <div class="title">InnoPlay</div>
             </div>
-            <div class="controls">
-              <div class="row justify-content-center align-items-center">
-                <button type="button" class="previous btn btn-sm rounded-circle skipable"><span class="fa fa-step-backward"></span></button>
-                <button type="button" class="play btn btn-primary btn-xl rounded-circle"><span class="fa fa-play"></span></button>
-                <button type="button" class="pause btn btn-primary btn-xl rounded-circle"><span class="fa fa-pause"></span></button>
-                <button type="button" class="next btn btn-sm rounded-circle skipable"><span class="fa fa-step-forward"></span></button>
-              </div>
-              <div class="volume row justify-content-center align-items-center">
-                <button type="button" class="volume_down btn btn-sm rounded-circle"><span class="fa fa-volume-down"></span></button>
-                <div class="volume progress w-50"><div class="progress-bar"></div></div>
-                <button type="button" class="volume_up btn btn-sm rounded-circle"><span class="fa fa-volume-up"></span></button>
-              </div>
-            </div> [%# <!-- controls --> %]
-            <div class="carousel-caption d-none d-block">
-              <span class="player-name h5"></span>
-              <span class="player-group small"></span>
+        </div>
+
+        <!-- Scrollable page content -->
+        <div class="page-content">
+            <div id="players" class="carousel slide" data-interval="false" data-ride="false"
+                style="height: 100%">
+
+                <ol class="carousel-indicators" style="top: 0; margin-top: 1.5%; position: absolute; height: 10%"></ol>
+                <template id="carousel-indicator-template">
+                    <li data-target="#players" data-slide-to="0" class=""></li>
+                </template>
+                <div class="carousel-inner" style="height: 100%">
+                    <template id="player-template">
+                        <div class="player carousel-item" style="height: 100%">
+                            <div class="metadata mx-auto block" style="margin-bottom: 0; margin-top: 5%">
+                                <div class="row" style="text-align: center; display: block; margin: auto">
+                                    <span class="player-name"></span>
+                                    <span class="player-group small"></span>
+                                </div>
+                                <div class="w-100 h-100">
+                                    <img class="cover covermain" src=""/>
+                                </div>
+                                <div class="overlay">
+                                    <div class="trackdata">
+                                        <div class="row track"
+                                             style="text-align: center; display: block; margin: auto">
+                                        </div>
+                                        <div class="row artist"
+                                             style="text-align: center; display: block; margin: auto">
+                                        </div>
+                                        <div class="row album"
+                                             style="text-align: center; display: block; margin: auto">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="controls block bottomcontrols">
+                                <div class="row duration progress d-block"
+                                    style="text-align: center">
+                                    <div class="progress-title"></div>
+                                </div>
+                                <div class="volume row" style="margin-top: 1%; margin-bottom: 5%">
+                                    <div>
+                                        <button type="button" class="volume_down">
+                                            <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI+SURBVGhD7ZhLyA1RAICvRwoLpCgLoSyEIrZ2NiilLOyxkqW837GxsbZVUsJKibKRvMuCpWRhIwsRJc/vm+6p+W9z/3vvmWvmnLpfff2dM9Oc+3W7c2b+zoQJebEAr+Bn/ITHMTuW4mv82/VP9+9uzAYj3qAf/CWuxH3d8U3MgnLEC1yEsgGde1iMEqc3YiEG1mMWIeWI51iOkCxCBkVI8iFLsBzhLbeKpEPKEc+wX4QkG1KOeIrTRUiSIaNGSHIhMRHSeIh3nFV9XIch4gkOGyGNhSzGO+hig3yMo0RIYyHX0IW+49sKf2JshDQW8hVdaHUxmspMNPA3uvnFUBWyCW/jAZzrxDhwEa3Cb8BjvlfEUhVyCMO673Az1iZcsIr/FTID9+ArDNdfi7VoIyQwB2+gx31/MTCaNkNkHn5Az9nmRCxth8gZ9JzLxSiSFEJ8n/ecW8UokhRC9qLnuKdFk0LIVfScw8UokrZDNuIv9AlihROxtBmyBT+ix2v90KWNkDX4AMPad9E9pRbhYrOK0VTmo8e+YexmVRVyDMN1z+JsrM179KKncWuFX9DjuzCGqhAfFLej3/jY2I8uNMgfGLPzDvqxj5WdeB3v9/ERxsY0GjIMFzAmJrkQiYlJMkTO4ygxyYaIt8xhY5IOkWFjkg+RUzgoJosQOYnTxWQTIiewX0xWIRKen3pjsguRo9gbswOd8wkhK46gH9wXpUt4rzu+iNlxEMP/jNWXp2WYJb48udecw+VOTJiQHZ3OP3FlHAkUw0StAAAAAElFTkSuQmCC">
+                                        </button>
+                                    </div>
+                                        <div class="volume progress" style="width: 50%; margin-top: 2%;">
+                                            <div class="progress-bar"></div>
+                                        </div>
+                                    <div>
+                                        <button type="button" class="volume_up">
+                                            <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARfSURBVGhD7Zl5yGVjHMffQYylMGOJZCskMyFLURRRlkkpf0hZiikx84ci+zpDmJQl/1gSiikhfyjZEskukyElyR+yNJNddj6fp/d5u+fpd+ee89xFt95PfXrPs9xzz/fe+yznvDPzzDNdbI/34fe4Aa/GqWNXXI//zvrP7N8zcGowxEfohb+H++AFs+UncSroDfEu7ohyCFr3Wiq1Ywf0Q5g4ZQgvJLMUuwZ5Af9Gx9lOVkyC3hDvYG8IqQniz/FX9HXf4ek4VgaFkJogsic+jb7WCWM1boYjZxfsDeGUG1EbJLMcf0PP8SAuwJHRG+Jt7BdChg0iR6Frkue524pR0BviLdxUCGkT5Ej8Ch/ARVYEGOZn9FwXWjEMXUNI2yD55/M1Ho0Ry9Dx8gseZEUNNSGk7U/rAHwV7Wuo0zDiLrTPmxiOF2ecffu4BHMIT9A2hHQZI1vgPWj/3/E4LNkKP0f7NLY9i/FZtGGQb2CXEFIz2HMYx83OVhScjbZ/jHPfymNopQvQZ4F/Ym0IqQnievEi+jqvr8T2T9H2Y62Qn9CK/VKpiS8woNsFF78aoiCHoYvdxbi1FQF7YH7vg60ouAY9rzNdwoJG+A3Y5hxeSxTkMszv6+/9cIy4He3zUCo1cVNp20ZMP698wohxBfGNz8QPMJ8/mk6daJxuf8CFVhTkQe+Mlw40YlxBMlviE2i79y/RdOrOwfa5sdDD42jbORY80IhxB5Ft8Eu0z8lWFNyJtl2aSk2uRduut+CBRkwiiNyA9vGiS1Zgv7aL0DYXyXSgEZMK4sJmn6dSqclZaNsjqdTEcWbboxY80IhJBTkf7ROtGeehbXPTbA/nom1u79OBRkwqiJ+ofS5PpSZ5qr41lZpcgratseCBRkwiyKH4F7qD2NuKgjwz+emX3Ia2GTYdaMS4gxyD36Lt0WDeHN1v2b6/FQUvoW0nWvBAI8YV5EB8GfN7P4euKSUnoe3uvEsM6fbKBTM9esons6FkW7TNG5lw79+CKMhVmM97I7p9j3gF7RetIX4Ltq1LJfgCrXBROSHwR7S99pFMFMSN4inoN96PPCV/g9tZUZAniDQ+xKcUVgzSG51o5R3EoMEe4aB3M+jrfMZV4k7cb9NJYjcrMt5WrkWf8EW+jrVhugbxIvO9xjNWBNyLtqeFsCs3Y02YLkF8Tpx/6t5Suw8rcZf8B3od1c+Ha8K0CeJE46D3vPZ1kHsLXuLY+hDtkxbBYViFXcK0CXI82sff/B0YTcXOmg+j/d7HqE9n/PTahmkTxIu6Ao9IpZj8GMg1Ld1IjYq2YboO9hIf//jvBc/hTNXv4d1QXIeDwgwTZC900Pt617PoOdfIyHdp/cLUBPH+3PPm/5F8gm5rxk5+NBOFqQni2uVrfBR0P25qBzBy8v6pDFMTxJnLMD7c/l+4Esswp6J1XthU4TTqhXuj5KL1/Gz5Fpw6VmJ+ZqzePO2OU4mzjGvNTeg/NueZZ/qYmfkP+Xqtp0seHcEAAAAASUVORK5CYII=">
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div></div>
+                                    <button class="previous" style="width: auto">
+                                        <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOZSURBVGhD7ZhL6E5pHMf/LkNuDQpTLkkzWRiykNyahUysJiwsxDSKwqQkuSxcSmpqComFkmxmJpKiSVLTEGUsLEhTCKmZSEODkDEun4//+6u303s5t1cW51Of3ts5zznf857nd57n6aqoqKioqPjIGYNbut+WxmTc0P228/TA1fgEz/tFCfTFnfgKf/KLTvMFnsO3NcsIMgP/xGizo0F643p8jh7Mf6NokAG4B1+jbT2tvXYsyES8hB7kDR7AWbXPeYPMwdtoGy9xK35X+1x6kD64DT2QB7iFs1EMlyfIYDyIXhD39wJ9ibIYSw8yFa+iDfvX78L+GOQJ8g3+je7nLboOe2FQapB++CNaPWz0Gk7DJFmCDMNf0O31d/wck5QW5Cu8gTb2H+5Ay2Ij0gbx5B6g2z7GlWj5bkThIINwP8Z9exknYSvaBRmJJ9Ft9Fccha0oFGQe3kUb8L7diJbadjQL4tVegf+iv/+DSzANuYIMxcPojnFC4zEtjYKMw98w2jyCwzEtmYMsxPvoTj6EvseemIX6IO67Fp/VvrMyzcespA4yAo+hG+tpHIt5iCA38WLtvX3sEA7BPKQK8i0+RDd8hMuwCBEkvINfYxFaBnGofQrjgMfxMyxKBPFhuRcHYlGaBlmKMbh7gYuwLAxyD2e+/1QOTYPYJ46iP+oZzNsnksQ/UqRPJGnbR6wgXj03skqtwaxVKkl9H7HtBViUVJ3dq+bVi4NfwCzPjSQRJEYD6r/vXZCXVEGCuWiFcQf7zWZM8yRPEkG8IMsxnuRWxrRP8iSZgogVZh/GzMyxlZP+LESQeLI7tjqBfqdWytGYhcxBAmd519GdHba3Gu0mSQYJPJn60e4qbDbaTZI7iDj/+AFj/uEiwHRsR7Mg4vzjZ/R3PYuN5h9JCgUJpuAVtCFvud3o4kAzWgUJnBH+hW7nyNrFi1b9sZQg8gm6CBBzdBcHYo6eJE0Q+RSTc3T3bURpQYIJ+AfaqCfgiXhC9aQNEnhBXLxwHy/UdnRxo57Sg4iLAi4OxNDcW8RbJcgaRLxVvWWjWrq44SJH0JEggZ3UxQIPoHZiO3OeIIGLGbGy+D+62GHR6WgQsXy6aGA59UCWV0t13iBimbcNFzlsx3mN6wYdDRK4eFA/JSgSJPBB7AO5vs2OBwkcgrioUEYQsSRvQodMHzSIxBShjCCBg1jb+6BBgqxjtHY4vfDhXFFRUVFRUQJdXe8AHZI85ot51YsAAAAASUVORK5CYII=">
+                                    </button>
+                                    <button class="play" style="width: auto">
+                                        <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJhSURBVGhD7dlLqE1hGMbx7ZpbqCNioMRIDGRAp0xMSCZKLjOJAZnIRMpEYiKnyEjExEhMpAwQEybMXMpASkoGklKSy/+v3vrSOZyz9/etS9ZTvzpn77Uvzzlrrfdbe/e6dOnSJc1sHMH037+1OPPwEy+x2RvamigSbmIFWpco8gUfk59Pwt2uNYkib7AIl/A9uW0nWpG0SGQ9HsPbdR+r0eiMVsRMxl68h/d/w3nMRyMzVpGIb3wEFnG7D9gPizYq/yoSWYl7cFs9gbtgYzLeIpHtcFsf8wNXsRi1Z6JFzEycgKdpH/sZta8O+ikSWYYb8PF6gdpWB4MUiWzCc0QhVwfLUWlyFDHuVu5en+DzxepgFipJriIRD/wr8EQQz7sDxZO7SMRTs6don1uuDlahWEoVMQ5Nh6dD1NdwqJ5DkdVBySIR37jLm3R1sA9ZVwdVFIm48HQX8/WUdXVQZZHILjhEfV1PCpcxAwOl6iKu2e4i/itPMYyBU1URj5OzSI+TA8h2nJQuMtp1zQUMIWtKFlmH9ErzAdagSEoUWYj02v8tdmMSiiVnkak4jPg05itOYQ6KJ1eRjXgGn0u3UOnnY4MWWYrriAKvsAWVp98iXiUeR3qVeBS1XSX2U2QbXsPHOZmvYQlqzUSKOJXvwO3lVN6ARmQ8RebiDDwLua1T+SCmoDH5WxHP+3vwDm7jXHAqL0DjMlaRtXgE79NDFJvKOfJnEf/aFxFT2f9G8amcI1HEZcQhpFP5NCqZyjkSRVK30bpvrdIiTuWtaGUs4lQ+hlZ/szsNjfg0vUuXLv91er1fykXRLp2+nSUAAAAASUVORK5CYII=">
+                                    </button>
+                                    <button class="pause" style="width: auto">
+                                        <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADPSURBVGhD7c8xCsJAFEXRIJYiCNbWNu7AHVi7Eht3YONKrN2BO7CxthYEsRTRl/DTJB9mhJ+AcA/cYpiZ4hUAgH8wUJOMxsozVN77ZiPVqZn6ZHRWnqXy3jc7qk7VQ97q7vRQ5X1qyEt5/5+q1yHX6tS2UDlDTtWpbaUY8guGGIZEY4hhSDSGGIZEY4hhSDSGGIZEY4hhSDSGGIZEY4hhSDSGGIZEq4fc1Nppo3KGXJT3f6d6HZIqNSRV50Om6pDRXnnmynvfbKsAAOhJUXwBsdc8OCMzsr0AAAAASUVORK5CYII=">
+                                    </button>
+                                    <button class="next" style="width: auto">
+                                        <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAOLSURBVGhD7ZhdqBVVHEdvmpqkppYpZWoiCooUEmJhPSQlvUQGKUUiEiGCQoQgSGiQIdKDJNJTmBAaCiJiigSiIRUpIgZKISSRUYmZmZUfaK11PX84Hu6ZOx/7XHqYBQvma+85vzkze/9numpqampqahLyPt59azEJk3EF3tm91of8i9/jM91r1ZmO9nmksdxneFK9iR/icKxCBNGr+DYOxI7jCa/jX43ln/B5LEsE+RNvNJa/wZnYUTzRRZyEBxvr+gnej0WJIIdxFp5srHux3sPB2BEiiNyBS/APdPs5fAWL0BxEBuE7eA3dfhqfwuQ0BwnG4qfoPt2DD2IeWoMEj+AxdJ/P4wc4FJPRU5DgVTyPcczr6L+WRbsg4pC8Ev9Bj/kBn8MkZAURn5Pt6HF6ACdiO7KCBFPQ/dHnFhyJlbCjrCDBC+iI5vGOcG9gP2wlTxCx7TJ0dPP4X/BFLE3eIDICN6P3uO2+wqnYTN4gwQTcj7bRnTgaC1MkSPAsnkHbXsG3cABK0SDic7cYL6Btf8NFWIgyQWQIbsSY9I7jDCwTJBiDu9D2ug/HYS7KBglm47doP056MTCUCRK8hD4z9nMJl2Jvo2XlIHIXrkOD2F/VIHIvfozR3+do9dGWFEECby1vsRRBAueZH9E+/8a2rwgpg4gP/buYKogMw63ob9WjOB5vI3UQn5nvMGWQBfgr+lutA3t8ZlIFsW7ahDGKpQjyADaPYnvROrBHUgSZizGvxGRZJUjMK7+jfVnvWfdlUiWIM/1HaB/6Jc5vLJcN8jB+htHnDsw103twmSDWRT+j7S9j1F5lJ0TbLseovex7HuamaBCvjlfJdmo17FUMygSxGv4Co0/rOf/tQtgwb5CFaB0UbV7D1tGjSBDng1UY7yc+Zz5vpcgT5CG07vFY3Y3t3hjzBnkU443Rkc4Rr9IbY1YQr7ZjdvM7/MuYRW9BfIdfi1HOOOc8iZVpF8S65hC6X7fhKOyNrCBP4Cl0v0HWY7KvKq1B+qP1jHWN+85ike9cPQXxk+wGjMnyBD6GSWkO4o/4Gt0WXx7vwSK0BpmDfpJ1m18eV2O8hCXFE1jzr0FP5LonfhrLEEGsgr0QMdN7gaZhx/AkoX+9t0CVr/MRJPQWfRO9ZTtKnNCH8HE3VKQ5iJ9gM1+GUuLo4SdNh8UUGKRtqd1JnJhSch86gdbU1NTU1PyP6er6D4qZOxFJQK7uAAAAAElFTkSuQmCC">
+                                    </button>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+                <a class="carousel-control-prev" href="#players" data-slide="prev"
+                    style="height: 50%">
+                    <span class="carousel-control-prev-icon" style="bottom: 0; position: absolute"></span>
+                </a>
+                <a class="carousel-control-next" href="#players" data-slide="next"
+                   style="height: 50%">
+                    <span class="carousel-control-next-icon" style="bottom: 0; position: absolute"></span>
+                </a>
             </div>
-          </div> [%# <!-- player carousel-item --> %]
-        </template>
-      </div> [%# <!-- carousel-inner --> %]
+        </div>
+    </div>
+    </div>
+    <!-- MainView end-->
 
-      <a class="carousel-control-prev" href="#players" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </a>
-      <a class="carousel-control-next" href="#players" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </a>
-    </div> [%# <!-- players carousel --> %]
-
-    [%# <!-- volume controls --> %]
-    [%# <!-- FIXME: merge these modals --> %]
-
-    <div class="modal fade dark compact" id="volumes">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Volumes</h5>
-            <button type="button" class="close" data-dismiss="modal">
-              <span>&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <ol class="playlist list-group">
-              <template>
-                <li class="list-group-item player">
-                  <div class="media">
-                    <img class="cover align-self-start mr-3" src="">
-                    <div class="media-body">
-                      <h5 class="mt-0 player-name"></h5>
-                      <h6 class="track"></h6>
-                      <h6 class="artist"></h6>
-                      <div class="row justify-content-center align-items-center">
-                        <button type="button" class="volume_down btn rounded-circle"><span class="fa fa-volume-down"></span></button>
-                        <div class="volume progress w-50 mx-2"><div class="progress-bar"></div></div>
-                        <button type="button" class="volume_up btn rounded-circle"><span class="fa fa-volume-up"></span></button>
-                      </div>
+    <div class="view tab" id="b">
+        <div class="modal fade dark compact" style="padding-top: 45px" id="browser">
+            <div class="page" data-name="browser">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div id="browsetitle" class="title" style="left: 0; right: 0; margin: auto; position: absolute"></div>
+                        <div class="left">
+                            <a class="link tab-link" href="#index" data-dismiss="modal">
+                                <i class="icon icon-back"></i>
+                                <span class="ios-only">Zurück</span>
+                            </a>
+                        </div>
                     </div>
-                  </div>
-                </li>
-              </template>
-            </ol>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    [%# <!-- playlist --> %]
-
-    <div class="modal fade dark compact" id="playlist">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Playlist</h5>
-            <button type="button" class="close" data-dismiss="modal">
-              <span>&times;</span>
-            </button>
-          </div>
-
-          <div class="modal-body">
-
-            <template id="playlist-template">
-              <ol class="playlist list-group"></ol>
-            </template>
-
-            <template id="playlist-item-template">
-              <li class="list-group-item">
-                <div class="media">
-                  <img class="cover d-flex align-self-start mr-3" src="">
-                  <div class="media-body">
-                    <h5 class="mt-0 track"></h5>
-                    <h6 class="artist"></h6>
-                    <button type="button" class="btn"><span class="fa fa-arrow-circle-up"></span></button>
-                    <button type="button" class="btn"><span class="fa fa-arrow-circle-down"></span></button>
-                    <button type="button" class="btn"><span class="fa fa-play"></span></button>
-                    <button type="button" class="btn"><span class="fa fa-heart"></span></button>
-                  </div>
                 </div>
-              </li>
-            </template>
 
-          </div>
-        </div>
-      </div>
-    </div>
-
-    [%# <!-- browser for local libray, favorites, podcasts, radio, spotify, etc --> %]
-    [%# <!-- FIXME: use bootstrap scrollspy for index --> %]
-
-    <div class="modal fade dark compact" id="browser">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <ol class="modal-title breadcrumb"></ol>
-            <button type="button" class="close" data-dismiss="modal">
-              <span>&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <ol class="menu list-group">
-            </ol>
-            <template id="menu-item-template">
-              <li class="list-group-item">
-                <div class="media">
-                  <img class="icon cover d-flex align-self-start mr-2" src="">
-                  <span class="icon mr-2"></span>
-                  <div class="media-body">
-                    <span class="title h5"></span>
-                    [%# <!--  <button type="button"
-                    class="btn"><span class="fa
-                    fa-play"></span></button> --> %]
-                  </div>
+                <div class="page-content">
+                    <div class="modal-dialog modal-lg" role="document" style="left: 0; right: 0; margin: auto">
+                        <div class="modal-content" style="border: none; background-color: transparent;">
+                            <div class="modal-header" style="border-bottom-color: #cccccc">
+                                <ol class="modal-title breadcrumb" style="padding: 0; background-color: transparent"></ol>
+                            </div>
+                            <div class="modal-body">
+                                <ul class="menu list-group">
+                                </ul>
+                                <template id="menu-item-template">
+                                    <li class="list-group-item">
+                                        <div class="media item-content">
+                                            <img style="width: 10%" class="icon cover d-flex align-self-start mr-2" src="">
+                                            <img class="icon2 cover d-flex align-self-start mr-2" src="">
+                                            <div class="media-body">
+                                                <div class="title"></div>
+                                                [%# <!--  <button type="button"
+                                                class="btn"><span class="fa
+                                                fa-play"></span></button> --> %]
+                                            </div>
+                                        </div>
+                                    </li>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </li>
-            </template>
-          </div>
+            </div>
         </div>
-      </div>
     </div>
+</div>
 
-    [%# <!-- preferences --> %]
+    <!-- Popup Volume -->
+    <div class="popup popup-volumes" id="volumes" data-name="volumes"
+         style="width: 100%; height: 100%; top: 0; left: 0; margin: 0;">
+        <div class="view">
+            <div class="page" data-name="volumes">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a class="link popup-close" href="#">
+                                <i class="icon icon-back"></i>
+                                <span class="ios-only">Zurück</span>
+                            </a>
+                        </div>
+                        <div class="title">Lautstärke</div>
+                    </div>
+                </div>
 
-    <div class="modal fade dark compact" id="settings">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Settings</h5>
-            <button type="button" class="close" data-dismiss="modal">
-              <span>&times;</span>
-            </button>
-          </div>
-          <form class="modal-body">
-
-            <p id="versioN">0.0.31</p>
-
-            <div class="form-group">
+                <div class="page-content">
+                    <div class="modal-body list" style="margin: 0">
+                        <ol class="playlist list-group">
+                            <template>
+                                <li class="list-group-item player">
+                                    <div class="media">
+                                        <img class="cover align-self-start mr-3" src="" style="width: 20%">
+                                        <div class="media-body">
+                                            <div class="player-name"></div>
+                                            <div class="track"></div>
+                                            <div class="artist"></div>
+                                            <div class="row justify-content-center align-items-center">
+                                                <button type="button" class="volume_down"
+                                                        style="width: auto; padding: 0">
+                                                    <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAI+SURBVGhD7ZhLyA1RAICvRwoLpCgLoSyEIrZ2NiilLOyxkqW837GxsbZVUsJKibKRvMuCpWRhIwsRJc/vm+6p+W9z/3vvmWvmnLpfff2dM9Oc+3W7c2b+zoQJebEAr+Bn/ITHMTuW4mv82/VP9+9uzAYj3qAf/CWuxH3d8U3MgnLEC1yEsgGde1iMEqc3YiEG1mMWIeWI51iOkCxCBkVI8iFLsBzhLbeKpEPKEc+wX4QkG1KOeIrTRUiSIaNGSHIhMRHSeIh3nFV9XIch4gkOGyGNhSzGO+hig3yMo0RIYyHX0IW+49sKf2JshDQW8hVdaHUxmspMNPA3uvnFUBWyCW/jAZzrxDhwEa3Cb8BjvlfEUhVyCMO673Az1iZcsIr/FTID9+ArDNdfi7VoIyQwB2+gx31/MTCaNkNkHn5Az9nmRCxth8gZ9JzLxSiSFEJ8n/ecW8UokhRC9qLnuKdFk0LIVfScw8UokrZDNuIv9AlihROxtBmyBT+ix2v90KWNkDX4AMPad9E9pRbhYrOK0VTmo8e+YexmVRVyDMN1z+JsrM179KKncWuFX9DjuzCGqhAfFLej3/jY2I8uNMgfGLPzDvqxj5WdeB3v9/ERxsY0GjIMFzAmJrkQiYlJMkTO4ygxyYaIt8xhY5IOkWFjkg+RUzgoJosQOYnTxWQTIiewX0xWIRKen3pjsguRo9gbswOd8wkhK46gH9wXpUt4rzu+iNlxEMP/jNWXp2WYJb48udecw+VOTJiQHZ3OP3FlHAkUw0StAAAAAElFTkSuQmCC">
+                                                </button>
+                                                <div class="volume progress w-50 mx-2">
+                                                    <div class="progress-bar"></div>
+                                                </div>
+                                                <button type="button" class="volume_up"
+                                                        style="width: auto; padding: 0">
+                                                    <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAARfSURBVGhD7Zl5yGVjHMffQYylMGOJZCskMyFLURRRlkkpf0hZiikx84ci+zpDmJQl/1gSiikhfyjZEskukyElyR+yNJNddj6fp/d5u+fpd+ee89xFt95PfXrPs9xzz/fe+yznvDPzzDNdbI/34fe4Aa/GqWNXXI//zvrP7N8zcGowxEfohb+H++AFs+UncSroDfEu7ohyCFr3Wiq1Ywf0Q5g4ZQgvJLMUuwZ5Af9Gx9lOVkyC3hDvYG8IqQniz/FX9HXf4ek4VgaFkJogsic+jb7WCWM1boYjZxfsDeGUG1EbJLMcf0PP8SAuwJHRG+Jt7BdChg0iR6Frkue524pR0BviLdxUCGkT5Ej8Ch/ARVYEGOZn9FwXWjEMXUNI2yD55/M1Ho0Ry9Dx8gseZEUNNSGk7U/rAHwV7Wuo0zDiLrTPmxiOF2ecffu4BHMIT9A2hHQZI1vgPWj/3/E4LNkKP0f7NLY9i/FZtGGQb2CXEFIz2HMYx83OVhScjbZ/jHPfymNopQvQZ4F/Ym0IqQnievEi+jqvr8T2T9H2Y62Qn9CK/VKpiS8woNsFF78aoiCHoYvdxbi1FQF7YH7vg60ouAY9rzNdwoJG+A3Y5hxeSxTkMszv6+/9cIy4He3zUCo1cVNp20ZMP698wohxBfGNz8QPMJ8/mk6daJxuf8CFVhTkQe+Mlw40YlxBMlviE2i79y/RdOrOwfa5sdDD42jbORY80IhxB5Ft8Eu0z8lWFNyJtl2aSk2uRduut+CBRkwiiNyA9vGiS1Zgv7aL0DYXyXSgEZMK4sJmn6dSqclZaNsjqdTEcWbboxY80IhJBTkf7ROtGeehbXPTbA/nom1u79OBRkwqiJ+ofS5PpSZ5qr41lZpcgratseCBRkwiyKH4F7qD2NuKgjwz+emX3Ia2GTYdaMS4gxyD36Lt0WDeHN1v2b6/FQUvoW0nWvBAI8YV5EB8GfN7P4euKSUnoe3uvEsM6fbKBTM9esons6FkW7TNG5lw79+CKMhVmM97I7p9j3gF7RetIX4Ltq1LJfgCrXBROSHwR7S99pFMFMSN4inoN96PPCV/g9tZUZAniDQ+xKcUVgzSG51o5R3EoMEe4aB3M+jrfMZV4k7cb9NJYjcrMt5WrkWf8EW+jrVhugbxIvO9xjNWBNyLtqeFsCs3Y02YLkF8Tpx/6t5Suw8rcZf8B3od1c+Ha8K0CeJE46D3vPZ1kHsLXuLY+hDtkxbBYViFXcK0CXI82sff/B0YTcXOmg+j/d7HqE9n/PTahmkTxIu6Ao9IpZj8GMg1Ld1IjYq2YboO9hIf//jvBc/hTNXv4d1QXIeDwgwTZC900Pt617PoOdfIyHdp/cLUBPH+3PPm/5F8gm5rxk5+NBOFqQni2uVrfBR0P25qBzBy8v6pDFMTxJnLMD7c/l+4Esswp6J1XthU4TTqhXuj5KL1/Gz5Fpw6VmJ+ZqzePO2OU4mzjGvNTeg/NueZZ/qYmfkP+Xqtp0seHcEAAAAASUVORK5CYII=">
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </template>
+                        </ol>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-            </div>
-            <div class="form-check">
-              <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                Auto-sync players
-              </label>
-            </div>
-
-            [% IF debug %]
-
-            <dl>
-              <dt>Screen size (w&times;h)</dt>
-              <dd id="screen_size"></dd>
-
-              <dt>Screen size, device pixels (w&times;h)</dt>
-              <dd id="screen_size_dp"></dd>
-
-              <dt>Screen orientation</dt>
-              <dd id="screen_orientation"></dd>
-
-              <dt>Bootstrap screen size</dt>
-              <dd id="screen_size_bs">
-                <span class="d-sm-none">xs (&lt;576px)</span>
-                <span class="d-none d-sm-block d-md-none d-lg-none d-xl-none">sm (&ge;576px)</span>
-                <span class="d-none d-md-block d-lg-none d-xl-none">md (&ge;768px)</span>
-                <span class="d-none d-lg-block d-xl-none">lg (&ge;992px)</span>
-                <span class="d-none d-xl-block">xl (&ge;1200px)</span>
-              </dd>
-
-              <dt>Touch</dt>
-              <dd id="is_touch"></dd>
-
-              <dt>url query</dt>
-              <dd>[% url_query %]</dd>
-
-              <dt>content-type</dt>
-              <dd>[% content-type %]</dd>
-
-              <dt>path</dt>
-              <dd>[% path %]</dd>
-
-              <dt>host</dt>
-              <dd>[% host %]</dd>
-
-              <dt>webroot</dt>
-              <dd>[% webroot %]</dd>
-
-              <dt>skinOverride</dt>
-              <dd>[% skinOverride %]</dd>
-
-              <dt>userAgent</dt>
-              <dd>[% userAgent %]</dd>
-
-              <dt>browserType</dt>
-              <dd>[% browserType %]</dd>
-            </dl>
-
-            [% END %]
-
-            <a href="/Default">Standard skin</a><br/>
-
-            [%# <!-- FIXME: Separate settings for console logging and on screen debug --> %]
-
-            [% IF debug %]
-            <a href="[% webroot %]">Turn debug off</a><br/>
-            [% IF url_query != "debug-screen" %]
-            <a href="[% webroot %]?debug-screen">Debug log to screen</a>
-            [% END %]
-            [% ELSE %]
-            <a href="[% webroot %]?debug">Turn debug on</a>
-            [% END %]
-
-          </form>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
         </div>
-      </div>
     </div>
+    <!-- Volume end -->
 
-    [% IF debug %]
-    <span id="debug"></span>
-    [% END %]
+    <!-- Popup Playlist  -->
+    <div class="popup popup-playlist" id="playlist" data-name="playlist"
+        style="width: 100%; height: 100%; top: 0; left: 0; margin: 0;">
+        <div class="view">
+            <div class="page" data-name="playlist">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a class="link popup-close" href="#">
+                                <i class="icon icon-back"></i>
+                                <span class="ios-only">Zurück</span>
+                            </a>
+                        </div>
+                        <div class="title">Wiedergabeliste</div>
+                    </div>
+                </div>
 
-  </body>
+                <div class="page-content">
+                    <div class="modal-body list" style="margin: 0">
+                        <template id="playlist-template">
+                            <ol class="playlist list-group"></ol>
+                        </template>
 
-  [% IF debug %]
+                        <template id="playlist-item-template">
+                            <li class="list-group-item">
+                                <div class="media">
+                                    <img class="cover d-flex align-self-start mr-3" src="" style="width: 20%">
+                                    <div class="media-body">
+                                        <div class="track"></div>
+                                        <div class="artist"></div>
+                                        <button type="button" class="btn" style="width: auto; padding: 0">
+                                            <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAERSURBVGhD7dg7CsJAGMTxIOJRbER8HcTSE1lbegXBwvcBxNY7WIrPK+hM3IVFTNTGfCvzh8GsNvlBmpgopZT616pY5XEZbx3siq2waDFtjIibW5QYIi6YR0SJaWEesXWfO+zorpeYeUyIGLszrzdYDfOYBWYWw5s+Yx5RxuruTAgzj2lizwj2DGEhZo6ZwWQh2CsII+aA8bcZVjiGiBP2CsGyICzETLHCMA0sD8HyICzETLCfY4jwz3kWgr2DsMIwvOk99g7BPoGwENPnF7+ohI2wIZaHYJ9CGDFrrJeejPUNxHSCWEsQawliLUGsJYi1BLGWINYSxFqCWIvv4YTwXTzq+OfEAOumJ6WUUspkSXIHdgF62NDZ1zMAAAAASUVORK5CYII=">
+                                        </button>
+                                        <button type="button" class="btn" style="width: auto; padding: 0">
+                                            <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEUSURBVGhD7dNNasJQGIXh4EA61V2IdCHO1epa3EVX0Emntf50Bd2Hc8W5gkJ7TswHl5KYOLl+t54XDiYXwTwEM6WUUv+1J6x1uUy3LrbH3vK7hHvGfrDv/C7hBPGWIN4SxFuCeEsQbwniLUG8JYi3BIlVp1hdt0J6WPtyGacNtsX6+V11t0BmGL/7mt9F6h3jj+6wa5imEEOcsAEPYsXXP8fqME0gIWLIg9g1wdRBQsSIB/eKmE+MD1P2n7kGMcQZuyvCImaBlWGqIO4QVhWmDBIixjzwFjFLLMT8hbhHWMSsMMNMimtCQsQL5r4Qcyw+D8UnEcQlEzFrjA9vSw5hEfOFGWKKJRsxH1iSb0IppdSjlGW/B816tRdsqOwAAAAASUVORK5CYII=">
+                                        </button>
+                                        <button type="button" class="btn" style="width: auto; padding: 0">
+                                            <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJhSURBVGhD7dlLqE1hGMbx7ZpbqCNioMRIDGRAp0xMSCZKLjOJAZnIRMpEYiKnyEjExEhMpAwQEybMXMpASkoGklKSy/+v3vrSOZyz9/etS9ZTvzpn77Uvzzlrrfdbe/e6dOnSJc1sHMH037+1OPPwEy+x2RvamigSbmIFWpco8gUfk59Pwt2uNYkib7AIl/A9uW0nWpG0SGQ9HsPbdR+r0eiMVsRMxl68h/d/w3nMRyMzVpGIb3wEFnG7D9gPizYq/yoSWYl7cFs9gbtgYzLeIpHtcFsf8wNXsRi1Z6JFzEycgKdpH/sZta8O+ikSWYYb8PF6gdpWB4MUiWzCc0QhVwfLUWlyFDHuVu5en+DzxepgFipJriIRD/wr8EQQz7sDxZO7SMRTs6don1uuDlahWEoVMQ5Nh6dD1NdwqJ5DkdVBySIR37jLm3R1sA9ZVwdVFIm48HQX8/WUdXVQZZHILjhEfV1PCpcxAwOl6iKu2e4i/itPMYyBU1URj5OzSI+TA8h2nJQuMtp1zQUMIWtKFlmH9ErzAdagSEoUWYj02v8tdmMSiiVnkak4jPg05itOYQ6KJ1eRjXgGn0u3UOnnY4MWWYrriAKvsAWVp98iXiUeR3qVeBS1XSX2U2QbXsPHOZmvYQlqzUSKOJXvwO3lVN6ARmQ8RebiDDwLua1T+SCmoDH5WxHP+3vwDm7jXHAqL0DjMlaRtXgE79NDFJvKOfJnEf/aFxFT2f9G8amcI1HEZcQhpFP5NCqZyjkSRVK30bpvrdIiTuWtaGUs4lQ+hlZ/szsNjfg0vUuXLv91er1fykXRLp2+nSUAAAAASUVORK5CYII=">
+                                        </button>
+                                        <button type="button" class="btn" style="width: auto; padding: 0">
+                                            <img style="width: 50%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAANHSURBVGhD7ZlJyE1RHMA/8xwW5iHFxlBsEEKJlZBhRQiJQsnGmAUlsjJsFBKSIiEyrChjpEjGIgsLypx5/P2O79Tnq89373v3fe8t7q9+vXdO75x7zr33TP9XlZOTk5OTU0YaY+u/X4uiTfVng9EBF+JJfI7f8Te+wlu4Efvj/2iGk/AwPsLPaB0f8R7uwHHYCDOnBa7EN+hFo9/wNf6skafHsAfWZjI+w5q//YRva+XpVRyNmdENr2C8wCmcjeZHvMvDcDv6dPzde7Th0hz3Y6zjJi7GXhjxZg3GtRg76w1ahUU/nS4YK32II7E+2uIetIxPzE6fqE7byRlYHy1xNcZX1xtUMFZ2Da3oAnbENMzHX2h5fYw1n0ASxqNjx/KLzCgEx4QV+CTam1EA69A6HAP1TQJ1MR29IXao5uucCO9+HNijzCgQ3+2zaGOK4SDall0hlQJfCwueDqniaFf9WQx90IH/AZ0UEuM6YUfmhFRlcAlt08SQSshTtFDPkKoMNqBtWhNSCfmCPsqmIVUZOGvZkZ0hlQAbbwE7U0n4mtsu16jEvEMLZbEhzIrlaJu2hlRC7qOFBoZUZbANbdOKkErIIbTQvJCqDK6jbRobUglZihY6ElLlpzO67/qK7uUS0x2dtTwreAYpN3F8HA+plJxBC7tfKiceEeK6NtWMtIxBC3tw6mRGmViCtuMuerQuiPNoJW7ayoE7i3h6nGZGofRFj6JWNMuMBqQJXkSv7cGsaOKj9Tww1IwGwiCE132Bqc8hdXEArdTxMsSMErMJvZ5TrmM1MzwDeECy8pc4CEvFevQ6ngrnmpE1rfAcxsc9ArPEGWkzxk64dpQMN5FxJnN3bIQkC1ytY6TFhbjgQEMajK7sQy+qW7CYc0s/vIPWZSxsCjYoPvofaAMuY29My0yMRwbDRQOwLExAB78NMeqSNFriq7QXLacGOdLGzTKnK8Z9me7G/+1QXYuMlflbN6XLsCQB60KwITYoRtaNstdePJ2VDIMaRvU3t7GSDm7/4Dt+A22oDTbiYQccP4ZdzXdcOc2mik+VA2cwOxDvvH8PuCPw+wPMev0pOcPxCdoB9W+FVKe7SsLT5VFcEFI5OTk5OYGqqj9XWeCu2RXOqAAAAABJRU5ErkJggg==">
+                                        </button>
+                                    </div>
+                                </div>
+                            </li>
+                        </template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Playlist end -->
 
-  [%# Non-minified versions %]
+    <div class="popup popup-sync" id="sync" data-name="sync"
+         style="width: 100%; height: 100%; top: 0; left: 0; margin: 0;">
+        <div class="view">
+            <div class="page" data-name="sync">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a class="link popup-close" href="#">
+                                <i class="icon icon-back"></i>
+                                <span class="ios-only">Zurück</span>
+                            </a>
+                        </div>
+                        <div class="title">Synchronisieren</div>
+                    </div>
+                </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"
-          integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-          crossorigin="anonymous"></script>
+                <div class="page-content syncing dropdown-menu list" style="margin: 0">
+                    <div class="list-group">
+                        <ul>
+                            <li class="sync dropdown-header list-group-title">Koppeln</li>
+                        </ul>
+                    </div>
+                    <div class="list-group">
+                        <ul>
+                            <li class="unsync dropdown-header list-group-title">Entkoppeln</li>
+                        </ul>
+                    </div>
+                    <div class="list-group">
+                        <ul>
+                            <li id="preset" class="dropdown-header list-group-title">voreingestellte Gruppen</li>
+                            <li class="item-content">
+                                <div id="party" class="item-inner dropdown-item">Party Modus (Alle Koppeln)</div>
+                            </li>
+                            <!--<li class="item-content" href="#">
+                                <div id="no-party" class="item-inner dropdown-item">Alle Entkoppeln</div>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-          integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-          crossorigin="anonymous"></script>
+<!--<a href="https://icons8.com">Icon pack by Icons8</a>-->
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/js/bootstrap.js"
-          integrity="sha256-o5aEI5KgisQLdZNoCMhg5OQcBDXoUHF5P1ubIREMaZg="
-          crossorigin="anonymous"></script>
+<!-- Path to Framework7 Library JS-->
+<script type="text/javascript" src="[% webroot %]f7/js/framework7.min.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+        integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        crossorigin="anonymous"></script>
 
-  [% ELSE %]
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
 
-  [%#  Minified versions %]
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
+        integrity="sha256-GIa8Vh3sfESnVB2CN3rYGkD/MklvMq0lmITweQxE1qU="
+        crossorigin="anonymous"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
-          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-          crossorigin="anonymous"></script>
+<!-- Path to your app js-->
+<script type="text/javascript" src="[% webroot %]mf7.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-          integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-          crossorigin="anonymous"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta.2/js/bootstrap.min.js"
-          integrity="sha256-GIa8Vh3sfESnVB2CN3rYGkD/MklvMq0lmITweQxE1qU="
-          crossorigin="anonymous"></script>
-
-  [% END %]
-
-  <script src="[% webroot %]lms.js"></script>
-  <script src="[% webroot %]swipe.js"></script>
-  <script async src="[% webroot %]m.js"></script>
-
+<script src="[% webroot %]lms.js"></script>
+<script src="[% webroot %]swipe.js"></script>
+<script async src="[% webroot %]m.js"></script>
+</body>
 </html>
