@@ -28,36 +28,36 @@ var app = new Framework7({
             '                   <span class="ios-only">Zurück</span>' +
             '               </a>' +
             '           </div>' +
-            '           <div class="title">Allgemein</div>' +
+            '           <div class="title text-color-white op">Allgemein</div>' +
             '       </div>' +
             '   </div>' +
             '   <div class="page-content">' +
             '       <div class="list" style="margin: 0">' +
             '           <ul>' +
-            '               <li class="item-divider">InnoTune-Version</li>' +
+            '               <li class="item-divider ">InnoTune-Version</li>' +
             '               <li class="item-content">' +
             '                   <div class="item-inner">' +
-            '                       <div id="actual" class="item-title">Aktuell: </div>' +
+            '                       <div id="actual" class="item-title text-color-white op">Aktuell: </div>' +
             '                   </div>' +
             '               </li>' +
             '               <li class="item-content">' +
             '                   <div class="item-inner">' +
-            '                       <div id="available" class="item-title">Verfügbar: </div>' +
+            '                       <div id="available" class="item-title text-color-white op">Verfügbar: </div>' +
             '                       <div class="item-after">' +
-            '                           <a class="button">Updaten</a>' +
+            '                           <a class="button text-color-white op">Updaten</a>' +
             '                       </div>' +
             '                   </div>' +
             '               </li>' +
             '               <li class="item-divider">Server</li>' +
             '               <li class="item-content">' +
-            '                   <div id="address" class="item-inner"></div>' +
+            '                   <div id="address" class="item-inner text-color-white op"></div>' +
             '               </li>' +
             '               <li class="item-content">' +
-            '                   <div id="port" class="item-inner"></div>' +
+            '                   <div id="port" class="item-inner text-color-white op"></div>' +
             '               </li>' +
             '               <li class="item-divider">Weitere Informationen</li>' +
             '               <li>' +
-            '                   <a class="item-link item-content" data-href="http://www.innotune.at/">InnoTune-Website</a>' +
+            '                   <a class="item-link item-content text-color-white op" data-href="http://www.innotune.at/">InnoTune-Website</a>' +
             '               </li>' +
             '           </ul>' +
             '       </div>' +
@@ -99,7 +99,7 @@ var app = new Framework7({
             '                    <span class="ios-only">Back</span>\n' +
             '                </a>\n' +
             '            </div>\n' +
-            '            <div class="title">Master-Lautstärke</div>\n' +
+            '            <div class="title text-color-white op">Master-Lautstärke</div>\n' +
             '        </div>\n' +
             '    </div>\n' +
             '    <div class="page-content modal-body" id="playlist">\n' +

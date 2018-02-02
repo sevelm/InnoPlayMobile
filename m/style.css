@@ -1,9 +1,12 @@
+.ios .theme-dark .navbar {
+    background: transparent;
+}
 .covermain {
-    width:100%;
+    width:80%;
     max-width: 100%;
     max-height: 100%;
     display: block;
-    margin: auto;
+    margin: 5% auto;
 }
 
 .bottomcontrols {
@@ -129,6 +132,7 @@ ol.playlist.active {
 }
 
 .carousel-indicators li {
+    background-color: white;
     height: 5px;
     margin-left: 5px;
     margin-right: 5px;
@@ -147,7 +151,11 @@ button {
     -moz-appearance: none;
 }
 
-.ios .page {
-    background-color: lightgray;
+.progress {
+    background-color: white;
+}
+
+.op {
+    opacity: 0.5;
 }
 
