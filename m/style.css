@@ -1,6 +1,27 @@
 .ios .theme-dark .navbar {
     background: transparent;
 }
+
+.ios .navbar .title {
+    opacity: 0.5;
+    color: white;
+}
+
+.nav-player-name {
+    position: absolute;
+    top: -1.8%;
+    right: 5%;
+}
+
+div.navbar-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1b1b1b;
+}
+
 .covermain {
     width:80%;
     max-width: 100%;
@@ -33,12 +54,20 @@ button.btn {
 /* Tablet Portrait */
 @media (min-width: 767px) and (orientation: portrait) {
     .covermain {
-        width: 75%;
-        height: 75%;
+        width: 65%;
+        height: 65%;
     }
 
     .bottomcontrols {
         bottom: 10%;
+    }
+
+    .nav-player-name {
+        top: -4.5%;
+    }
+
+    div.modal-body {
+        width: 70%;
     }
 }
 
@@ -47,6 +76,7 @@ button.btn {
     .covermain {
         width: 40%;
         height: 40%;
+        margin: auto;
     }
 
     .bottomcontrols {
@@ -57,6 +87,19 @@ button.btn {
         margin-top: 1%;
         margin-bottom: 4%;
     }
+
+    .nav-player-name {
+        top: -8%;
+    }
+
+    div.modal-body {
+        width: 60%;
+        margin: auto;
+    }
+
+    .item-art {
+        width: 15%;
+    }
 }
 
 /* Phone Landscape */
@@ -64,6 +107,7 @@ button.btn {
     .covermain {
         width: 10%;
         height: 10%;
+        margin: auto;
     }
 
     .bottomcontrols {
@@ -72,6 +116,22 @@ button.btn {
 
     .volume-row {
         margin-bottom: 2%;
+    }
+
+    .nav-player-name {
+        position: absolute;
+        top: -11.5%;
+        right: 5%;
+    }
+
+
+    div.modal-body {
+        width: 100%;
+        margin: auto;
+    }
+
+    .item-art {
+        width: 20%;
     }
 }
 

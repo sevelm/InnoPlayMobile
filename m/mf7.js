@@ -28,7 +28,7 @@ var app = new Framework7({
             '                   <span class="ios-only">Zurück</span>' +
             '               </a>' +
             '           </div>' +
-            '           <div class="title text-color-white op">Allgemein</div>' +
+            '           <div class="title">Allgemein</div>' +
             '       </div>' +
             '   </div>' +
             '   <div class="page-content">' +
@@ -99,7 +99,7 @@ var app = new Framework7({
             '                    <span class="ios-only">Back</span>\n' +
             '                </a>\n' +
             '            </div>\n' +
-            '            <div class="title text-color-white op">Master-Lautstärke</div>\n' +
+            '            <div class="title">Master-Lautstärke</div>\n' +
             '        </div>\n' +
             '    </div>\n' +
             '    <div class="page-content modal-body" id="playlist">\n' +

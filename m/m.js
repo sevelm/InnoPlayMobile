@@ -274,6 +274,8 @@ function player_created(_, server, player) {
                  $('.dropdown-header.' + (sync ? 'sync' : 'unsync'))
                  .after($('<li class="item-content"><div class="item-inner"><a>')
                         .addClass('dropdown-item')
+                        .addClass('op')
+                        .addClass('text-color-white')
                         .addClass(player.html_id)
                         .addClass(sync ? 'sync' : 'unsync')
                         .attr('href', '#')
