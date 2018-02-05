@@ -6,9 +6,9 @@ var app = new Framework7({
     // App id
     id: 'at.innotune.innoplaymobile',
     // Enable swipe panel
-    panel: {
+    /*panel: {
         swipe: 'left'
-    },
+    },*/
     // Add default routes
     routes: [
         {
@@ -42,9 +42,12 @@ var app = new Framework7({
             '               </li>' +
             '               <li class="item-content">' +
             '                   <div class="item-inner">' +
-            '                       <div id="available" class="item-title text-color-white op">Verfügbar: </div>' +
+            '                       <div id="available" class="item-title text-color-white op">Neueste: </div>' +
             '                       <div class="item-after">' +
-            '                           <a class="button text-color-white op">Updaten</a>' +
+            '                           <a id="updatelink" class="button text-color-white op"' +
+            '                           onclick="{$(\'#updatelink\').load(\'https://\' + document.location.hostname + \'/api/helper.php?update\',' +
+            '                           function(response, status, xhr) { console.log(\'updating\') });}">' +
+            '                           Updaten</a>' +
             '                       </div>' +
             '                   </div>' +
             '               </li>' +
@@ -57,7 +60,8 @@ var app = new Framework7({
             '               </li>' +
             '               <li class="item-divider">Weitere Informationen</li>' +
             '               <li>' +
-            '                   <a class="item-link item-content text-color-white op" data-href="http://www.innotune.at/">InnoTune-Website</a>' +
+            '                   <a class="item-link item-content text-color-white op" target="_blank"' +
+            '                       data-href="http://www.innotune.at/" href="http://www.innotune.at/">InnoTune-Website</a>' +
             '               </li>' +
             '           </ul>' +
             '       </div>' +
@@ -71,13 +75,13 @@ var app = new Framework7({
                     $('#available').load('https://raw.githubusercontent.com/JHoerbst/InnoTune/master/version.txt',
                         function (response, status, xhr) {
                             if(status == "success") {
-                                $('#available').html('Verfügbar: ' + response);
+                                $('#available').html('Neueste: ' + response);
                             } else {
-                                $('#available').html('Verfügbar: Nicht abrufbar!');
+                                $('#available').html('Neueste: Nicht abrufbar!');
                             }
                         });
 
-                    $('#actual').load('http://' + document.location.hostname + '/api/helper.php?getversion',
+                    $('#actual').load('https://' + document.location.hostname + '/api/helper.php?getversion',
                         function (response, status, xhr) {
                             if(status == "success") {
                                 $('#actual').html('Aktuell: ' + response);
@@ -87,7 +91,8 @@ var app = new Framework7({
                     });
                 }
             }
-        }, {
+        },
+        {
             name: 'master-volume',
             path: '/master-volume/',
             content : '<div data-name="master-volume" class="page">\n' +
@@ -102,35 +107,14 @@ var app = new Framework7({
             '            <div class="title">Master-Lautstärke</div>\n' +
             '        </div>\n' +
             '    </div>\n' +
-            '    <div class="page-content modal-body" id="playlist">\n' +
-            '        <template id="playlist-template">\n' +
-            '            <div class="list">\n' +
-            '            <ul class="playlist list-group"></ul>\n' +
-            '            </div>\n' +
-            '        </template>\n' +
-            '        <template id="playlist-item-template">\n' +
-            '            <li class="list-group-item">\n' +
-            '                <a href="#" class="item-link item-content">\n' +
-            '                    <div class="media">\n' +
-            '                        <div class="item-media">\n' +
-            '                            <img class="cover d-flex align-self-start mr-3" src="">\n' +
-            '                        </div>\n' +
-            '                        <div class="media-body item-inner">\n' +
-            '                            <div class="item-title">\n' +
-            '                                <h5 class="mt-0 track"></h5>\n' +
-            '                            </div>\n' +
-            '                            <h6 class="artist"></h6>\n' +
-            '                            <button type="button" class="btn"><span class="fa fa-arrow-circle-up"></span></button>\n' +
-            '                            <button type="button" class="btn"><span class="fa fa-arrow-circle-down"></span></button>\n' +
-            '                            <button type="button" class="btn"><span class="fa fa-play"></span></button>\n' +
-            '                            <button type="button" class="btn"><span class="fa fa-heart"></span></button>\n' +
-            '                        </div>\n' +
-            '                    </div>\n' +
-            '                </a>\n' +
-            '            </li>\n' +
-            '        </template>\n' +
+            '    <div class="page-content modal-body" id="content">\n' +
             '    </div>\n' +
-            '</div>'
+            '</div>',
+            on: {
+                pageBeforeIn: function (event, page) {
+
+                }
+            }
         }
     ]
 });

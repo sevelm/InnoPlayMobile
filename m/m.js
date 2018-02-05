@@ -267,7 +267,7 @@ function player_created(_, server, player) {
 
     from_template('#volumes template')
         .addClass(player.html_id)
-        .appendTo('#volumes .modal-body');
+        .appendTo('#volumes .modal-body').find('.player-name').attr('data-slide-to', idx);
 
     [false, true]
         .forEach(sync =>
@@ -295,31 +295,20 @@ function player_created(_, server, player) {
         .forEach(action => $elm.find('button.'+action)
                  .click(() => player[action]()));
 
-
-    /*$elm.find('.rs-vol')[0].setAttribute("onchange", function () {
+    $elm.find('.progress.volume').click(e => {
+        /* FIXME: Also allow sliding the volume control */
+        let $this = $(e.currentTarget);
+        let x = e.pageX - $this.offset().left;
+        let level = 100 * x / $this.width();
+        /* Prevent accidental volume explosions */
         let THRESHOLD = 30;
-        if ($('.rs-vol').value < THRESHOLD)
-            player.volume = $('.rs-vol').value;
-        else if ($('.rs-vol').value > player.volume)
+        if (level < THRESHOLD)
+            player.volume = level;
+        else if (level > player.volume)
             player.volume_up();
         else
-        player.volume_down();
-    });*/
-
-    //$elm.find('.progress.volume').click(e => {
-    //    /* FIXME: Also allow sliding the volume control */
-    //    let $this = $(e.currentTarget);
-    //    let x = e.pageX - $this.offset().left;
-    //    let level = 100 * x / $this.width();
-    //    /* Prevent accidental volume explosions */
-    //    let THRESHOLD = 30;
-    //    if (level < THRESHOLD)
-    //        player.volume = level;
-    //    else if (level > player.volume)
-    //        player.volume_up();
-    //    else
-    //        player.volume_down();
-    //});
+            player.volume_down();
+    });
 
     $elm.find('.progress.duration').click(e => {
         let $this = $(e.currentTarget);
@@ -458,6 +447,19 @@ function player_updated(_, server, player) {
     $elm.find('.track')
         .text(player.track_title || '');
 
+    let $overflowtext = $elm.find('#track');
+    if(isElementOverflowing($overflowtext)) {
+        $overflowtext.addClass('marquee');
+        $overflowtext.addClass('marquee-direction-alternate');
+        $overflowtext.attr('data-marquee', track.title);
+        $overflowtext.text('');
+    } else {
+        $overflowtext.removeClass('marquee');
+        $overflowtext.removeClass('marquee-direction-alternate');
+        $overflowtext.attr('data-marquee', '');
+        $overflowtext.text(track.title);
+    }
+
     log('Cover dimensions (' +
         $elm.find('img.cover').width() + 'x' +
         $elm.find('img.cover').height() + '): ' +
@@ -475,8 +477,8 @@ function player_updated(_, server, player) {
               [format_time(player.track_position),
                format_time(player.track_duration)/*,
                format_time(player.track_remaining)*/].join(' | '));
-    /*$elm.find('.rs-vol').val(player.volume);*/
-        /*.width(player.volume + '%');*/
+    $elm.find('.volume .progress-bar')
+        .width(player.volume + '%');
 
     $elm.removeClass('on off playing paused stopped ' +
                      'stream file')
@@ -549,3 +551,10 @@ $(() => {
         screenName: 'Home'
     });
 });
+
+function isElementOverflowing(element) {
+    var overflowX = element.offsetWidth < element.scrollWidth,
+        overflowY = element.offsetHeight < element.scrollHeight;
+
+    return (overflowX || overflowY);
+}
