@@ -4,9 +4,6 @@ const THRESHOLD = 50;
 
 $(() => {
 
-    log('ontouchstart' in window ?
-        'Touch supported' : 'Touch not supported');
-
     $('.carousel')
         .on('touchstart', e => {
 

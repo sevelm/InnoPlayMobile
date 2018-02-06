@@ -547,9 +547,6 @@ $(() => {
         .on('player_created', player_created)
         .on('player_updated', player_updated)
         .one('server_ready', server_ready);
-    ga('send', 'screenview', {
-        screenName: 'Home'
-    });
 });
 
 function isElementOverflowing(element) {
