@@ -44,10 +44,7 @@ var app = new Framework7({
             '                   <div class="item-inner">' +
             '                       <div id="available" class="item-title text-color-white op">Neueste: </div>' +
             '                       <div class="item-after">' +
-            '                           <a id="updatelink" class="button text-color-white op"' +
-            '                           onclick="{$(\'#updatelink\').load(\'https://\' + document.location.hostname + \'/api/helper.php?update\',' +
-            '                           function(response, status, xhr) { console.log(\'updating\') });}">' +
-            '                           Updaten</a>' +
+            '                           <button id="updatelink" class="button open-confirm text-color-white op">Update</button>' +
             '                       </div>' +
             '                   </div>' +
             '               </li>' +
@@ -88,6 +85,65 @@ var app = new Framework7({
                             } else {
                                 $('#actual').html('Aktuell: Nicht abrufbar!');
                             }
+                    });
+
+                    $$('.open-confirm').on('click', function () {
+                        app.dialog.create({
+                            title: 'InnoServer Update',
+                            text: 'Wollen Sie das System wirklich updaten?',
+                            buttons: [
+                                {
+                                    text: 'Abbrechen'
+                                },
+                                {
+                                    text: 'Updaten',
+                                    onClick: function () {
+                                        console.log('start update');
+                                        app.dialog.preloader('Updating...');
+                                        $('#updatelink').load('https://' + document.location.hostname + '/api/helper.php?update',
+                                            function(response, status, xhr) {
+                                                app.dialog.close();
+                                                if(status == "success") {
+                                                    console.log('update finished');
+                                                    app.dialog.preloader('Server-Reboot...');
+                                                    $('#updatelink').load('https://' + document.location.hostname +
+                                                        '/api/helper.php?reboot',
+                                                        function(response, status, xhr) {
+                                                            console.log('reboot: ' + status);
+                                                            setInterval(function () {
+                                                                $.ajax({
+                                                                    url: 'http://' + document.location.hostname + ':' +
+                                                                        document.location.port + '/m/',
+                                                                    success: function (result) {
+                                                                        setTimeout(function () {
+                                                                            location.reload(true);
+                                                                        }, 10000);
+                                                                    },
+                                                                    error: function () {
+                                                                        console.log("down");
+                                                                    }
+                                                                })
+                                                            }, 3000);
+                                                    });
+                                                } else {
+                                                    console.log('update failed');
+                                                    app.dialog.create({
+                                                        title: 'Update fehlgeschlagen',
+                                                        text: 'Es ist ein unerwarteter Fehler aufgetreten!',
+                                                        buttons: [
+                                                            {
+                                                                text: 'Verstanden'
+                                                            }
+                                                        ],
+                                                        verticalButtons: false
+                                                    }).open();
+                                                }
+                                        });
+                                    }
+                                }
+                            ],
+                            verticalButtons: false
+                        }).open();
                     });
                 }
             }
