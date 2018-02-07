@@ -222,8 +222,13 @@
                                             <img style="width: 35%; opacity: 0.8" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJ7SURBVGhD7Zc9axRRFIY3ooEYMAFBoyCInViJoiD4A7RJI2gv2FhYqSCIMX7UVv4BwYBCrFIEwcZaEAQ/KlEQQRACrpW68Tkzr7C73DFz73CHM7APHO7Mew73vC/LsklvwoQOMRgMZqmHVJ/6Tt1Uqztgei/1ZnMMtPMa8Y9CvJX3EdBXNOYbvC5UhTDovdSoX/D53xCG+yB4tBDvSrvVuA6Cv1ohDLdBMLavbgjDZZDYEIa7IArxXv5q4yoIZvanhDDcBGkSwmgtCLvmqUPDxfJd1uO0X+wPaMlkD8KC3dSa9o2Afkozq5KSaSPIinaNgP6HYwe1jed+ITagjSA/tGucDetzzpWvzRgOwusx3p9Rl6kZyc0o1wTJFoTnq5JN/0gdVysd3Rci5ycyxfsF6nXZ3dzg+YjaaeiiENmC/AN5Gv2p+q84ptSKxy6pIHsQg9ZOel80c0ZyPHZBBa0EMWgvaeaBpHjsggpaC0LvnGZWJcVTbAnTZpCLmnksKZ5iS5g2gzzSzHVJ8RRbwrQSBP0o9Zv6xdhByfGUa4JkD4J2mvqmfvoX3Si2hMkWhOfD1Au1rLfOMa12GuVVQXIGuSHtJ7XM43a10uGiT3bpOOh99WclNYJ7hoPMUGeR5yQ1h8suFZvCzNsMSz/rPZnhINlgySK7nnA+H6uT6l8p7aTDHfmD1AEj9+UpCTdBDMzck69oXAUxUsO4C2Jg6q781cZlEANjd+SxFm6DGDFhXAcxMGi/zFviPoiBydvyW0knghhbhelMEAO/xf/eIQiyprFugOFb8j4C+rJGugOmr1EDZbAQX6k9ancLjJ+g7K+AJc4DkidM6Ba93l+78o2LpVGJ8wAAAABJRU5ErkJggg==">
                                         </button>
                                     </div>
-                                    <div class="volume progress" style="width: 50%">
+                                    <!--<div class="volume progress" style="width: 50%">
                                         <div class="progress-bar"></div>
+                                    </div>-->
+                                    <div class="volume range-slider" style="width: 64%; text-align: center; margin: 0">
+                                        <input class="volume range-slider__range" type="range" min="0" max="100" step="5"
+                                            style="height: 2px; display: inline-block; width: 90%">
+                                        <span class="volume range-slider__value op" style="display: none"></span>
                                     </div>
                                     <div>
                                         <button type="button" class="volume_up" style="padding-left: 0">
@@ -349,15 +354,21 @@
                                             <div class="track op" style="font-size: 12px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap"></div>
                                             <div class="artist op" style="font-size: 12px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap"></div>
                                             <div class="row justify-content-center align-items-center">
-                                                <button type="button" class="volume_down btn">
+                                                <!--<button type="button" class="volume_down btn">
                                                     <img class="op" style="width: 40%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAALMSURBVGhD7Zc7aBRRFIY3KoFosRHBQApRwUJUULS1szGCIKSwVyuxFN+PKNrYWNsKQRC1EsSAjYjPgIWWIhY2wSIoChLd9fsn/y476+zjju5wB/aDw517zp1zz1cku1sZMqRE1Ov1aq1Wu8W6yPqFOOdSeWDoCeIdEgk817xO+0j8WOK9B58nNhFHvb/nY3HDoE0JeEOsVZ51pxLUniYHYyZDYtwl1XYoGb1IqwTr61YJUQqRXhIiehEGW98mUXUpRdQibRKvOkmIaEXaJF52kxBRioRKiOhE8kiIwkW4a5zYnBUMsb1F4gVLXxKiMBEuWEc81GW94Nxzlr4lRJEis77oB/EhI5ZcD5YQvFeYyDdftMWpJqRXkJfgb2LC6SB47y8RtrvZPyCOE2NO/xu6RHibgnR1uVpfdCqYLBGeTyZdgeePxB6X8uN+hYqwHWF/mHirGugH2DaX8+FGhYo0ID1K/q7r8ywjLoWjJsLbFKQHKiIorab22Wf2Ox2OGghvU5AeuIigfNlnbjoVjhoIb1OQLkSE2rTP3HcqHDUQ3qYgXZTIEZ+ZdSocNRDepiBdlMhtnznlVDhqILxNQXrgIuR3Eb8IfYPY6HQ4ukR4m4L0QEXI7SUWXM//hy7URHibgvRARHjeSjxJOgPPj1hGXc7HcquElU414YI1KrB+Z8n1YcW7WSJnG32JGR5XuZQfGn1y00ss+9qD/FdW1Q/5lSB4L0tkjJgiHfxtuiM0PKaLesG5n0TwJy/vdP1j/69wyUHiDjHXIZ7lleF8cSL9wCDX8shEJyLyyEQpIhjoaohMtCKCofQvsy+ZqEVEvzLRiwiGu9hLphQiggEvdJMpjYhgyPOdZEolIhi08f0pJVM6EcGwZ9plWA84N5ccKgvMfNqDLxE3iMfeX/eR8sDQJyQiAcHzAjHpcrlgcP14miGu4LLB6SFDykWl8gczaC2PtKFPEgAAAABJRU5ErkJggg==">
-                                                </button>
-                                                <div class="volume progress w-50 mx-2 volume-height">
-                                                    <div class="progress-bar"></div>
+                                                </button>-->
+                                                <!--<div class="volume progress w-50 mx-2 volume-height">
+                                                    <div class="progress-bar"></div>-->
+                                                <div class="volume range-slider" style="width: 100%%; text-align: center;
+                                                    margin: 5px 0; display: table">
+                                                    <input class="volume range-slider__range" type="range" min="0" max="100" step="5"
+                                                           style="display: inline-block; width: 75%">
+                                                    <span class="volume range-slider__value op"></span>
                                                 </div>
+                                                <!--</div>
                                                 <button type="button" class="volume_up btn">
                                                     <img class="op" style="width: 40%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAT1SURBVGhD7ZldiFVVHMVnVCa1YMaspAhzghrEIqMSDAqKhL4QAh8kKANHiD4egobs0+yLahC06KWUqAELoqSHIJoKKaKyjKKMIEJ6CEuKJk2xrJl+68zau3vnnJl79h3Hey/MgsXeZ63/3ucs7t37nnNu2zSm0UIYGRnpHB4efp52iPZXeL+t1gEXvQB+Q4gM9IfdrnJJ88Mh9vjCd8Nu2Ovj113W3OBCYwjwOZwnnXapBLwPs8ISoLyL+m4fHj8UhOiyJe98iSlBqB2E/0Kts1MsTy04WeXX6TOaGEJAqydILzzscb/DG2xNDTjBhCEE9OQgAkMWMmaHxwqP0Z1h+9iBiU+DlSE6bVUBr64gAYxbB494jm007bYmDyasDLGLpjCEgD+pIAJjlzPFkOd5xvLkwESVIT6lGTeEQE3NIHjL4D64FZ5suQroy+GfnutWy/WBCZJCCNSVDRK+Pj/DS21VAf16KByCSyyngYHJIQRqS3218HvgB649AlfaqgL6Ftd8QpNfL4hd8OwiMug8GEJoglIhBOpLrxHKZlH3rOv/glfYikA7Ae51zf+3PRzMh2/JqAXqPqYpHUJgTPJipzaE0bo51XIE2k32v6UZ/VQ42G7xMPyhgEftJ4cQGJcchPIZ1L/rcdstR9j/3v7lmUjnoIVzMqECHqCAul1YYDkJjMsF4fAijnfA2+Ecy1VAPxOGc19gOQLtAc+7NRN0IGQHY4DcOeqODFlKBifKBaHfl80K6O+FF9uqAvrTrnnRUgRat73faNobEoTDdo5Xwy/lAT2A5bZTdG00wh/0Z1uOQA+LvqchQQKQO9Bfs7+bJredouvOQf7oWqgA2iv2bm5oEAFrLt5PrrnGcgTaZnt3W4pAe9DehoYHEbAfds1mSxFod0zg3WZvS1MEwVvlmjcsRaDdaO9lSxFoq+0NNEuQta4p+s24xd7oNlsBtDX2tjVLkAHX3GMpAi1s1U9aisC7SwZtf8ODoF8I/4G6g1hkOQI97ExrLEWgPWWvr6FB0C6D++3nFjPyTPR99s+1HIH2nr0VDQlCfzF8P5sZ0H+bpsN2BPrV9vdYikBWyINQLwDnxSBgpmsiqDlRBu0hmvy9fwkwtijIfWFeuJHuLFtVQN/puqLfkBX2vgrCjxY20Fw1lugHaOXX9UqGcUVB5sBrkce9m8YPW/IvNCdZjkAPG0RfENZJqAXq9KCT++WtBcZMuNiLQPki6nUzqHG9liPQ9BpKn6Y2idMtZ8ZK+CrUG74ifuRJk8NQnxSEOl1keNZ403IV0J+zP2CpPBj0uAcnhaG2dBDKllIXvup6pJ5rKwJ9Cfwb6jrqez/MwOQw1NUMgq0daKPmVS3YSX++7Qg0ra2vVUDbb7k+MMGjnqhUGGpqBsG70jX6zm+im9uK0fQM85LrviiqSQYTacssFQa/zCfSAddTc4mlHPCy10BAD2E9licPJisVBi9psY8F4/T6R38vaA7tVIUv7yYFJn3IJxg3DHrdQRhzFtSi1/gDMPee65iBycNTWmEYtOQglM/WvDD8R/IdXGx76sBJwquZXBiOk4NQO+gxehX0At3k92l1gxOG+6eqMPTrCbIJ6od4maXjC05879gwtNdZG8yKWgVc83pf+FHYD9/x8RMuaR1w0XcqiAII9PfDM2y3FrhwPTzptuMRsiy0PI1ptBba2v4DGiSQsCK9uoEAAAAASUVORK5CYII=">
-                                                </button>
+                                                </button>-->
                                             </div>
                                         </div>
                                     </div>

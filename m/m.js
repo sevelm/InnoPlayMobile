@@ -128,6 +128,7 @@ function rescaled($img, context, url) {
 /*                                                                          */
 /* ------------------------------------------------------------------------ */
 
+var sliding = false;
 var active_player = null;
 
 $('.carousel').carousel({interval:false}); /* Do not auto-rotate */
@@ -295,20 +296,32 @@ function player_created(_, server, player) {
         .forEach(action => $elm.find('button.'+action)
                  .click(() => player[action]()));
 
-    $elm.find('.progress.volume').click(e => {
-        /* FIXME: Also allow sliding the volume control */
-        let $this = $(e.currentTarget);
-        let x = e.pageX - $this.offset().left;
-        let level = 100 * x / $this.width();
-        /* Prevent accidental volume explosions */
-        let THRESHOLD = 30;
-        if (level < THRESHOLD)
-            player.volume = level;
-        else if (level > player.volume)
-            player.volume_up();
-        else
-            player.volume_down();
+    $elm.find('.volume .range-slider__range').on('change', function () {
+        sliding = false;
+        console.log('volume: ' + $(this).val() + ' ' + sliding);
+        player.volume = parseInt($(this).val());
     });
+
+    $elm.find('.volume .range-slider__range').on('input', function () {
+        sliding = true;
+        $elm.find('.volume .range-slider__value').text($(this).val());
+        console.log('slide: ' + sliding);
+    });
+
+    //$elm.find('.progress.volume').click(e => {
+    //    /* FIXME: Also allow sliding the volume control */
+    //    let $this = $(e.currentTarget);
+    //    let x = e.pageX - $this.offset().left;
+    //    let level = 100 * x / $this.width();
+    //    /* Prevent accidental volume explosions */
+    //    let THRESHOLD = 30;
+    //    if (level < THRESHOLD)
+    //        player.volume = level;
+    //    else if (level > player.volume)
+    //        player.volume_up();
+    //    else
+    //        player.volume_down();
+    //});
 
     $elm.find('.progress.duration').click(e => {
         let $this = $(e.currentTarget);
@@ -477,8 +490,14 @@ function player_updated(_, server, player) {
               [format_time(player.track_position),
                format_time(player.track_duration)/*,
                format_time(player.track_remaining)*/].join(' | '));
-    $elm.find('.volume .progress-bar')
-        .width(player.volume + '%');
+    /*$elm.find('.volume .progress-bar')
+        .width(player.volume + '%');*/
+    if(player.volume != $elm.find('.volume .range-slider__range').val()
+        && !sliding) {
+        console.log('val: ' + player.volume);
+        $elm.find('.volume .range-slider__range').val(player.volume);
+        $elm.find('.volume .range-slider__value').text(player.volume);
+    }
 
     $elm.removeClass('on off playing paused stopped ' +
                      'stream file')

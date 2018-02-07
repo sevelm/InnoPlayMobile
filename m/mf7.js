@@ -246,12 +246,12 @@ var app = new Framework7({
                                                     '           <li class="item-content" style="display: block;' +
                                                     '               padding: 15px">' +
                                                     '               <div class="title text-color-white op"></div>' +
-                                                    '               <div class="range-slider op" style="display: table;' +
+                                                    '               <div class="range-slider" style="display: table;' +
                                                     '                       margin: 5px auto; text-align: center">' +
                                                     '                   <input style="display: inline-block; width: 75%"' +
                                                     '                       class="range-slider__range" type="range"' +
                                                     '                       min="0" max="100" step="10">' +
-                                                    '                   <span class="range-slider__value"></span>' +
+                                                    '                   <span class="range-slider__value op"></span>' +
                                                     '               </div>' +
                                                     '           </li>' +
                                                     '       </template>' +

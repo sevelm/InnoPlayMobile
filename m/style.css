@@ -287,7 +287,7 @@ button {
     width: calc(100% - (73px));
     height: 10px;
     border-radius: 5px;
-    background: #d7dcdf;
+    background: #d7dcdf88;
     outline: none;
     padding: 0;
     margin: 0;
@@ -298,32 +298,32 @@ button {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #007AFF;
+    background: #ffffffcc;
     cursor: pointer;
     -webkit-transition: background 0.15s ease-in-out;
     transition: background 0.15s ease-in-out;
 }
 .range-slider__range::-webkit-slider-thumb:hover {
-    background: #007AFF;
+    background: #ffffffcc;
 }
 .range-slider__range:active::-webkit-slider-thumb {
-    background: #007AFF;
+    background: #ffffffcc;
 }
 .range-slider__range::-moz-range-thumb {
     width: 20px;
     height: 20px;
     border: 0;
     border-radius: 50%;
-    background: #007AFF;
+    background: #ffffffcc;
     cursor: pointer;
     -webkit-transition: background 0.15s ease-in-out;
     transition: background 0.15s ease-in-out;
 }
 .range-slider__range::-moz-range-thumb:hover {
-    background: #007AFF;
+    background: #ffffffcc;
 }
 .range-slider__range:active::-moz-range-thumb {
-    background: #007AFF;
+    background: #ffffffcc;
 }
 
 .range-slider__value {
