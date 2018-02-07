@@ -508,6 +508,12 @@ function player_updated(_, server, player) {
                    player.is_synced ? 'synced' : 'unsynced',
                    player.is_stream ? 'stream' : 'file'].join(' '));
 
+    if(player.is_playing) {
+        $elm.find('.covermain').addClass('covermain_active');
+    } else {
+        $elm.find('.covermain').removeClass('covermain_active');
+    }
+
     $elm = $('.playlist.' + player.html_id);
     if (player.playlist_timestamp &&
         player.playlist_timestamp != $elm.data(DATA_KEY_PLAYLIST_TIMESTAMP)) {

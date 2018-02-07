@@ -33,6 +33,12 @@ div.navbar-background {
     max-height: 100%;
     display: block;
     margin: 9% auto;
+    -webkit-transition: width 1s; /* Safari */
+    transition: width 1s;
+}
+
+.covermain_active {
+    width: 55%;
 }
 
 .bottomcontrols {
@@ -77,11 +83,6 @@ button.btn {
 
 /* Tablet Portrait */
 @media (min-width: 767px) and (orientation: portrait) {
-    .covermain {
-        width: 65%;
-        height: 65%;
-    }
-
     .bottomcontrols {
         bottom: 10%;
     }
@@ -110,10 +111,15 @@ button.btn {
 /* Tablet Landscape */
 @media (orientation: landscape) {
     .covermain {
-        width: 40%;
-        height: 40%;
+        width: 35%;
+        height: 35%;
         margin: auto;
     }
+
+    .covermain_active {
+        width: 40%;
+    }
+
 
     .bottomcontrols {
         bottom: 10%;
