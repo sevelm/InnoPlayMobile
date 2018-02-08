@@ -546,18 +546,16 @@ function player_updated(_, server, player) {
             ));
     }
 
-    $('.dropdown-menu.syncing .dropdown-item').hide();
+    if(player.html_id == active_player.html_id) {
+        $('.dropdown-menu.syncing .dropdown-item').hide();
+    }
     server.players.forEach(other => {
         if (!other.is_slave && !player.group.includes(other))
-            $('.dropdown-item.sync.'+other.html_id)
-            .text(other
-                  .group
-                  .map(p => p.name).join('+'))
-            .show();
+            $('.dropdown-item.sync.' + other.html_id).show();
         if (player.sync_partners.includes(other))
-            $('.dropdown-item.unsync.'+other.html_id)
-            .text(other.name)
-            .show();
+            $('.dropdown-item.unsync.' + other.html_id)
+                .text(other.name)
+                .show();
         if (player.group.length != server.players.length)
             $('.dropdown-item#party').show();
         /* FIXME: To be able to set the state of the 'Unsync all'
