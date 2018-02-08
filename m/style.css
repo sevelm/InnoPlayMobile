@@ -204,6 +204,13 @@ button.btn {
     }
 }
 
+/* iPhone 5 landscape */
+@media (max-width: 568px) and (orientation: landscape){
+    .covermain {
+        width: 0%;
+    }
+}
+
 ol.playlist {
     display: none;
 }
