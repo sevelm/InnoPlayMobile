@@ -299,11 +299,11 @@ function player_created(_, server, player) {
     $elm.find('.volume .range-slider__range').on('change', function () {
         sliding = false;
         console.log('volume: ' + $(this).val() + ' ' + sliding);
-        player.volume = parseInt($(this).val());
     });
 
     $elm.find('.volume .range-slider__range').on('input', function () {
         sliding = true;
+        player.volume = parseInt($(this).val());
         $elm.find('.volume .range-slider__value').text($(this).val());
         console.log('slide: ' + sliding);
     });
