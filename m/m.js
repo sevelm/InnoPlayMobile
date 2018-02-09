@@ -460,17 +460,17 @@ function player_updated(_, server, player) {
     $elm.find('.track')
         .text(player.track_title || '');
 
-    let $overflowtext = $elm.find('#track');
-    if(isElementOverflowing($overflowtext)) {
+    let $overflowtext = $elm.find('.track');
+    if($overflowtext.outerWidth() > $(document).width()) {
         $overflowtext.addClass('marquee');
         $overflowtext.addClass('marquee-direction-alternate');
-        $overflowtext.attr('data-marquee', track.title);
+        $overflowtext.attr('data-marquee', player.track_title);
         $overflowtext.text('');
     } else {
         $overflowtext.removeClass('marquee');
         $overflowtext.removeClass('marquee-direction-alternate');
         $overflowtext.attr('data-marquee', '');
-        $overflowtext.text(track.title);
+        $overflowtext.text(player.track_title);
     }
 
     log('Cover dimensions (' +
@@ -573,8 +573,8 @@ $(() => {
 });
 
 function isElementOverflowing(element) {
-    var overflowX = element.offsetWidth < element.scrollWidth,
-        overflowY = element.offsetHeight < element.scrollHeight;
+    var overflowX = element.offsetWidth < element.scrollWidth;
+    console.log(overflowX + " " + element.offsetWidth + " " + element.scrollWidth)
 
-    return (overflowX || overflowY);
+    return (overflowX);
 }
