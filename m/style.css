@@ -5,6 +5,10 @@ a {
     background: transparent;
 }
 
+.ios .theme-dark .navbar:after .navbar.ios.theme-dark:after {
+    background-color: transparent !important;
+}
+
 .ios .navbar .title {
     opacity: 0.5;
     color: white;
