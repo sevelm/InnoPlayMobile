@@ -14,6 +14,11 @@ a {
     color: white;
 }
 
+.track-wrapper {
+    width: 100%;
+    display: flex;
+}
+
 /*.ios .navbar {
     max-width: 0;
     padding: 0;
@@ -424,81 +429,81 @@ input::-moz-focus-outer {
 }
 @-webkit-keyframes movement-smooth {
     from {
-        -webkit-transform: translateX(0%);
-        transform: translateX(0%);
-        left: 100%;
+        -webkit-transform: translateX(-0%);
+        transform: translateX(-0%);
+        left: 5%;
     }
     to {
         -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
-        left: 0%;
+        left: 95%;
     }
 }
 @keyframes movement-smooth {
     from {
-        -webkit-transform: translateX(0%);
-        transform: translateX(0%);
-        left: 100%;
+        -webkit-transform: translateX(-0%);
+        transform: translateX(-0%);
+        left: 5%;
     }
     to {
         -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
-        left: 0%;
+        left: 95%;
     }
 }
 @-webkit-keyframes movement-steps20 {
     0% {
-        -webkit-transform: translateX(0%);
-        transform: translateX(0%);
-        left: 100%;
+        -webkit-transform: translateX(25%);
+        transform: translateX(25%);
+        left: 75%;
     }
     5%,
     9.99% {
-        -webkit-transform: translateX(-5%);
-        transform: translateX(-5%);
-        left: 95%;
+        -webkit-transform: translateX(25%);
+        transform: translateX(25%);
+        left: 75%;
     }
     10%,
     14.99% {
-        -webkit-transform: translateX(-10%);
-        transform: translateX(-10%);
-        left: 90%;
+        -webkit-transform: translateX(20%);
+        transform: translateX(20%);
+        left: 70%;
     }
     15%,
     19.99% {
         -webkit-transform: translateX(-15%);
         transform: translateX(-15%);
-        left: 85%;
+        left: 70%;
     }
     20%,
     24.99% {
         -webkit-transform: translateX(-20%);
         transform: translateX(-20%);
-        left: 80%;
+        left: 65%;
     }
     25%,
     29.99% {
         -webkit-transform: translateX(-25%);
         transform: translateX(-25%);
-        left: 75%;
+        left: 65%;
     }
     30%,
     34.99% {
         -webkit-transform: translateX(-30%);
         transform: translateX(-30%);
-        left: 70%;
+        left: 60%;
     }
     35%,
     39.99% {
         -webkit-transform: translateX(-35%);
         transform: translateX(-35%);
-        left: 65%;
+        left: 60%;
     }
     40%,
     44.99% {
         -webkit-transform: translateX(-40%);
         transform: translateX(-40%);
-        left: 60%;
+        left: 55%;
     }
     45%,
     49.99% {
@@ -516,60 +521,60 @@ input::-moz-focus-outer {
     59.99% {
         -webkit-transform: translateX(-55%);
         transform: translateX(-55%);
-        left: 45%;
+        left: 50%;
     }
     60%,
     64.99% {
         -webkit-transform: translateX(-60%);
         transform: translateX(-60%);
-        left: 40%;
+        left: 45%;
     }
     65%,
     69.99% {
         -webkit-transform: translateX(-65%);
         transform: translateX(-65%);
-        left: 35%;
+        left: 45%;
     }
     70%,
     74.99% {
         -webkit-transform: translateX(-70%);
         transform: translateX(-70%);
-        left: 30%;
+        left: 40%;
     }
     75%,
     79.99% {
         -webkit-transform: translateX(-75%);
         transform: translateX(-75%);
-        left: 25%;
+        left: 40%;
     }
     80%,
     84.99% {
         -webkit-transform: translateX(-80%);
         transform: translateX(-80%);
-        left: 20%;
+        left: 40%;
     }
     85%,
     89.99% {
         -webkit-transform: translateX(-85%);
         transform: translateX(-85%);
-        left: 15%;
+        left: 35%;
     }
     90%,
     94.99% {
         -webkit-transform: translateX(-90%);
         transform: translateX(-90%);
-        left: 10%;
+        left: 35%;
     }
     95%,
     99.99% {
         -webkit-transform: translateX(-95%);
         transform: translateX(-95%);
-        left: 5%;
+        left: 30%;
     }
     100% {
         -webkit-transform: translateX(-100%);
         transform: translateX(-100%);
-        left: 0%;
+        left: 25%;
     }
 }
 @keyframes movement-steps20 {
