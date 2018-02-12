@@ -78,7 +78,7 @@ var app = new Framework7({
                             }
                         });
 
-                    $('#actual').load('https://' + document.location.hostname + '/api/helper.php?getversion',
+                    $('#actual').load('http://' + document.location.hostname + '/api/helper.php?getversion',
                         function (response, status, xhr) {
                             if(status == "success") {
                                 $('#actual').html('Aktuell: ' + response);
@@ -100,13 +100,13 @@ var app = new Framework7({
                                     onClick: function () {
                                         console.log('start update');
                                         app.dialog.preloader('Updating...');
-                                        $('#updatelink').load('https://' + document.location.hostname + '/api/helper.php?update',
+                                        $('#updatelink').load('http://' + document.location.hostname + '/api/helper.php?update',
                                             function(response, status, xhr) {
                                                 app.dialog.close();
                                                 if(status == "success") {
                                                     console.log('update finished');
                                                     app.dialog.preloader('Server-Reboot...');
-                                                    $('#updatelink').load('https://' + document.location.hostname +
+                                                    $('#updatelink').load('http://' + document.location.hostname +
                                                         '/api/helper.php?reboot',
                                                         function(response, status, xhr) {
                                                             console.log('reboot: ' + status);
@@ -180,7 +180,7 @@ var app = new Framework7({
             '</div>',
             on: {
                 pageBeforeIn: function (event, page) {
-                    $.get('https://' + document.location.hostname + '/api/helper.php?activedevices', function (data) {
+                    $.get('http://' + document.location.hostname + '/api/helper.php?activedevices', function (data) {
                         var devices = [];
                         var devIds = data.split(';');
                         var count = 1;
@@ -193,7 +193,7 @@ var app = new Framework7({
                                    value = count;
                                }
                                count++;
-                               $.get('https://' + document.location.hostname + '/api/helper.php?getdevice&dev=' + value,
+                               $.get('http://' + document.location.hostname + '/api/helper.php?getdevice&dev=' + value,
                                    function (data) {
                                     devData = data.split(';');
                                     var devId;
@@ -229,7 +229,7 @@ var app = new Framework7({
                                         .find('.item-title').text(dev.name).end()
                                         .find('.item-subtitle').text(dev.mode).end()
                                         .click(function () {
-                                            $.get('https://' + document.location.hostname + '/api/helper.php?vol&dev=' + dev.id,
+                                            $.get('http://' + document.location.hostname + '/api/helper.php?vol&dev=' + dev.id,
                                                 function (data) {
                                                 var playersName = ["MPD", "Squeezebox", "Airplay & Spotify", "Line-In"];
                                                 var playersCmd = ["mpd", "squeeze", "airplay", "LineIn"];
@@ -282,7 +282,7 @@ var app = new Framework7({
                                                                         .on('change', function () {
                                                                             var id = parseInt($(this).attr('id')
                                                                                 .toString().replace("input", ""));
-                                                                            $.get('https://' + document.location.hostname
+                                                                            $.get('http://' + document.location.hostname
                                                                                 + '/api/helper.php?vol_set'
                                                                                 + '&dev=' + $('#pop-title').attr('dev')
                                                                                 + '&player=' + playersCmd[id]
