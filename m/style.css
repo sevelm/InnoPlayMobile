@@ -89,6 +89,10 @@ button.btn {
     overflow: auto;
 }
 
+.icon {
+    opacity: 0.7;
+}
+
 /* Tablet Portrait */
 @media (min-width: 767px) and (orientation: portrait) {
     .bottomcontrols {
