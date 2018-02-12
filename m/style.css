@@ -20,6 +20,7 @@ a {
 }*/
 
 .nav-player-name {
+    display: flex;
     position: absolute;
     top: -1.8%;
     right: 5%;
@@ -183,6 +184,7 @@ button.btn {
         position: absolute;
         top: -17.5%;
         right: 5%;
+        display: flex;
     }
 
 
