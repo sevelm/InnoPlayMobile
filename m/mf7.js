@@ -60,6 +60,10 @@ var app = new Framework7({
             '                   <a class="item-link link external item-content text-color-white op" target="_blank"' +
             '                       data-href="http://www.innotune.at/" href="http://www.innotune.at/">InnoTune-Website</a>' +
             '               </li>' +
+            '               <li>' +
+            '                   <a class="item-link link external item-content text-color-white op" target="_blank"' +
+            '                       data-href="https://icons8.com" href="https://icons8.com">Icon pack by Icons8</a>' +
+            '               </li>' +
             '           </ul>' +
             '       </div>' +
             '   </div>' +
@@ -164,12 +168,16 @@ var app = new Framework7({
             '        </div>' +
             '    </div>' +
             '    <div class="page-content" id="content">' +
+            '       <div class="block" style="margin: 2% 0">Wählen Sie eine Zone um die Master-Lautstärke zu regulieren.</div>' +
             '       <div class="list" style="margin: 0">' +
             '           <ul id="devicelist">' +
             '           </ul>' +
             '           <template id="devicetemplate">' +
             '               <li class="item-content">' +
-            '                   <div class="item-inner">' +
+            '                   <div class="item-media">' +
+            '                        <img class="op" style="width: 40%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAK9SURBVGhD7Zk/aBRBGMVPLwkWahALFUTRRonEQhMQtAykMEIQRNFCxCZFCkEr0UJEEFOlCViolUIugihJoxaKgk1QtPEfCkZJYaGxUDHG0993vrvkuL25C2T3ZsP84PHtvpnJvo/LbG43mcBiIJ/Pr0RX0Ne/guMJdFJT0gGBbyh/BYwd0zS/Iesywk6j72i9bGvukBq5L8tvyLpBgT/IKsB5u/wXshoDGZrQqlqaE7hqI5Qsily/gFquS8+C2USA99S6cTVSPI4brnNCl/8P3lL0gIEvtcS8Kf0QVyNtNjdmfUZHdPn5Q1a/90i9LKZGbD/9QL/Qbs7tBrAanVIjY5rqP4QdtNBRMNajaf5D3mYCn0FP0TvpIdqvKYFAIFAJN4+1aLPULDs9cJdrR/YlswTnP9FpTfEfMtsf1jcKP0EZpz5H0+ZBr6b6DYGLX2leUrKyze+Tf02W35B1jwI/klWA873yR2XNDxauYf3OpMT1jlOdjVBaUbX126mlT7IARgsDpTciSeJqpHhcDcbPadksmFcZG09KXO8VtdYnYr9+1dY/Qd1a1jgIE88eSRpHIz3y78jyG4Kus8AwxfE+qm3gXWjETOolTfUfwtq+jMKa26hp/kPgLIH70W10TxpCmzQlEAg0AjanvT3poHZJW9ESDacDGtiCXhO8DLy7lMo3475C4McKbk90OepN9FHegKb5DVntv1R/qPYmvkW2NbdDjTyT5TdktecCC1z24hor8oV2QyGPPbAciBJBj1KdjVCs2cj1MakXle9NjFbC/KY6cTWCEvkv1Vy4ZuXexLzAWC5KjN2i1vpE7DhyfRzimtdRh6LUBwvTs0dcEHSFAk/KKoBlbwbNfyvLfwj7SaHPU+wGcBANmwc5TfMfQh9GMwpeAu8b2qZp6YDAnWS/SL0snUXpeZILJEYm8w+aOmYFewA5rAAAAABJRU5ErkJggg==">' +
+            '                   </div>' +
+            '                   <div class="item-inner" style="margin-left: 0">' +
             '                       <div class="item-title text-color-white op"></div>' +
             '                       <div class="item-subtitle text-color-white op"></div>' +
             '                   </div>' +
@@ -229,6 +237,7 @@ var app = new Framework7({
                                         .find('.item-title').text(dev.name).end()
                                         .find('.item-subtitle').text(dev.mode).end()
                                         .click(function () {
+                                            app.dialog.progress();
                                             $.get('http://' + document.location.hostname + '/api/helper.php?vol&dev=' + dev.id,
                                                 function (data) {
                                                 var playersName = ["MPD", "Squeezebox", "Airplay & Spotify", "Line-In"];
@@ -262,6 +271,7 @@ var app = new Framework7({
                                                     '</div>',
                                                     on: {
                                                         open: function (popup) {
+                                                            app.dialog.close();
                                                             $('#pop-title').text(dev.name).attr('dev', dev.id);
                                                             var c2 = 0;
                                                             vol.forEach(function (volEl) {
@@ -302,6 +312,9 @@ var app = new Framework7({
                            }
                         });
                     });
+                },
+                pageBeforeOut: function (event, page) {
+                    app.dialog.close();
                 }
             }
         }

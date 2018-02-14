@@ -28,7 +28,7 @@ a {
     display: flex;
     position: absolute;
     top: -1.8%;
-    right: 5%;
+    right: 8%;
 }
 
 div.navbar-background {
@@ -106,6 +106,7 @@ button.btn {
 
     .nav-player-name {
         top: -4.5%;
+        right: 4%;
     }
 
     div.modal-body {
@@ -149,6 +150,7 @@ button.btn {
 
     .nav-player-name {
         top: -10%;
+        right: 3%;
     }
 
     div.modal-body {
