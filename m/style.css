@@ -1,6 +1,7 @@
 a {
     text-decoration: none !important;
 }
+
 .ios .theme-dark .navbar {
     background: transparent;
 }
@@ -41,7 +42,7 @@ div.navbar-background {
 }
 
 .covermain {
-    width:50%;
+    width: 50%;
     max-width: 100%;
     max-height: 100%;
     display: block;
@@ -138,7 +139,6 @@ button.btn {
         width: 40%;
     }
 
-
     .bottomcontrols {
         bottom: 10%;
     }
@@ -175,6 +175,25 @@ button.btn {
     }
 }
 
+
+@media (orientation: landscape) and (max-width: 812px) {
+    .covermain {
+        width: 0%;
+    }
+
+    .nav-player-name {
+        top: -28%;
+    }
+
+    .panel.panel-left.panel-cover {
+        padding-left: 20px;
+    }
+
+    div.modal-body {
+        width: 100%;
+    }
+}
+
 /* Phone Landscape */
 @media (max-width: 766px) and (orientation: landscape) {
     .covermain {
@@ -197,7 +216,6 @@ button.btn {
         right: 5%;
         display: flex;
     }
-
 
     div.modal-body {
         width: 100%;
@@ -225,13 +243,32 @@ button.btn {
 }
 
 /* iPhone 5 landscape */
-@media (max-width: 568px) and (orientation: landscape){
+@media (max-width: 568px) and (orientation: landscape) {
     .covermain {
         width: 0%;
     }
 
     .nav-player-name {
         top: -25.5%;
+    }
+}
+
+@media (orientation: portrait) and (max-width: 375px) and (min-width: 374px) {
+    .page-content {
+        margin-top: 25px;
+        height: calc(100% - 25px);
+    }
+
+    .navbar {
+        margin-top: 25px;
+    }
+
+    .controls.block.bottomcontrols {
+        margin: 80px 0;
+    }
+
+    .panel.panel-left.panel-cover {
+        margin-top: 25px;
     }
 }
 
@@ -252,26 +289,46 @@ ol.playlist.active {
     z-index: auto;
 }
 
-.progress { border-radius: 0; }
-.progress.duration { background: rgba(0, 0, 0, 0); }
-.progress.duration .progress-title {
-                                     overflow: hidden;
-                                     white-space: nowrap; }
+.progress {
+    border-radius: 0;
+}
 
-.player button.pause { display: none; }
+.progress.duration {
+    background: rgba(0, 0, 0, 0);
+}
+
+.progress.duration .progress-title {
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.player button.pause {
+    display: none;
+}
 
 .player.stopped button.play,
 .player.paused button.play,
-.player.playing button.pause { display: inline; }
+.player.playing button.pause {
+    display: inline;
+}
 
 .player.playing button.play,
 .player.paused button.pause,
-.player.stopped button.pause { display: none; }
+.player.stopped button.pause {
+    display: none;
+}
 
-.player.synced button.sync { display: inline; }
-.player.unsynced button.unsync { display: none; }
+.player.synced button.sync {
+    display: inline;
+}
 
-.player.unsynced span.synced-icon { display: none; }
+.player.unsynced button.unsync {
+    display: none;
+}
+
+.player.unsynced span.synced-icon {
+    display: none;
+}
 
 /* faster sliding speed */
 .carousel-item {
@@ -329,6 +386,7 @@ button {
     padding: 0;
     margin: 0;
 }
+
 .range-slider__range::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
@@ -340,12 +398,15 @@ button {
     -webkit-transition: background 0.15s ease-in-out;
     transition: background 0.15s ease-in-out;
 }
+
 .range-slider__range::-webkit-slider-thumb:hover {
     background: #ffffffcc;
 }
+
 .range-slider__range:active::-webkit-slider-thumb {
     background: #ffffffcc;
 }
+
 .range-slider__range::-moz-range-thumb {
     width: 20px;
     height: 20px;
@@ -356,9 +417,11 @@ button {
     -webkit-transition: background 0.15s ease-in-out;
     transition: background 0.15s ease-in-out;
 }
+
 .range-slider__range::-moz-range-thumb:hover {
     background: #ffffffcc;
 }
+
 .range-slider__range:active::-moz-range-thumb {
     background: #ffffffcc;
 }
@@ -375,6 +438,7 @@ button {
     padding: 5px 10px;
     margin-left: 8px;
 }
+
 .range-slider__value:after {
     position: absolute;
     top: 8px;
@@ -401,34 +465,42 @@ input::-moz-focus-outer {
 .marquee {
     overflow: hidden;
 }
+
 .marquee.marquee-speed-drowsy:before {
     -webkit-animation-duration: 30s;
     animation-duration: 30s;
 }
+
 .marquee.marquee-speed-slow:before {
     -webkit-animation-duration: 20s;
     animation-duration: 20s;
 }
+
 .marquee.marquee-speed-custom:before {
     -webkit-animation-duration: inherit;
     animation-duration: inherit;
 }
+
 .marquee.marquee-speed-normal:before {
     -webkit-animation-duration: 10s;
     animation-duration: 10s;
 }
+
 .marquee.marquee-speed-fast:before {
     -webkit-animation-duration: 7s;
     animation-duration: 7s;
 }
+
 .marquee.marquee-speed-swift:before {
     -webkit-animation-duration: 5s;
     animation-duration: 5s;
 }
+
 .marquee.marquee-speed-hyper:before {
     -webkit-animation-duration: 2s;
     animation-duration: 2s;
 }
+
 @-webkit-keyframes movement-smooth {
     from {
         -webkit-transform: translateX(-0%);
@@ -441,6 +513,7 @@ input::-moz-focus-outer {
         left: 95%;
     }
 }
+
 @keyframes movement-smooth {
     from {
         -webkit-transform: translateX(-0%);
@@ -453,6 +526,7 @@ input::-moz-focus-outer {
         left: 95%;
     }
 }
+
 @-webkit-keyframes movement-steps20 {
     0% {
         -webkit-transform: translateX(25%);
@@ -579,6 +653,7 @@ input::-moz-focus-outer {
         left: 25%;
     }
 }
+
 @keyframes movement-steps20 {
     0% {
         -webkit-transform: translateX(0%);
@@ -705,6 +780,7 @@ input::-moz-focus-outer {
         left: 0%;
     }
 }
+
 @-webkit-keyframes movement-steps10 {
     0% {
         -webkit-transform: translateX(0%);
@@ -771,6 +847,7 @@ input::-moz-focus-outer {
         left: 0%;
     }
 }
+
 @keyframes movement-steps10 {
     0% {
         -webkit-transform: translateX(0%);
@@ -837,6 +914,7 @@ input::-moz-focus-outer {
         left: 0%;
     }
 }
+
 @-webkit-keyframes movement-steps5 {
     0%,
     19.99% {
@@ -874,6 +952,7 @@ input::-moz-focus-outer {
         left: 0%;
     }
 }
+
 @keyframes movement-steps5 {
     0%,
     19.99% {
@@ -911,36 +990,44 @@ input::-moz-focus-outer {
         left: 0%;
     }
 }
+
 .marquee.marquee-movement-smooth:before {
     -webkit-animation-name: movement-smooth;
     animation-name: movement-smooth;
 }
+
 .marquee.marquee-movement-steps20:before {
     -webkit-animation-name: movement-steps20;
     animation-name: movement-steps20;
 }
+
 .marquee.marquee-movement-steps10:before {
     -webkit-animation-name: movement-steps10;
     animation-name: movement-steps10;
 }
+
 .marquee.marquee-movement-steps5:before {
     -webkit-animation-name: movement-steps5;
     animation-name: movement-steps5;
 }
+
 .marquee.marquee-direction-left:before,
 .marquee.marquee-direction-normal:before {
     -webkit-animation-direction: normal;
     animation-direction: normal;
 }
+
 .marquee.marquee-direction-alternate:before {
     -webkit-animation-direction: alternate;
     animation-direction: alternate;
 }
+
 .marquee.marquee-direction-right:before,
 .marquee.marquee-direction-reverse:before {
     -webkit-animation-direction: reverse;
     animation-direction: reverse;
 }
+
 .marquee:before {
     content: attr(data-marquee);
     white-space: nowrap;
@@ -953,14 +1040,17 @@ input::-moz-focus-outer {
     -webkit-animation: linear infinite;
     animation: linear infinite;
 }
+
 .marquee:before {
     -webkit-animation-duration: 10s;
     animation-duration: 10s;
 }
+
 .marquee:before {
     -webkit-animation-name: movement-smooth;
     animation-name: movement-smooth;
 }
+
 .marquee:before {
     -webkit-animation-direction: normal;
     animation-direction: normal;
