@@ -268,7 +268,7 @@ function player_created(_, server, player) {
 
     from_template('#volumes template')
         .addClass(player.html_id)
-        .appendTo('#volumes .modal-body').find('.player-name').attr('data-slide-to', idx);
+        .appendTo('#volumes .modal-body').find('.vol-player-name').attr('data-slide-to', idx);
 
     [false, true]
         .forEach(sync =>
