@@ -115,19 +115,18 @@ var app = new Framework7({
                                                         function(response, status, xhr) {
                                                             console.log('reboot: ' + status);
                                                             setInterval(function () {
-                                                                $.ajax({
-                                                                    url: 'http://' + document.location.hostname + ':' +
-                                                                        document.location.port + '/m/',
-                                                                    success: function (result) {
+                                                                $('#updatelink').load('http://' + document.location.hostname + ':' +
+                                                                    document.location.port + '/m/',
+                                                                    function(response, status, xhr) {
+                                                                    if(status == "success") {
                                                                         setTimeout(function () {
                                                                             location.reload(true);
                                                                         }, 10000);
-                                                                    },
-                                                                    error: function () {
-                                                                        console.log("down");
+                                                                    } else {
+                                                                        console.log('error');
                                                                     }
                                                                 })
-                                                            }, 3000);
+                                                            }, 4000);
                                                     });
                                                 } else {
                                                     console.log('update failed');

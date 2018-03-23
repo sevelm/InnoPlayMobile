@@ -30,6 +30,7 @@ a {
     position: absolute;
     top: -1.8%;
     right: 8%;
+    white-space: nowrap;
 }
 
 div.navbar-background {

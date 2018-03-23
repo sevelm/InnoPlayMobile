@@ -163,13 +163,6 @@ function server_ready(_, server) {
         player_activated(server.players[ev.to]);
     });
 
-    //let shortcuts = [
-    //    {title: 'Favorites',   cmd: 'favorites',   icon: 'fa-star'},
-    //    {title: 'Radio',       cmd: 'presets',     icon: 'fa-podcast'}, /* no fa-antenna */
-    //    {title: 'Podcasts',    cmd: 'podcasts',    icon: 'fa-rss'}, /* later, switch to fa-podcast */
-    //    {title: 'Pocketcasts', cmd: 'pocketcasts', icon: 'fa-rss'}, /* later, switch to brand icon */
-    //    {title: 'Spotify',     cmd: 'spotty',      icon: 'fa-spotify'},
-    //    {title: 'Blah',        cmd: 'dummy',       icon: 'fa-question'}];
     let shortcuts = [
         {title: 'Favoriten',    cmd: 'favorites',   icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPTSURBVGhD7ZldaE5xHMe3eZuZ2IX3WYobo7hByJS4kom5ok1IU6jlZsxyQWlyZXOjkFhSJFuWcUV5jRQJo8iFC6vZ0Gw223x+Z98zVp495zzP2XN2cT717X/O9///vZzn/fyftIiIiIiIiLDo6+vLQFk6TZje3t4JOkwNND2ZortRPfqMuvH6GFvQc3QMzdfy/8LyMazZgK6gd6hDOdrRa1SD1mClKyQ4SDwOlaNWK+rCeRf6inpkOXB+Hc1S+AB4heiTljlw/pOhrf/sL/iP0CqFJg/JZqCHym8FbqJi87XEfZSXomrUonXfUaHmx3J80XzxjPM9aLaTADi2B2sROoyci2W0B+ggSu7ZIdG0f5I2oRWaiglLs1l3TjH2jNlF1+ncXoJbtDQmLM1k3SHkvnSrNeUfJXtsieAuytGUJ4jdiXr7w51m3qOBZ8ALhK0lpl3xpbL9QWC5EjQxTJLtC2IrLQe0cTzkh0AsiCtChn0YDLycPUHhHIKcNzbjStm+ITyd+EZUJCshiK9VL2dkeYOAnQpskJUw5Jiow4ShlTnk6UE/0DjZ8WFxvS6kRFbo0Mt99bReVnxY/FFBubJCh16OqqcKWfFhcSeyz/DRskKHfkp1IadlDY01r4BOWSMC+ilRX+dkxYfF3ywIkv5BGBT0VGYNMZ6UFR8Wv1HQAlmhQy+n1NMBWfFh8WUF7ZAVOvTyRD2tlhUfFu9T0FVZoUIfU1E3+kVb2bLjQ8BMZF9Adq8wWXZo0If7/rghyzsE3VJwpaxQoAW7RXC/1zbJ9g5BBQq2G6cpslMOtfeqj1cMGbL9QfAdJamVlVKom0t55+6R482y/UPwXGS3opZom+yUQMlR1Lyn2nWyE4ck7lNr9wNLZA871KpR3S/I331ILEh0SUm/MiyWPWxQ57jq2UdugezkIZltDDQqeTNaqKnAIfcR1TG2yw4Oko5Ht1XEnu7lmgoE0tpmX5XyG2WaCh5qZFHA/SSzn/rFmkoK0tnOi7vTYl/EiW00+IFameiCFTUoeoIh4fsW4uehl8ple2EbNZUaKFiGfquBBwx5mvIMcVuRc8vAaNtF+ZpKLRReh5rVSCvytFvCcnspnbc4g+MGBl/7ZoFDA9NpxPldZnB8liHmL1TmlyDbK7O1HWg/h8FvWCeCNWINWWNq0HbZB315Ymfg2TZol9a8QCPmxm0QNJaPnqpR2/etsAtAeci2Xc2391UVo/f9qTCgydF2AXYhatz+HrBfBHb8FgX6/TPs0PAy9MEuwODY/lbwfnc3kqBx+4frGtolKyIiIiIC0tL+AJigFSdcHTWuAAAAAElFTkSuQmCC'},
         {title: 'Apps',         _cmd: 'apps',        icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAL4SURBVGhD7ZZLSFRhGIbV0OxGNzXKsghD3ARdpI0RJUR0IWyRbdoUQrQQAgNt1QWCglppKW4iWklFWJpBtKlFF4ggEkIJgy5mUS5SyGrs+Y7vHJr+GS/b+B54+f//fd9vTqc5M2OW4ziO4ziO4ziO40zO2NhYbiKRKEZL2efInjLMzUQr0BJZ04K5WVx3FetiWdNDF2/jRYZQBOcBdI7tfNUyQq+cXjvrSDQM7PvRCbb5qmWE3ibUjUbHp6P5V+gI2xmqTQzlCvRZw8Zb9M7OBvteltWqB5DvQsPq/kJv0KCdDfZPWRaqHkBea3PqjqI+9NXOBvvbLHmqp4dCAcXooqzX0UpFdoG16JGyFyy5imLwy1HyJi6xFCiy167E61HWJTsF/K3Ibt5u5CTrPPPZ57Dfid5r/nI0kAkK9uhYsZMlW3YM3myyl+oclh2D3a6sWVYK+IVoQJ1tsmPwniirl5UCfhkaQXaza2SHENpjY2yQFUCnxgqsnbIisPLwkhcplB1AZp8Tm2+SFcF5ufwvLMG7nYS8Vb3jskIIf6Lf9IJ3Iwl5qV7otawIrBL5vbLSQl6l3j1ZEZy3yL8vKy3kh9RrkRVC+N1KMFdWAJ11VmB9LiuCc5H8QVlpId+n3g1ZEZwr5D+TlRbyY+pdlBVC+EClg7ICyE6r0yorBq/fMqiUFUDnmjoNsiI42+cv+WjGXzL/QvbQhlkPyAqxUKVPqFR2DN5mNIyM9bJj8Bo134OKZMfg7UeGvUax7Bi8Fs3bf2jwVODXK/+A5sgOoZNN4ZaVYYj9WbQD7UFN6IcFrOc1kgJRPtljdT6iRrQdVaOryD5/lh3VSApE9vXfp04vqkNVqAZ1yLd3bLdGMkM3H12hnLDBv8GyL4MzbDP+uUK+CN0dn0gF3x6dtDeRhFoJHfvRDMD/hqpVnRoMbEQX0B3UgU6hMsWTQtd+3JpRF7rJv6OBdZniCaFrP4B7URvq5mx/7tSxLlDFcRzHcRzHcRzHcf5vsrL+ACxwI8ofIZf1AAAAAElFTkSuQmCC'},
@@ -307,21 +300,6 @@ function player_created(_, server, player) {
         $elm.find('.volume .range-slider__value').text($(this).val());
         console.log('slide: ' + sliding);
     });
-
-    //$elm.find('.progress.volume').click(e => {
-    //    /* FIXME: Also allow sliding the volume control */
-    //    let $this = $(e.currentTarget);
-    //    let x = e.pageX - $this.offset().left;
-    //    let level = 100 * x / $this.width();
-    //    /* Prevent accidental volume explosions */
-    //    let THRESHOLD = 30;
-    //    if (level < THRESHOLD)
-    //        player.volume = level;
-    //    else if (level > player.volume)
-    //        player.volume_up();
-    //    else
-    //        player.volume_down();
-    //});
 
     $elm.find('.progress.duration').click(e => {
         let $this = $(e.currentTarget);
@@ -492,8 +470,7 @@ function player_updated(_, server, player) {
         .text(player.is_stream ?
               format_time(player.track_position) :
               [format_time(player.track_position),
-               format_time(player.track_duration)/*,
-               format_time(player.track_remaining)*/].join(' | '));
+               format_time(player.track_duration)].join(' | '));
     /*$elm.find('.volume .progress-bar')
         .width(player.volume + '%');*/
     if(player.volume != $elm.find('.volume .range-slider__range').val()
