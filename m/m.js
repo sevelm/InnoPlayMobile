@@ -129,6 +129,7 @@ function rescaled($img, context, url) {
 /* ------------------------------------------------------------------------ */
 
 var sliding = false;
+var menuback = undefined;
 var active_player = null;
 
 $('.carousel').carousel({interval:false}); /* Do not auto-rotate */
@@ -332,7 +333,7 @@ function player_activated(player) {
 }
 
 function browse_menu(menus) {
-
+    menuback = menus;
     $('#browsetitle').text(menus[menus.length - 1].title);
     $('#browser .breadcrumb')
         .empty()
@@ -347,6 +348,16 @@ function browse_menu(menus) {
                             browse_menu(menus.slice(0, idx));
                         })))
                );
+
+    $('#browseback').off('click');
+    $('#browseback').click(() => {
+        if(menuback == undefined || menuback.length <= 1) {
+            $('#browseback').attr('data-dismiss', 'modal');
+            window.location.href = "/m";
+        } else {
+            browse_menu(menuback.slice(0, menuback.length-1));
+        }
+    });
 
     function browse_level(parent, ...params) {
         if(parent.cmd == "search") {
