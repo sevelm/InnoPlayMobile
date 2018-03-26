@@ -1,6 +1,26 @@
 a {
     text-decoration: none !important;
 }
+.search {
+    display: none;
+}
+
+.item-input-wrap {
+    border-bottom: 1px solid white;
+    height: 10%;
+}
+
+.search.active {
+    display: block;
+}
+
+.inputsearch {
+    color: white;
+}
+
+.inputsearch::placeholder {
+    color: white;
+}
 
 .ios .theme-dark .navbar {
     background: transparent;
@@ -113,6 +133,7 @@ button.btn {
 
     div.modal-body {
         width: 70%;
+        margin: auto;
     }
 
     .volume .progress {

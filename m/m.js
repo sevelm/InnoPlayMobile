@@ -349,6 +349,9 @@ function browse_menu(menus) {
                );
 
     function browse_level(parent, ...params) {
+        if(parent.cmd == "search") {
+            parent.name = $('#search').val();
+        }
         params.splice(params.slice(-1)[0] instanceof Object ? -1 : params.length, 0, 0, 99);
         active_player.query(...params).then(
             res => browse_menu(
@@ -369,9 +372,15 @@ function browse_menu(menus) {
             $('.modal.show').modal('hide');
         } else if (item._cmd)
             browse_level(item, item._cmd, {want_url: 1})
-        else if (item.cmd)
-            browse_level(item, item.cmd, 'items', {want_url: 1})
-        else if (item.id && item.hasitems)
+        else if (item.cmd) {
+            if(item.cmd != "search") {
+                browse_level(item, item.cmd, 'items', {want_url: 1})
+            } else {
+                if($('#search').val() != undefined && $('#search').val() != "") {
+                    browse_level(item, item.cmd, 'items', {want_url: 1, search: $('#search').val()})
+                }
+            }
+        } else if (item.id && item.hasitems)
             browse_level(item, context, 'items', {item_id: item.id, want_url: 1});
         else if (item.id && item.type == 'folder')
             browse_level(item, 'musicfolder', {type: 'audio', folder_id: item.id, tags: 'cdu'})
@@ -384,24 +393,62 @@ function browse_menu(menus) {
     $('#browser .menu')
         .empty()
         .append(menu.items.map(
-            item =>
-                from_template('#menu-item-template')
-                .find('.title')
-                .text(item.name || item.title || item.filename)
-                .end()
-                .find('img.icon2')
-                    .attr('src', /fa-/.test(item.icon) ? item.icon : '')
-                .end()
-                .find('img.icon')
-                .each((_, img) => rescaled(
-                    $(img),
-                    'browser',
+            item => {
+                if(item.cmd == "search")
+                {
+                    return from_template('#menu-item-template')
+                        .find('.title')
+                        .attr('display', 'none')
+                        .end()
+                        .find('.search')
+                        .addClass('active')
+                        .keypress(function(e) {
+                            if(e.keyCode == 13) {
+                                menu_item_clicked(menu.context, item);
+                            }
+                        })
+                        .end()
+                        .find('.item-content')
+                        .addClass('item-input')
+                        .end()
+                        .find('img.icon2')
+                        .attr('src', /fa-/.test(item.icon) ? item.icon : '')
+                        .end()
+                        .find('img.icon')
+                        .each((_, img) => rescaled(
+                        $(img),
+                        'browser',
                         /fa-/.test(item.icon) ? '' :
-                        item.icon ||
-                        item.image ||
-                        '/music/' + (item.coverid || item.id) + '/cover.jpg', true))
-                .end()
-                .click(() => menu_item_clicked(menu.context, item))
+                            item.icon ||
+                            item.image ||
+                            '/music/' + (item.coverid || item.id) + '/cover.jpg', true))
+                        .end()
+                        .find('img.icon')
+                        .click(() => menu_item_clicked(menu.context, item))
+                        .end();
+                } else {
+                    return from_template('#menu-item-template')
+                        .find('.title')
+                        .text(item.name || item.title || item.filename)
+                        .end()
+                        .find('.search')
+                        .remove()
+                        .end()
+                        .find('img.icon2')
+                        .attr('src', /fa-/.test(item.icon) ? item.icon : '')
+                        .end()
+                        .find('img.icon')
+                        .each((_, img) => rescaled(
+                        $(img),
+                        'browser',
+                        /fa-/.test(item.icon) ? '' :
+                            item.icon ||
+                            item.image ||
+                            '/music/' + (item.coverid || item.id) + '/cover.jpg', true))
+                        .end()
+                        .click(() => menu_item_clicked(menu.context, item));
+                }
+            }
         ));
 }
 
