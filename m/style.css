@@ -120,6 +120,10 @@ button.btn {
     opacity: 0.7;
 }
 
+.w-100-land {
+
+}
+
 /* Tablet Portrait */
 @media (min-width: 767px) and (orientation: portrait) {
     .bottomcontrols {
@@ -197,6 +201,11 @@ button.btn {
     }
 }
 
+@media (orientation: landscape) and (min-width: 813px) {
+    .w-100-land {
+        width: 100%;
+    }
+}
 
 @media (orientation: landscape) and (max-width: 812px) {
     .covermain {
@@ -204,10 +213,14 @@ button.btn {
     }
 
     .nav-player-name {
-        top: -28%;
+        top: -44%;
     }
 
     .panel.panel-left.panel-cover {
+        padding-left: 20px;
+    }
+
+    .side-padding {
         padding-left: 20px;
     }
 

@@ -31,10 +31,10 @@ var app = new Framework7({
             '           <div class="title">Allgemein</div>' +
             '       </div>' +
             '   </div>' +
-            '   <div class="page-content">' +
+            '   <div class="page-content side-padding">' +
             '       <div class="list" style="margin: 0">' +
             '           <ul>' +
-            '               <li class="item-divider ">InnoTune-Version</li>' +
+            '               <li class="item-divider">InnoTune-Version</li>' +
             '               <li class="item-content">' +
             '                   <div class="item-inner">' +
             '                       <div id="actual" class="item-title text-color-white op">Aktuell: </div>' +
@@ -166,7 +166,7 @@ var app = new Framework7({
             '            <div class="title">Master-Lautstärke</div>' +
             '        </div>' +
             '    </div>' +
-            '    <div class="page-content" id="content">' +
+            '    <div class="page-content side-padding" id="content">' +
             '       <div class="block" style="margin: 2% 0">Wählen Sie eine Zone um die Master-Lautstärke zu regulieren.</div>' +
             '       <div class="list" style="margin: 0">' +
             '           <ul id="devicelist">' +
@@ -249,7 +249,7 @@ var app = new Framework7({
                                                     '       style="text-align: center; padding: 15px; font-weight: bold;' +
                                                     '       background: black"></div>' +
                                                     '   <div class="list" style="margin: 0">' +
-                                                    '       <ul id="vollist"></ul>' +
+                                                    '       <ul id="vollist" class="side-padding"></ul>' +
                                                     '       <template id="voltemplate">' +
                                                     '           <li class="item-content" style="display: block;' +
                                                     '               padding: 15px">' +
