@@ -264,6 +264,10 @@ button.btn {
     .popup-mv {
         background-color: black;
     }
+
+    .panel.panel-left.panel-cover {
+        padding-left: 0;
+    }
 }
 
 /* iPhone 5 portrait */
@@ -288,6 +292,7 @@ button.btn {
     }
 }
 
+/* iPhone X portrait */
 @media (orientation: portrait) and (max-width: 375px) and (min-width: 374px) and (min-height: 800px) {
     .page-content {
         margin-top: 25px;
