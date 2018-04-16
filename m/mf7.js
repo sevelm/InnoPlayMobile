@@ -10,6 +10,9 @@ var app = new Framework7({
         swipe: 'left'
     },*/
     // Add default routes
+    toast: {
+        closeTimeout: 3000
+    },
     routes: [
         {
             name: 'index',

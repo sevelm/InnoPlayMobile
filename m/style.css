@@ -401,6 +401,10 @@ button {
     background-color: white;
 }
 
+.op-menu {
+    opacity: 0.7;
+}
+
 .op {
     opacity: 0.5;
 }

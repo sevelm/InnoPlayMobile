@@ -375,9 +375,30 @@ function browse_menu(menus) {
         log('Clicked', item);
         if (item.id && item.isaudio) {
             active_player._command(context, 'playlist', 'play', {item_id: item.id});
-            $('.modal.show').modal('hide');
             $('#b').removeClass('tab-active');
             $('#index').addClass('tab-active');
+            var displayname = item.name || item.title || item.filename;
+            var closedByButton = false;
+            app.toast.create({
+                text: displayname + ' wird abgespielt',
+                position: 'bottom',
+                closeButton: true,
+                closeButtonColor: 'blue',
+                closeButtonText: 'Zurück',
+                on: {
+                    closeButtonClick: function () {
+                        closedByButton = true;
+                        browse_menu(menuback.slice(0, menuback.length));
+                        $('#index').removeClass('tab-active');
+                        $('#b').addClass('tab-active');
+                    },
+                    closed: function () {
+                        if(!closedByButton) {
+                            $('.modal.show').modal('hide');
+                        }
+                    }
+                }
+            }).open();
         } else if (item.url && item.type == 'audio') {
             active_player.playlist_play(decodeURIComponent(item.url));
             $('.modal.show').modal('hide');
