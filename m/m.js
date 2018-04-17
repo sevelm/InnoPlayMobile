@@ -353,7 +353,9 @@ function browse_menu(menus) {
     $('#browseback').click(() => {
         if(menuback == undefined || menuback.length <= 1) {
             $('#browseback').attr('data-dismiss', 'modal');
-            window.location.href = "/m";
+            //window.location.href = "/m";
+            $('#b').removeClass('tab-active');
+            $('#index').addClass('tab-active');
         } else {
             browse_menu(menuback.slice(0, menuback.length-1));
         }
@@ -377,28 +379,27 @@ function browse_menu(menus) {
             active_player._command(context, 'playlist', 'play', {item_id: item.id});
             $('#b').removeClass('tab-active');
             $('#index').addClass('tab-active');
-            var displayname = item.name || item.title || item.filename;
-            var closedByButton = false;
-            app.toast.create({
-                text: displayname + ' wird abgespielt',
-                position: 'bottom',
-                closeButton: true,
-                closeButtonColor: 'blue',
-                closeButtonText: 'Zurück',
-                on: {
-                    closeButtonClick: function () {
-                        closedByButton = true;
-                        browse_menu(menuback.slice(0, menuback.length));
-                        $('#index').removeClass('tab-active');
-                        $('#b').addClass('tab-active');
-                    },
-                    closed: function () {
-                        if(!closedByButton) {
-                            $('.modal.show').modal('hide');
-                        }
-                    }
-                }
-            }).open();
+            $('#imgmenu').removeClass('panel-open');
+            $('#imgmenuinno').removeClass('panel-open');
+            var onclickimg = function () {
+                browse_menu(menuback.slice(0, menuback.length));
+                $('#index').removeClass('tab-active');
+                $('#b').addClass('tab-active');
+                $('#imgmenu').addClass('panel-open');
+                $('#imgmenuinno').addClass('panel-open');
+                $('#imgmenu').unbind('click.img', onclickimg);
+                $('#imgmenuinno').unbind('click.img', onclickimg);
+                $('#imgmenuinno').css('padding', '1% 2% 1% 1%');
+                $('#imgmenu').css('padding', '1% 0 1% 1%');
+                $('#imgmenu').css('width', '3.1%');
+                $('#imgmenu').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABySURBVGhD7dYxDcMwEAVQz91CICAaLGFQEAGRuSCKJVgKwc5VMoMog6/vSd+eT/rDLwBwRWttSpDH75Dh1VrfJZ5vguy9YAAA3CHG45Igc54ZH/+RIFsvGAAAd4jBtY6eWL/PVDP+M3rikFcvGAD8s1JOw45ozjHglY0AAAAASUVORK5CYII=');
+            };
+            $('#imgmenu').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACqSURBVGhD7dqxDYMwGERhj5AmBemzZEbIeqlSZw87B/JPQUF9h94nWUKWCz8ZKtMAeBpj3OZjrt77Q+Or8Z5TeSpCJ7KJjDlGFM295hJ/JxE/jedc5o0IF0S4IMIFES6IcEGECyJcaKPLFSLuGp+5911UxOoyISttOP/VKtpw/sdeiHFFjCtiXBHjihhXxLgixtVJTM7VWznG6Dn/Zjc6ougw8n8YAGK09gcbiWp3uUSN/gAAAABJRU5ErkJggg==');
+            $('#imgmenu').bind('click.img', onclickimg);
+            $('#imgmenuinno').bind('click.img', onclickimg);
+            $('#imgmenuinno').css('padding', '1% 3% 1% 0');
+            $('#imgmenu').css('padding', '1% 0 1% 0');
+            $('#imgmenu').css('width', '2.6%');
         } else if (item.url && item.type == 'audio') {
             active_player.playlist_play(decodeURIComponent(item.url));
             $('.modal.show').modal('hide');
