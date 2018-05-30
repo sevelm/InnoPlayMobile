@@ -316,6 +316,173 @@ var app = new Framework7({
                     app.dialog.close();
                 }
             }
+        },
+        {
+            name: 'equal',
+            path:'/equal/',
+            content:'<div data-name="equal" class="page">' +
+            '    <div class="navbar">' +
+            '        <div class="navbar-inner">' +
+            '            <div class="left">' +
+            '                <a class="link back" href="/">' +
+            '                    <i class="icon icon-back"></i>' +
+            '                    <span class="ios-only">Zurück</span>' +
+            '                </a>' +
+            '            </div>' +
+            '            <div class="title">Equalizer</div>' +
+            '        </div>' +
+            '    </div>' +
+            '    <div class="page-content side-padding" id="content">' +
+            '       <div class="block" style="margin: 2% 0">Wählen Sie eine Zone um den Equalizer zu regulieren.</div>' +
+            '       <div class="list" style="margin: 0">' +
+            '           <ul id="devicelist">' +
+            '           </ul>' +
+            '           <template id="devicetemplate">' +
+            '               <li class="item-content">' +
+            '                   <div class="item-media">' +
+            '                        <img class="op" style="width: 40%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAK9SURBVGhD7Zk/aBRBGMVPLwkWahALFUTRRonEQhMQtAykMEIQRNFCxCZFCkEr0UJEEFOlCViolUIugihJoxaKgk1QtPEfCkZJYaGxUDHG0993vrvkuL25C2T3ZsP84PHtvpnJvo/LbG43mcBiIJ/Pr0RX0Ne/guMJdFJT0gGBbyh/BYwd0zS/Iesywk6j72i9bGvukBq5L8tvyLpBgT/IKsB5u/wXshoDGZrQqlqaE7hqI5Qsily/gFquS8+C2USA99S6cTVSPI4brnNCl/8P3lL0gIEvtcS8Kf0QVyNtNjdmfUZHdPn5Q1a/90i9LKZGbD/9QL/Qbs7tBrAanVIjY5rqP4QdtNBRMNajaf5D3mYCn0FP0TvpIdqvKYFAIFAJN4+1aLPULDs9cJdrR/YlswTnP9FpTfEfMtsf1jcKP0EZpz5H0+ZBr6b6DYGLX2leUrKyze+Tf02W35B1jwI/klWA873yR2XNDxauYf3OpMT1jlOdjVBaUbX126mlT7IARgsDpTciSeJqpHhcDcbPadksmFcZG09KXO8VtdYnYr9+1dY/Qd1a1jgIE88eSRpHIz3y78jyG4Kus8AwxfE+qm3gXWjETOolTfUfwtq+jMKa26hp/kPgLIH70W10TxpCmzQlEAg0AjanvT3poHZJW9ESDacDGtiCXhO8DLy7lMo3475C4McKbk90OepN9FHegKb5DVntv1R/qPYmvkW2NbdDjTyT5TdktecCC1z24hor8oV2QyGPPbAciBJBj1KdjVCs2cj1MakXle9NjFbC/KY6cTWCEvkv1Vy4ZuXexLzAWC5KjN2i1vpE7DhyfRzimtdRh6LUBwvTs0dcEHSFAk/KKoBlbwbNfyvLfwj7SaHPU+wGcBANmwc5TfMfQh9GMwpeAu8b2qZp6YDAnWS/SL0snUXpeZILJEYm8w+aOmYFewA5rAAAAABJRU5ErkJggg==">' +
+            '                   </div>' +
+            '                   <div class="item-inner" style="margin-left: 0">' +
+            '                       <div class="item-title text-color-white op"></div>' +
+            '                       <div class="item-subtitle text-color-white op"></div>' +
+            '                   </div>' +
+            '               </li>' +
+            '           </template>' +
+            '       </div>' +
+            '    </div>' +
+            '</div>',
+            on: {
+                pageBeforeIn: function (event, page) {
+                    $.get('http://' + document.location.hostname + '/api/helper.php?activedevices', function (data) {
+                        var devices = [];
+                        var devIds = data.split(';');
+                        var count = 1;
+                        var c = 1;
+                        devIds.forEach(function (value) {
+                            if(value != "") {
+                                if(count < 10) {
+                                    value = "0" + count;
+                                } else {
+                                    value = count;
+                                }
+                                count++;
+                                $.get('http://' + document.location.hostname + '/api/helper.php?getdevice&dev=' + value,
+                                    function (data) {
+                                        devData = data.split(';');
+                                        var devId;
+                                        if(c < 10) {
+                                            devId = "0" + c;
+                                        } else {
+                                            devId = c;
+                                        }
+                                        var name;
+                                        if(devData[1] != "") {
+                                            name = devData[1];
+                                        } else {
+                                            name = devData[2] + " - " + devData[3];
+                                        }
+                                        var mode;
+                                        switch (parseInt(devData[0])) {
+                                            case 0:
+                                                mode = "Aus";
+                                                break;
+                                            case 1:
+                                                mode = "Normal";
+                                                break;
+                                            case 2:
+                                                mode = "Geteilt";
+                                                break;
+                                        }
+                                        var dev = {'id': devId,'mode': mode, 'name': name, 'mac': devData[4]};
+                                        devices.push(dev);
+                                        c++;
+                                        from_template('#devicetemplate')
+                                            .attr('id', dev.id)
+                                            .appendTo('#devicelist')
+                                            .find('.item-title').text(dev.name).end()
+                                            .find('.item-subtitle').text(dev.mode).end()
+                                            .click(function () {
+                                                app.dialog.progress();
+                                                $.get('http://' + document.location.hostname + '/api/helper.php?eq&dev=' + dev.id,
+                                                    function (data) {
+                                                        var eqdata = data.split(';');
+                                                        var popup = app.popup.create({
+                                                            content:
+                                                            '<div class="popup theme-dark popup-mv">' +
+                                                            '   <div id="pop-title" class="title text-color-white op"' +
+                                                            '       style="text-align: center; padding: 15px; font-weight: bold;' +
+                                                            '       background: black"></div>' +
+                                                            '   <div class="list" style="margin: 0">' +
+                                                            '       <ul id="eqlist" class="side-padding"></ul>' +
+                                                            '       <template id="eqtemplate">' +
+                                                            '           <li class="item-content" style="display: block;' +
+                                                            '               padding: 15px">' +
+                                                            '               <div class="title text-color-white op"></div>' +
+                                                            '               <div class="range-slider" style="display: table;' +
+                                                            '                       margin: 5px auto; text-align: center">' +
+                                                            '                   <input style="display: inline-block; width: 75%"' +
+                                                            '                       class="range-slider__range" type="range"' +
+                                                            '                       min="0" max="100" step="10">' +
+                                                            '                   <span class="range-slider__value op"></span>' +
+                                                            '               </div>' +
+                                                            '           </li>' +
+                                                            '       </template>' +
+                                                            '   </div>' +
+                                                            '   <button class="button link popup-close text-color-white op"' +
+                                                            '       style="width: 80%; margin: 15px auto;' +
+                                                            '       background: black">Schließen</button>' +
+                                                            '</div>',
+                                                            on: {
+                                                                open: function (popup) {
+                                                                    app.dialog.close();
+                                                                    $('#pop-title').text(dev.name).attr('dev', dev.id);
+                                                                    var freqName = ['Tiefen', 'Mitten', 'Höhen'];
+                                                                    var freqCmd = ['low', 'mid', 'high'];
+                                                                    var c2 = 0;
+                                                                    eqdata.forEach(function (eqVal) {
+                                                                        if(eqVal != "") {
+                                                                            var val = Math.round(parseInt(eqVal)/10)*10;
+                                                                            from_template('#eqtemplate')
+                                                                                .appendTo('#eqlist')
+                                                                                .find('.title').text(freqName[c2]).end()
+                                                                                .find('.range-slider__value').text(val)
+                                                                                .attr('id', 'val' + c2).end()
+                                                                                .find('.range-slider__range')
+                                                                                .attr('id', 'input' + c2)
+                                                                                .attr('value', val)
+                                                                                .on('input', function () {
+                                                                                    var id = parseInt($(this).attr('id')
+                                                                                        .toString().replace("input", ""));
+                                                                                    $('#val'+id).text($(this).val());
+                                                                                })
+                                                                                .on('change', function () {
+                                                                                    var id = parseInt($(this).attr('id')
+                                                                                        .toString().replace("input", ""));
+                                                                                    $.get('http://' + document.location.hostname
+                                                                                        + '/api/helper.php?eq_set'
+                                                                                        + '&dev=' + $('#pop-title').attr('dev')
+                                                                                        + '&freq=' + freqCmd[id]
+                                                                                        + '&value=' + $(this).val(),
+                                                                                        function (data) {});
+                                                                                });
+                                                                        }
+                                                                        c2++;
+                                                                    });
+                                                                }
+                                                            }
+                                                        });
+                                                        popup.open();
+                                                    });
+                                            });
+                                    });
+                            }
+                        });
+                    });
+                },
+                pageBeforeOut: function (event, page) {
+                    app.dialog.close();
+                }
+            }
         }
     ]
 });
