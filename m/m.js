@@ -351,7 +351,6 @@ function browse_menu(menus) {
                             browse_menu(menus.slice(0, idx));
                         })))
                );
-
     $('#browseback').off('click');
     $('#browseback').click(() => {
         if(menuback == undefined || menuback.length <= 1) {
@@ -363,6 +362,19 @@ function browse_menu(menus) {
             browse_menu(menuback.slice(0, menuback.length-1));
         }
     });
+
+    //If view gets dark then set display to block and add class 'show'
+    var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutationRecord) {
+            if($('#b').hasClass('tab-active') && document.getElementById("browser").style.display == "none" && !$('#browser').hasClass("show") ){
+                $('#browser').addClass("show");
+                $("#browser").css("display", "block");
+            }
+        });
+    });
+
+    var target = document.getElementById('browser');
+    observer.observe(target, { attributes : true, attributeFilter : ['style'] });
 
     function browse_level(parent, ...params) {
         if(parent.cmd == "search") {
