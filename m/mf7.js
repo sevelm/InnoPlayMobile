@@ -5,6 +5,7 @@ var app = new Framework7({
     name: 'InnoPlay Mobile',
     // App id
     id: 'at.innotune.innoplaymobile',
+    theme: 'ios',
     // Enable swipe panel
     /*panel: {
         swipe: 'left'
