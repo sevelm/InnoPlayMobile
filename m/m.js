@@ -357,6 +357,7 @@ function browse_menu(menus) {
             $('#b').removeClass('tab-active');
             $('#index').addClass('tab-active');
         } else {
+            $('#browseback').removeAttr('data-dismiss');
             browse_menu(menuback.slice(0, menuback.length-1));
         }
     });
