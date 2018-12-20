@@ -377,6 +377,11 @@ function browse_menu(menus) {
     function menu_item_clicked(context, item) {
         log('Clicked', item);
         if (item.id && item.isaudio) {
+            $.get('http://' + document.location.hostname + '/api/helper.php?addradio&id=' + item.id +
+                '&name=' + item.name + '&type=' + item.type + '&image=' + item.image + '&url=' + item.url,
+                function () {
+                    console.log('added radio to history');
+                });
             active_player._command(context, 'playlist', 'play', {item_id: item.id});
             $('#b').removeClass('tab-active');
             $('#index').addClass('tab-active');
@@ -484,6 +489,18 @@ function browse_menu(menus) {
                 }
             }
         ));
+}
+
+
+function history_item_clicked(item) {
+    if (item.id) {
+        $.get('http://' + document.location.hostname + '/api/helper.php?addradio&id=' + item.id +
+                '&name=' + item.name + '&type=' + item.type + '&image=' + item.image + '&url=' + item.url,
+            function () {
+                console.log('added radio to history');
+            });
+        active_player.playlist_play(decodeURIComponent(item.url));
+    }
 }
 
 function player_updated(_, server, player) {
