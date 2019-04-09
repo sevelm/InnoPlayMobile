@@ -26,44 +26,44 @@ var app = new Framework7({
                 '           <div class="left">' +
                 '               <a class="link back" href="/">' +
                 '                   <i class="icon icon-back"></i>' +
-                '                   <span class="ios-only">Zurück</span>' +
+                '                   <span class="ios-only" data-langkey="back">Zurück</span>' +
                 '               </a>' +
                 '           </div>' +
-                '           <div class="title">Allgemein</div>' +
+                '           <div class="title" data-langkey="general">Allgemein</div>' +
                 '       </div>' +
                 '   </div>' +
                 '   <div class="page-content side-padding">' +
                 '       <div class="list" style="margin: 0">' +
                 '           <ul>' +
-                '               <li class="item-divider">InnoTune-Version</li>' +
+                '               <li class="item-divider" data-langkey="innotune_version">InnoTune-Version</li>' +
                 '               <li class="item-content">' +
                 '                   <div class="item-inner">' +
-                '                       <div id="actual" class="item-title text-color-white op">Aktuell: </div>' +
+                '                       <div id="actual" class="item-title text-color-white op" data-langkey="current_version">Aktuell: </div>' +
                 '                   </div>' +
                 '               </li>' +
                 '               <li class="item-content">' +
                 '                   <div class="item-inner">' +
-                '                       <div id="available" class="item-title text-color-white op">Neueste: </div>' +
+                '                       <div id="available" class="item-title text-color-white op" data-langkey="newest_version">Neueste: </div>' +
                 '                       <div class="item-after">' +
-                '                           <button id="updatelink" class="button open-confirm text-color-white op">Update</button>' +
+                '                           <button id="updatelink" class="button open-confirm text-color-white op" data-langkey="update">Update</button>' +
                 '                       </div>' +
                 '                   </div>' +
                 '               </li>' +
-                '               <li class="item-divider">Server</li>' +
+                '               <li class="item-divider" data-langkey="server">Server</li>' +
                 '               <li class="item-content">' +
                 '                   <div id="address" class="item-inner text-color-white op"></div>' +
                 '               </li>' +
                 '               <li class="item-content">' +
                 '                   <div id="port" class="item-inner text-color-white op"></div>' +
                 '               </li>' +
-                '               <li class="item-divider">Weitere Informationen</li>' +
+                '               <li class="item-divider" data-langkey="more_info">Weitere Informationen</li>' +
                 '               <li>' +
                 '                   <a class="item-link link external item-content text-color-white op" target="_blank"' +
-                '                       data-href="http://www.innotune.at/" href="http://www.innotune.at/">InnoTune-Website</a>' +
+                '                       data-href="http://www.innotune.at/" href="http://www.innotune.at/" data-langkey="innotune_web">InnoTune-Website</a>' +
                 '               </li>' +
                 '               <li>' +
                 '                   <a class="item-link link external item-content text-color-white op" target="_blank"' +
-                '                       data-href="https://icons8.com" href="https://icons8.com">Icon pack by Icons8</a>' +
+                '                       data-href="https://icons8.com" href="https://icons8.com" data-langkey="iconpack">Icon pack by Icons8</a>' +
                 '               </li>' +
                 '           </ul>' +
                 '       </div>' +
@@ -71,46 +71,47 @@ var app = new Framework7({
                 '</div>',
             on: {
                 pageBeforeIn: function (event, page) {
-                    $('#address').html('Hostname: ' + document.location.hostname);
-                    $('#port').html('Port: ' + document.location.port);
+                    processLangDocument();
+                    $('#address').html(langDocument['hostname'] + document.location.hostname);
+                    $('#port').html(langDocument['port'] + document.location.port);
 
                     $('#available').load('https://raw.githubusercontent.com/JHoerbst/InnoTune/master/version.txt',
                         function (response, status, xhr) {
                             if (status == "success") {
-                                $('#available').html('Neueste: ' + response);
+                                $('#available').html(langDocument['newest_version'] + response);
                             } else {
-                                $('#available').html('Neueste: Nicht abrufbar!');
+                                $('#available').html(langDocument['newest_error']);
                             }
                         });
 
                     $('#actual').load('http://' + document.location.hostname + '/api/helper.php?getversion',
                         function (response, status, xhr) {
                             if (status == "success") {
-                                $('#actual').html('Aktuell: ' + response);
+                                $('#actual').html(langDocument['current_version'] + response);
                             } else {
-                                $('#actual').html('Aktuell: Nicht abrufbar!');
+                                $('#actual').html(langDocument['current_error']);
                             }
                         });
 
                     $$('.open-confirm').on('click', function () {
                         app.dialog.create({
-                            title: 'InnoServer Update',
-                            text: 'Wollen Sie das System wirklich updaten?',
+                            title: langDocument['update_title'],
+                            text: langDocument['update_text'],
                             buttons: [
                                 {
-                                    text: 'Abbrechen'
+                                    text: langDocument['update_cancel']
                                 },
                                 {
-                                    text: 'Updaten',
+                                    text: langDocument['update_start'],
                                     onClick: function () {
                                         console.log('start update');
-                                        app.dialog.preloader('Updating...');
+                                        app.dialog.preloader(langDocument['update_status']);
                                         $('#updatelink').load('http://' + document.location.hostname + '/api/helper.php?update',
                                             function (response, status, xhr) {
                                                 app.dialog.close();
                                                 if (status == "success") {
                                                     console.log('update finished');
-                                                    app.dialog.preloader('Server-Reboot...');
+                                                    app.dialog.preloader(langDocument['update_reboot']);
                                                     $('#updatelink').load('http://' + document.location.hostname +
                                                         '/api/helper.php?reboot',
                                                         function (response, status, xhr) {
@@ -132,11 +133,11 @@ var app = new Framework7({
                                                 } else {
                                                     console.log('update failed');
                                                     app.dialog.create({
-                                                        title: 'Update fehlgeschlagen',
-                                                        text: 'Es ist ein unerwarteter Fehler aufgetreten!',
+                                                        title: langDocument['update_error_title'],
+                                                        text: langDocument['update_error_text'],
                                                         buttons: [
                                                             {
-                                                                text: 'Verstanden'
+                                                                text: langDocument['update_error_button']
                                                             }
                                                         ],
                                                         verticalButtons: false
@@ -161,14 +162,14 @@ var app = new Framework7({
                 '            <div class="left">' +
                 '                <a class="link back" href="/">' +
                 '                    <i class="icon icon-back"></i>' +
-                '                    <span class="ios-only">Zurück</span>' +
+                '                    <span class="ios-only" data-langkey="back">Zurück</span>' +
                 '                </a>' +
                 '            </div>' +
-                '            <div class="title">Master-Lautstärke</div>' +
+                '            <div class="title" data-langkey="master_volume">Master-Lautstärke</div>' +
                 '        </div>' +
                 '    </div>' +
                 '    <div class="page-content side-padding" id="content">' +
-                '       <div class="block" style="margin: 2% 0">Wählen Sie eine Zone um die Master-Lautstärke zu regulieren.</div>' +
+                '       <div class="block" style="margin: 2% 0" data-langkey="master_vol_text">Wählen Sie eine Zone um die Master-Lautstärke zu regulieren.</div>' +
                 '       <div class="list" style="margin: 0">' +
                 '           <ul id="devicelist">' +
                 '           </ul>' +
@@ -188,6 +189,7 @@ var app = new Framework7({
                 '</div>',
             on: {
                 pageBeforeIn: function (event, page) {
+                    processLangDocument();
                     $.get('http://' + document.location.hostname + '/api/helper.php?activedevices', function (data) {
                         var devices = [];
                         var devIds = data.split(';');
@@ -267,10 +269,11 @@ var app = new Framework7({
                                                                 '   </div>' +
                                                                 '   <button class="button link popup-close text-color-white op"' +
                                                                 '       style="width: 80%; margin: 15px auto;' +
-                                                                '       background: black">Schließen</button>' +
+                                                                '       background: black" data-langkey="close">' + langDocument['close'] +  '</button>' +
                                                                 '</div>',
                                                             on: {
                                                                 open: function (popup) {
+                                                                    processLangDocument();
                                                                     app.dialog.close();
                                                                     $('#pop-title').text(dev.name).attr('dev', dev.id);
                                                                     var c2 = 0;
@@ -328,14 +331,14 @@ var app = new Framework7({
                 '            <div class="left">' +
                 '                <a class="link back" href="/">' +
                 '                    <i class="icon icon-back"></i>' +
-                '                    <span class="ios-only">Zurück</span>' +
+                '                    <span class="ios-only" data-langkey="back">Zurück</span>' +
                 '                </a>' +
                 '            </div>' +
-                '            <div class="title">Equalizer</div>' +
+                '            <div class="title" data-langkey="equalizer">Equalizer</div>' +
                 '        </div>' +
                 '    </div>' +
                 '    <div class="page-content side-padding" id="content">' +
-                '       <div class="block" style="margin: 2% 0">Wählen Sie eine Zone um den Equalizer zu regulieren.</div>' +
+                '       <div class="block" style="margin: 2% 0" data-langkey="equalizer_text">Wählen Sie eine Zone um den Equalizer zu regulieren.</div>' +
                 '       <div class="list" style="margin: 0">' +
                 '           <ul id="devicelist">' +
                 '           </ul>' +
@@ -355,6 +358,7 @@ var app = new Framework7({
                 '</div>',
             on: {
                 pageBeforeIn: function (event, page) {
+                    processLangDocument();
                     $.get('http://' + document.location.hostname + '/api/helper.php?activedevices', function (data) {
                         var devices = [];
                         var devIds = data.split(';');
@@ -432,10 +436,11 @@ var app = new Framework7({
                                                                 '   </div>' +
                                                                 '   <button class="button link popup-close text-color-white op"' +
                                                                 '       style="width: 80%; margin: 15px auto;' +
-                                                                '       background: black">Schließen</button>' +
+                                                                '       background: black" data-langkey="close">' + langDocument['close'] +  '</button>' +
                                                                 '</div>',
                                                             on: {
                                                                 open: function (popup) {
+                                                                    processLangDocument();
                                                                     app.dialog.close();
                                                                     $('#pop-title').text(dev.name).attr('dev', dev.id);
                                                                     var freqName = ['Tiefen', 'Mitten', 'Höhen'];
@@ -496,10 +501,10 @@ var app = new Framework7({
                 '            <div class="left">' +
                 '                <a class="link back" href="/">' +
                 '                    <i class="icon icon-back"></i>' +
-                '                    <span class="ios-only">Zurück</span>' +
+                '                    <span class="ios-only" data-langkey="back">Zurück</span>' +
                 '                </a>' +
                 '            </div>' +
-                '            <div class="title">Verlauf</div>' +
+                '            <div class="title" data-langkey="history">Verlauf</div>' +
                 '        </div>' +
                 '    </div>' +
                 '    <div class="page-content side-padding" id="historycontent">' +
@@ -507,6 +512,7 @@ var app = new Framework7({
                 '</div>',
             on: {
                 pageBeforeIn: function (event, page) {
+                    processLangDocument();
                     $.get('http://' + document.location.hostname + '/api/helper.php?radiohistory',
                         function (data) {
                             if (data !== '') {
@@ -550,7 +556,7 @@ var app = new Framework7({
                             } else {
                                 from_template('#menu-item-template')
                                     .find('.title')
-                                    .text('Kein Radios im Verlauf')
+                                    .text(langDocument['history_empty'])
                                     .end()
                                     .click(() => {
                                     })

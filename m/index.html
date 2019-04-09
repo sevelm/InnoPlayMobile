@@ -48,7 +48,7 @@
         <div class="list" style="margin: 0">
             <div class="list-group">
                 <ul id="toolbar">
-                    <li class="list-group-title">Quellen</li>
+                    <li class="list-group-title" data-langkey="sources">Quellen</li>
                     <li>
                         <a href="#b" class="nav-item item-link item-content tab-link" data-shortcut="radios"
                            data-target="#browser" data-toggle="modal" onclick="{app.panel.close('left', true);}">
@@ -56,7 +56,7 @@
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAQdSURBVGhD7ZlZiI1hGMfHzFiaSGPIyHIhNMWFtUQhXHGFrLkgIsoNEsUFGlFmQmMbEllyabuwRFK2stzYS9QojZElyRhjjt///Z5znOnMjPecOc7C+dd/nvd93mc93/utk5dDDv8xQqFQh6ampmr4Hd5iXmpL2QEKzoejKH4HMhrbzSRzQdH94GJ4Gr6zwpsB/WYzzxxQV1cKmwZ3wSdBqb+B7jGshDthDTyDutjc0weKyKeY0XADvAa/u4oNzN/BUwwXIfuZW2ZABcElUNulLig5AHOdwFcZrkeOROabW/pBMdou0+Fu+FQFRwPdI6jtMo1pkbmlHxSj7TIGbmB8HZl524XEnSmgo00jQDeAtaVQ2+W9Cg6DeT3MjO1CAePgHdgItY8vwDlwD8yO7UIhugl9tQL16/7QOBroMu/qQjFFcGCYFHYFqWLPw6FwBHxgOl3XZ8FBsk0nqaE/soNrgonuos1OzmwCtT+FfdWIO1GRL7OQ7p6ELNe2cnCHJ8tAAytUO3JfrpFkgSJKSK8Tt7epvJHWRkillyQ9vuhGWhtkD8C8Ad6Aa2CJubQKbNLTCAl1l78XZAyA7it8Ad/CJlNL/xGxHhaYewyw8W8Eoz6wh00TBjH09NugXMg3CBU50JYdmHdhbQY8JzuB8UVEi+8frPk1gsEmKOiQLzR13CC87v7u10ZUIrraUqvAbgpUw/K5jehkSxGg/3MjqAoxqA9WnfETW4oLuA7HN3zDPQpH+RK/mVBbTPkPW8gI0HkfkVe2LONLpo4L+MU8YCYC4ghjLawDc79GUOvXPAtPMB5gam/gN16xkZ8ROskTIv7PkTE/JnP/k709IMERxUauM1VCwL8b/AL1StHL1Clt5LViI/ubKmEQQ7tCsRaYKr5GMBoM4y6EkLqU/kR+glPbS2JVI1X0Rkvh3wjq7VpTQXC5qb2AW5l8kw3qOGIp/BpBpcuvu4EJjJ/ZkhdwKTU/3bmvJIHu4x2ywlL4HxEM3NVCYHze1N7A5zP8hnvMx4t4QZxtVscqU/k3groMo+NwP0zk6fSmYiMnmCphRMUaZyr/RtqLqER6dmrxJPYh/vOQiqNHlsinpaj4f7cRwhaTJGnfA4i1yUI7pKwRgSQVlkIJ78KWTuS2+MF8axDNvpehS10jhC4gkb46KuFDhPd/m7BfCwUd1UmmjgB96hoRCN+dZPeVB1kHVzJs9UrG+jB42ez1CjHflpoBfWobEUihL/Qng2wu+Qd4DK6GC1AtQ5ZD17DAuBZOtBAxYC31jYRBUv13Si9KrYJ1NbmFYZsvYNikr5EwSD5EhcAqeAruhRvhZMopNLM2gW36G0kG/s1G+NPoOgmFZmcbqf0QUo1UqZFrmmQz6GGutlZPBlvhwSzkARh5Y8whh6QjL+8XSdgtLh3gSdoAAAAASUVORK5CYII=">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">Webradio</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="radio">Webradio</div>
                             </div>
                         </a>
                     </li>
@@ -66,7 +66,7 @@
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAADFwAAAxcBwpsE1QAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAQ6SURBVGiB7ZrdbxVFGMafQcoRGmlpgIKoF0YjX2pMMCZKiAkYMSQSwoUmJiYqsUi80Bj9N7z0RqPhn8CIrSKFEhMVSlup9QPFJqZGoy1KEfXnxbxDh9Oe3bO7cw5N5ElOZjP7zvO875nd2Zl3Rvo/AOgHPr3efjQDl3UTQJKcc5l2ZtsraYekRyRtknS3pO46s2lJE5LGJR2T1O+c+7W42wWBIeN+B/A0cBT4h+L4GzgCPAUsq+JrqR4BapL6JL0m6Q6rviRpSNKgpGFJY5J+qqNcK2mzpPsl7ZT0kKQOuzcp6U1Jbznn/iwXTkYg9T0C7AW+jv7VEeAloP4xaoa/BzgADEV854F96aLQtYEAncA7keCXwD5gSSKtR+sCehdYkYJbEek64Au7vgy8DnTkMxTWWwIcBC6a1hlgQwrigPAofQ88mMDnPN2NwNlI856qhDGGy/w7C71nTbbrAgai9+bWohzznGgCg6kDsbY14COj+BxY3upAhloRiLVfhR9YAN4uy1MZVQMxjq3AH0a1N5VvRZ2oHIjxvGxU3wA3N9PgCWBtVeGIL1UgNwGfGd2recbLgZ+BGeC2quLGmSQQ43rM6CYzewV4Pu/lLSGeLBDjC1//Z7KMPsw1Ki6cOpDnjPJII4Mu4C/7dSUUTh3ISuAScCX2M57w7ZKfUn/inPs9lXBqOOemJZ2StFR+ISfp2kC2WdnwK72IcMzK7aEiDuQBK0+3zZ3yCD5uCRVxIHdaOd42d8pjwsq7QkUcSHhxkiUDgF3R9c5UvJKmrOxZSHTWBphaKjXgO+bwbULemnHOhrq4R0KC4d9EYuslxbODpSl4GyEO5KKVt1QlBdZJGtCc85OSDlbljRB8nF5IfMK6a2MVBfz6fsy4viLFmnu+xhbjPxfq4h4Jo1XpQGyieVw+03hW0nbn3GRZvgwEH6+OsHEgIbp7yzDjU6YfyA+J45J2O+emsluVRvDx3Lw7wJPWXR8XZQU22GMEPoWzpqKjeXrHTWvPQjd78LnYWQpkDYFeYNSIx+xFbxnMz8v1k8Z6o6Pm0IECxGEJOmqPV0sB9GVO483oWTMqtCeCzw4mWx7naIXlbubCqgb8aIaPt8OxIgD2mG/nyUvZAm+Y8SkSJahTgCLJB2uwAp9vBehrg49NgaLpIGu03xrNUPFLnwJUSdAB71nDkYbDXBtA1ZSpPWKnjWCAhNP7Aj4kS2KvYe6LPQSsTuxrlvZqG3AAxitrA5uAC0Y4TNVNl+Y00270RMS3R8QzwIutGJpp1dZbnUgncJg5nAB25Ldsmr91m6ENBPcDP0SCJ4EXgFUluJJtT+cezWjgQKekQ5JekRT29q7IZwD75Q8MjEqacs79Zm26JfXqehwYyAOwDH+E430W8xGOgkF1yx+oeVjSfZK2yuedVprJtKRfJI3IL4NPShpczHnmG6iC/wCpRcGuN4WzvgAAAABJRU5ErkJggg==">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">Verlauf</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="history">Verlauf</div>
                             </div>
                         </a>
                     </li>
@@ -77,7 +77,7 @@
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPTSURBVGhD7ZldaE5xHMe3eZuZ2IX3WYobo7hByJS4kom5ok1IU6jlZsxyQWlyZXOjkFhSJFuWcUV5jRQJo8iFC6vZ0Gw223x+Z98zVp495zzP2XN2cT717X/O9///vZzn/fyftIiIiIiIiLDo6+vLQFk6TZje3t4JOkwNND2ZortRPfqMuvH6GFvQc3QMzdfy/8LyMazZgK6gd6hDOdrRa1SD1mClKyQ4SDwOlaNWK+rCeRf6inpkOXB+Hc1S+AB4heiTljlw/pOhrf/sL/iP0CqFJg/JZqCHym8FbqJi87XEfZSXomrUonXfUaHmx3J80XzxjPM9aLaTADi2B2sROoyci2W0B+ggSu7ZIdG0f5I2oRWaiglLs1l3TjH2jNlF1+ncXoJbtDQmLM1k3SHkvnSrNeUfJXtsieAuytGUJ4jdiXr7w51m3qOBZ8ALhK0lpl3xpbL9QWC5EjQxTJLtC2IrLQe0cTzkh0AsiCtChn0YDLycPUHhHIKcNzbjStm+ITyd+EZUJCshiK9VL2dkeYOAnQpskJUw5Jiow4ShlTnk6UE/0DjZ8WFxvS6kRFbo0Mt99bReVnxY/FFBubJCh16OqqcKWfFhcSeyz/DRskKHfkp1IadlDY01r4BOWSMC+ilRX+dkxYfF3ywIkv5BGBT0VGYNMZ6UFR8Wv1HQAlmhQy+n1NMBWfFh8WUF7ZAVOvTyRD2tlhUfFu9T0FVZoUIfU1E3+kVb2bLjQ8BMZF9Adq8wWXZo0If7/rghyzsE3VJwpaxQoAW7RXC/1zbJ9g5BBQq2G6cpslMOtfeqj1cMGbL9QfAdJamVlVKom0t55+6R482y/UPwXGS3opZom+yUQMlR1Lyn2nWyE4ck7lNr9wNLZA871KpR3S/I331ILEh0SUm/MiyWPWxQ57jq2UdugezkIZltDDQqeTNaqKnAIfcR1TG2yw4Oko5Ht1XEnu7lmgoE0tpmX5XyG2WaCh5qZFHA/SSzn/rFmkoK0tnOi7vTYl/EiW00+IFameiCFTUoeoIh4fsW4uehl8ple2EbNZUaKFiGfquBBwx5mvIMcVuRc8vAaNtF+ZpKLRReh5rVSCvytFvCcnspnbc4g+MGBl/7ZoFDA9NpxPldZnB8liHmL1TmlyDbK7O1HWg/h8FvWCeCNWINWWNq0HbZB315Ymfg2TZol9a8QCPmxm0QNJaPnqpR2/etsAtAeci2Xc2391UVo/f9qTCgydF2AXYhatz+HrBfBHb8FgX6/TPs0PAy9MEuwODY/lbwfnc3kqBx+4frGtolKyIiIiIC0tL+AJigFSdcHTWuAAAAAElFTkSuQmCC">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">Favoriten</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="favorites">Favoriten</div>
                             </div>
                         </a>
                     </li>
@@ -88,7 +88,7 @@
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAL4SURBVGhD7ZZLSFRhGIbV0OxGNzXKsghD3ARdpI0RJUR0IWyRbdoUQrQQAgNt1QWCglppKW4iWklFWJpBtKlFF4ggEkIJgy5mUS5SyGrs+Y7vHJr+GS/b+B54+f//fd9vTqc5M2OW4ziO4ziO4ziO40zO2NhYbiKRKEZL2efInjLMzUQr0BJZ04K5WVx3FetiWdNDF2/jRYZQBOcBdI7tfNUyQq+cXjvrSDQM7PvRCbb5qmWE3ibUjUbHp6P5V+gI2xmqTQzlCvRZw8Zb9M7OBvteltWqB5DvQsPq/kJv0KCdDfZPWRaqHkBea3PqjqI+9NXOBvvbLHmqp4dCAcXooqzX0UpFdoG16JGyFyy5imLwy1HyJi6xFCiy167E61HWJTsF/K3Ibt5u5CTrPPPZ57Dfid5r/nI0kAkK9uhYsZMlW3YM3myyl+oclh2D3a6sWVYK+IVoQJ1tsmPwniirl5UCfhkaQXaza2SHENpjY2yQFUCnxgqsnbIisPLwkhcplB1AZp8Tm2+SFcF5ufwvLMG7nYS8Vb3jskIIf6Lf9IJ3Iwl5qV7otawIrBL5vbLSQl6l3j1ZEZy3yL8vKy3kh9RrkRVC+N1KMFdWAJ11VmB9LiuCc5H8QVlpId+n3g1ZEZwr5D+TlRbyY+pdlBVC+EClg7ICyE6r0yorBq/fMqiUFUDnmjoNsiI42+cv+WjGXzL/QvbQhlkPyAqxUKVPqFR2DN5mNIyM9bJj8Bo134OKZMfg7UeGvUax7Bi8Fs3bf2jwVODXK/+A5sgOoZNN4ZaVYYj9WbQD7UFN6IcFrOc1kgJRPtljdT6iRrQdVaOryD5/lh3VSApE9vXfp04vqkNVqAZ1yLd3bLdGMkM3H12hnLDBv8GyL4MzbDP+uUK+CN0dn0gF3x6dtDeRhFoJHfvRDMD/hqpVnRoMbEQX0B3UgU6hMsWTQtd+3JpRF7rJv6OBdZniCaFrP4B7URvq5mx/7tSxLlDFcRzHcRzHcRzHcf5vsrL+ACxwI8ofIZf1AAAAAElFTkSuQmCC">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">Apps</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="apps">Apps</div>
                             </div>
                         </a>
                     </li>
@@ -99,11 +99,11 @@
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAGDSURBVGhD7Zk9SgNRFIUHbBRUsE+Vwl5cgOACrEyhhVsQd6CFCJaK9oKV+7BwAdqIqIWdaEDS+DP63eTIM5C8TECSq9wPDnfmvvdmzsljGMgUQRBUoyzLKXSInj8rwLwHtKzlfsDUgQx+oKecmNbU3BdKXZfwAaYekTGvVhbmnSjMOWVC7fFjpqCp04EQYBbd2iLqDmVuFOJeM7LQGyYZlYMYXHQJvWvtyOCed5SGbHTTmTJcEIOLrqJr1PN5+m2ZRzPKsf2Ai7KRsEEYOsg4IMSumaXuqZVox/g7QdbNLPVYrUQ7RmfbJlHdqzBfGxiEAePNjj2Dx1fVvjtigy1041j3qJTXvjtib/WaWm7B6nY2CPyfh12nrokg3ogg3ogg3ogg3ogg3ogg3ogg3ogg3ogg3ogg3ogg3ogg3sgGoWl/l7Z06hp8bijIkVoJmpca3Kc0vAp/a+iCY/O6KfsJmivI/SeFb/B6RZmW/W4YXEC2I2dehb9TtIXyX3eDIPhBUXwBsS4cav+VeSIAAAAASUVORK5CYII=">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">Medien-Browser</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="browser">Medien-Browser</div>
                             </div>
                         </a>
                     </li>
-                    <li class="list-group-title">Zonen</li>
+                    <li class="list-group-title" data-langkey="zones">Zonen</li>
                     <li>
                         <a href="#" class="item-link item-content link popup-open" id="show-playlist"
                            data-popup=".popup-playlist" data-target="#playlist" onclick="{app.panel.close('left', true);}">
@@ -111,7 +111,7 @@
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHSSURBVGhD7ZgvSENRGMVnFQT/gMEgKIjJomIVh0mTQZPRZBQEDQYFMSpYLQqCChYRi9GqzSCIgmATDBrE8ubvbWd3G9vetjef9zLvDw5j3/3O3jlhXHgpj8fj8Xj+A5lMpjMIgjRaRSfoEW3quACLXTZEmA5FMDBvYz6JikMHzEtgdCxLAZ39OYS5UQQDs7SOI6lYhOG7JV0pgoHZrLJGwl55EZfwRVyjgSKHsrhJVBHOXtA5WkcDsrhJvgifH+gCbaAZ1KuV6uAbtCHC9SmCgVm+yKVG9RMabUDYSvdI/CKYnizpVBEMzOIXcQlfxDV8Eddoqgi+MRsi7LAiGJotYgXC/u49gu/Whgh7oAiGpoq4hC/iGq1UZK5ViuzELoJvOikRaFyPqQm7C+gbX+wiiUGgsruiGM5HUPgy7l6WLLGKYLpOULt6jIGc4SvQbfSci10OZ27/Rwg4gd6UtypOFyFf+F73IRc1GqeLEG5IOWvC7pFs7kG4UeWshzXZ3IMi3QoZCXtffPTLVj+Y5pMSoab0mCx8v2MeCTsrWm8M+ROBUCX3CN/De+NVxyUw/0TLWm0cfuMsKRFsS48xMG9nvoj20BHaR0uoRysej8fTsqRSP/l1nckvv/zjAAAAAElFTkSuQmCC">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">aktuelle Wiedergabeliste</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="current_playlist">aktuelle Wiedergabeliste</div>
                             </div>
                         </a>
                     </li>
@@ -122,7 +122,7 @@
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAT1SURBVGhD7ZldiFVVHMVnVCa1YMaspAhzghrEIqMSDAqKhL4QAh8kKANHiD4egobs0+yLahC06KWUqAELoqSHIJoKKaKyjKKMIEJ6CEuKJk2xrJl+68zau3vnnJl79h3Hey/MgsXeZ63/3ucs7t37nnNu2zSm0UIYGRnpHB4efp52iPZXeL+t1gEXvQB+Q4gM9IfdrnJJ88Mh9vjCd8Nu2Ovj113W3OBCYwjwOZwnnXapBLwPs8ISoLyL+m4fHj8UhOiyJe98iSlBqB2E/0Kts1MsTy04WeXX6TOaGEJAqydILzzscb/DG2xNDTjBhCEE9OQgAkMWMmaHxwqP0Z1h+9iBiU+DlSE6bVUBr64gAYxbB494jm007bYmDyasDLGLpjCEgD+pIAJjlzPFkOd5xvLkwESVIT6lGTeEQE3NIHjL4D64FZ5suQroy+GfnutWy/WBCZJCCNSVDRK+Pj/DS21VAf16KByCSyyngYHJIQRqS3218HvgB649AlfaqgL6Ftd8QpNfL4hd8OwiMug8GEJoglIhBOpLrxHKZlH3rOv/glfYikA7Ae51zf+3PRzMh2/JqAXqPqYpHUJgTPJipzaE0bo51XIE2k32v6UZ/VQ42G7xMPyhgEftJ4cQGJcchPIZ1L/rcdstR9j/3v7lmUjnoIVzMqECHqCAul1YYDkJjMsF4fAijnfA2+Ecy1VAPxOGc19gOQLtAc+7NRN0IGQHY4DcOeqODFlKBifKBaHfl80K6O+FF9uqAvrTrnnRUgRat73faNobEoTDdo5Xwy/lAT2A5bZTdG00wh/0Z1uOQA+LvqchQQKQO9Bfs7+bJredouvOQf7oWqgA2iv2bm5oEAFrLt5PrrnGcgTaZnt3W4pAe9DehoYHEbAfds1mSxFod0zg3WZvS1MEwVvlmjcsRaDdaO9lSxFoq+0NNEuQta4p+s24xd7oNlsBtDX2tjVLkAHX3GMpAi1s1U9aisC7SwZtf8ODoF8I/4G6g1hkOQI97ExrLEWgPWWvr6FB0C6D++3nFjPyTPR99s+1HIH2nr0VDQlCfzF8P5sZ0H+bpsN2BPrV9vdYikBWyINQLwDnxSBgpmsiqDlRBu0hmvy9fwkwtijIfWFeuJHuLFtVQN/puqLfkBX2vgrCjxY20Fw1lugHaOXX9UqGcUVB5sBrkce9m8YPW/IvNCdZjkAPG0RfENZJqAXq9KCT++WtBcZMuNiLQPki6nUzqHG9liPQ9BpKn6Y2idMtZ8ZK+CrUG74ifuRJk8NQnxSEOl1keNZ403IV0J+zP2CpPBj0uAcnhaG2dBDKllIXvup6pJ5rKwJ9Cfwb6jrqez/MwOQw1NUMgq0daKPmVS3YSX++7Qg0ra2vVUDbb7k+MMGjnqhUGGpqBsG70jX6zm+im9uK0fQM85LrviiqSQYTacssFQa/zCfSAddTc4mlHPCy10BAD2E9licPJisVBi9psY8F4/T6R38vaA7tVIUv7yYFJn3IJxg3DHrdQRhzFtSi1/gDMPee65iBycNTWmEYtOQglM/WvDD8R/IdXGx76sBJwquZXBiOk4NQO+gxehX0At3k92l1gxOG+6eqMPTrCbIJ6od4maXjC05879gwtNdZG8yKWgVc83pf+FHYD9/x8RMuaR1w0XcqiAII9PfDM2y3FrhwPTzptuMRsiy0PI1ptBba2v4DGiSQsCK9uoEAAAAASUVORK5CYII=">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">Lautstärke</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="volume">Lautstärke</div>
                             </div>
                         </a>
                     </li>
@@ -133,18 +133,18 @@
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAPSSURBVGhD7ZlLSFRRGMcttYIeKhVlRfQiKsiVmwwCo4W4kCDaSIuEAqkoIioTLAxaFJhugiQqKEraFEEQWCo9CHJRUIsgMHpZUPS0h5aO/b7jf0RzdK4zd3QuzA/+3HO+c87/O9/Mnbl35qalSJFifOnt7U1XMxiw4WmhUKgE1aFm1I7+EHfQ/oKeoSvoAFqtpVFheaaaiYMN5aOLqKNvy4Mh/gP1qDsI4m1oP81s2Q2B8Tz0G1Uq5C8Yr0Q3+7bkNtWDWiwhKkTzNNVBfzpahbagU6hdS23td1RJc5Km90O8VHMuKeQPeKZjWoW6lOATqkYLNMUTLJ3ImvVo4IvxHOVrioO+/4Xgl4Nhk4z/olqaWRqOGXwK0BP5dqJyDflfCEa56KlMX6ECDfkCtpl4Hkch5ThscY7+FYJPFkbhV+wRmqMh37GNI3faQoX1rcExvkLwsM9Eo8wec4j7VIoGeTahbmRcU+74CsGgSkZ2Os1WOOGQa4flDRNXIaxfgUEXsg/2WoV9hRzZaEkkkdN9sRhxFcJi99XIsVYhX8F3Kep0O41CzIWwMF8Gn9EMhX0F+1l4P0B2hY+m2F5MFl5QIdUKBQ82b7cT7h4JjeqKnVSw+RK9G80KBRMKsFsPKyQxd5xjBQW0qJBChYIJBbxVIfMVCiYU4O511E0a2NcytpWh7sjYRCuCRR0KJQXsZ532dUKh6DD5NDqmblJADVtVyBmFggkF7FYhJxUKJhRQp0L2KBRMKOC2CilSKHiw+cnoF+qmlhyFgwcFFOvdaFUomFBAgwrZp5B3WGfXkw1eRIKZWuY7+C/C336h2kV6rsLeYVEW8gRJ7muZ7+B9TjnqFRodrB1UCEZ30K0IakTbtcxX8F2DjJ9sYaHCo4OF/xdSo6ExgZT2X1qbcsf+c8KMZOLOT2SUajihkNb+S7uu/Pc4eLtRjASLw+/IV8y2WYOjPe/YqCkJAf8M8lxWvjcovp/a+PQXYn0Mj1rHikE73SSfwd5OpxvKYw+GPD8MGhYzNUNwhRi0K/pCLpE93PHtaxcv+0f+hbzfoTwNxQd+Qwox6G8myTcb4PgBldOcouFRw1q7TpxF4X/h7yL/fpniGbEQg0SL0cAHNO+RPezx9Coyz+6dilEDcs8ZOdq91CGasX+wI4HpVCX4qNAQGLOHnw9tXhj6L9FVZIXtQvaorUxte1DahOy64KBt34j1NGO7TniBBAdRmbrDwhy7cNlzwdd92xsZ5tkjg1a0F+XKJnlgjxPY2HKO9jk6guwdOI/qUQ3ag4oYD+6teIoUKcaTtLR/w6v33QC7+uQAAAAASUVORK5CYII=">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">Synchronisieren</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="sync">Synchronisieren</div>
                             </div>
                         </a>
                     </li>
-                    <li class="list-group-title">Einstellungen</li>
+                    <li class="list-group-title" data-langkey="settings">Einstellungen</li>
                     <li>
                         <a href="/master-volume/" class="item-link item-content" onclick="{app.panel.close('left', true)}">
                             <div class="item-media">
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAK9SURBVGhD7Zk/aBRBGMVPLwkWahALFUTRRonEQhMQtAykMEIQRNFCxCZFCkEr0UJEEFOlCViolUIugihJoxaKgk1QtPEfCkZJYaGxUDHG0993vrvkuL25C2T3ZsP84PHtvpnJvo/LbG43mcBiIJ/Pr0RX0Ne/guMJdFJT0gGBbyh/BYwd0zS/Iesywk6j72i9bGvukBq5L8tvyLpBgT/IKsB5u/wXshoDGZrQqlqaE7hqI5Qsily/gFquS8+C2USA99S6cTVSPI4brnNCl/8P3lL0gIEvtcS8Kf0QVyNtNjdmfUZHdPn5Q1a/90i9LKZGbD/9QL/Qbs7tBrAanVIjY5rqP4QdtNBRMNajaf5D3mYCn0FP0TvpIdqvKYFAIFAJN4+1aLPULDs9cJdrR/YlswTnP9FpTfEfMtsf1jcKP0EZpz5H0+ZBr6b6DYGLX2leUrKyze+Tf02W35B1jwI/klWA873yR2XNDxauYf3OpMT1jlOdjVBaUbX126mlT7IARgsDpTciSeJqpHhcDcbPadksmFcZG09KXO8VtdYnYr9+1dY/Qd1a1jgIE88eSRpHIz3y78jyG4Kus8AwxfE+qm3gXWjETOolTfUfwtq+jMKa26hp/kPgLIH70W10TxpCmzQlEAg0AjanvT3poHZJW9ESDacDGtiCXhO8DLy7lMo3475C4McKbk90OepN9FHegKb5DVntv1R/qPYmvkW2NbdDjTyT5TdktecCC1z24hor8oV2QyGPPbAciBJBj1KdjVCs2cj1MakXle9NjFbC/KY6cTWCEvkv1Vy4ZuXexLzAWC5KjN2i1vpE7DhyfRzimtdRh6LUBwvTs0dcEHSFAk/KKoBlbwbNfyvLfwj7SaHPU+wGcBANmwc5TfMfQh9GMwpeAu8b2qZp6YDAnWS/SL0snUXpeZILJEYm8w+aOmYFewA5rAAAAABJRU5ErkJggg==">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">Master-Lautstärke</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="master_volume">Master-Lautstärke</div>
                             </div>
                         </a>
                     </li>
@@ -154,7 +154,7 @@
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAIUSURBVGhD7ZexS5VhFIcvyg3rCmmCBJJisw6uIkEtDk0tDY4KQrOzuAjq6GDQFCRKi7hUc9Ae2J7YHxDVoiB2b897+AVe+L7P99L5sOI8cPA7z3ve8/njDl4bQRAEhXQ6nRtUv1p32u32TT3WBwGavOiYeiflCvvvs/sHtSFVD7xonOrwoi9SrrD3sfa/kaqHCJJJBOmVCJJJBKmCfYMsbKk1cNcWBDfKUZ/aPLjQz8UT6qOUgS8Ngh6iBtReCTtGmG+qNXCFQehnqHNqXSoPdt1OC+G7lEFfGASVPr1vVNZffOYmqFPqpZRBXxZkQX5PKg/u9Brkt/8kVQmjc5r/IGXQR5BCuPPvBeF8mIERtQbOLQhujOr6as6oWxDcJEd96eEzdSJvcOAShH6UOqMOpAxGXYLQP6ISq2mpoTOD1ivItHzXL4zyCvJM/nkEkTIu+QiSoI8gqflJXejM4MwryJR8LUFQy/I7aWiL502dGfQuQVADuNfUopSB9woyjntLPZDqhgGXIGUw6hLkSrgTQaQqYfTvDEJ/T/5IqhLmZtM8vJcy8O5BBnXxq5SBKvtE0n+UL6glqUqYa1GvqCdSBn1ZkKfyu1L5cG+TiytqDVxhEC/YWxbkDrVPPZT6M64riDsRJJMI0isRJJMI0iu8465edCzlCnvntf9Qqj54yRq1oNYVMtxi9zY/56SCIAj+SxqNXz1Hjl/Lm2CiAAAAAElFTkSuQmCC">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">Equalizer</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="equalizer">Equalizer</div>
                             </div>
                         </a>
                     </li>
@@ -164,7 +164,7 @@
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,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">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">Allgemein</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="general">Allgemein</div>
                             </div>
                         </a>
                     </li>
@@ -174,7 +174,7 @@
                                 <img class="op-menu" style="width: 40%; margin-left: 10%;" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAJQSURBVGhD7Zk9a1RBFIYXA1pp7AQRG0sbiaTSwkaiWSGNv0HFIr/AQlJqGxERCxO/Gq3yG6yENHb2sQqkM0Ky6/POvkEzupm7RjLn4n3gMPecnbn7PmQ3Ibu94XB4fDAYPKI2uK4OOXapz9Tt3iRIwvcIBbl2qCuOWYbNX332kkfVIdOSArEue1QmKYDbECDQVybWNY/KJAtwG4JORLgNQSci3IYAgXllar0IcfRHeq31IoJIkrnvtsxII57IxNijE/nXEOU8L6lN6jnXUx6XSRbgtjoInCXOljJx/ZKlmYwOCLchQGCWSHsyKyxlGW0WbsOQyayyHCyjjcJtKDKZVyzjZbRJuA1HYxltEG5Dksm8ZvldRg8Kt2HJZN6w7JfRA8JtaA6U0VC4DU8m85ZlJKOBSM1fwM3OcfzyURbPeY/a4Voy71imDiXCTc5Q275FNcjw4rAiJ6j3HP901MXz7v1EvlP91r1HBMEfK7MlbqVhsoDUtIBMou9x6379/llCJAtwG5ZMYt7jnyQLcBuSTOKmx/tJFuA2HL9IbI+VEMkC3IaisYRIFuA2DJnEDY/HkyzAbQgInr58Yv3WSEIkC3BbHaJcVR5LzHlcRoeE2+oQ/hT1hEjXPGrGSCPmm30i7BFShFjTviwz0ognwstrhlpxW8YeoUQQuEDpY9PuG6sQdCLCbQj+bxE2p3/i4ZhH1SHTggKxfvCoDJvXfWiZ5U7tIsdd6iPXyvTAMcuw+TpV/bOpHDJ9YTntmM3g0EUOPWR9FqCeUovUScdrQK/3A/Vuyu0f6CyxAAAAAElFTkSuQmCC">
                             </div>
                             <div class="item-inner">
-                                <div class="item-title text-color-white op-menu">Verbindung trennen</div>
+                                <div class="item-title text-color-white op-menu" data-langkey="disconnect">Verbindung trennen</div>
                             </div>
                         </a>
                     </li>
@@ -312,7 +312,7 @@
                         <div class="left">
                             <a class="link tab-link" id="browseback" href="#">
                                 <i class="icon icon-back"></i>
-                                <span class="ios-only">Zurück</span>
+                                <span class="ios-only" data-langkey="back">Zurück</span>
                             </a>
                         </div>
                     </div>
@@ -367,10 +367,10 @@
                         <div class="left">
                             <a class="link popup-close" href="#">
                                 <i class="icon icon-back"></i>
-                                <span class="ios-only">Zurück</span>
+                                <span class="ios-only" data-langkey="back">Zurück</span>
                             </a>
                         </div>
-                        <div class="title text-color-white op">Lautstärke</div>
+                        <div class="title text-color-white op" data-langkey="volume">Lautstärke</div>
                     </div>
                 </div>
 
@@ -425,10 +425,10 @@
                         <div class="left">
                             <a class="link popup-close" href="#">
                                 <i class="icon icon-back"></i>
-                                <span class="ios-only">Zurück</span>
+                                <span class="ios-only" data-langkey="back">Zurück</span>
                             </a>
                         </div>
-                        <div class="title text-color-white op">Wiedergabeliste</div>
+                        <div class="title text-color-white op" data-langkey="playlist">Wiedergabeliste</div>
                     </div>
                 </div>
 
@@ -478,29 +478,29 @@
                         <div class="left">
                             <a class="link popup-close" href="#">
                                 <i class="icon icon-back"></i>
-                                <span class="ios-only">Zurück</span>
+                                <span class="ios-only" data-langkey="back">Zurück</span>
                             </a>
                         </div>
-                        <div class="title text-color-white op">Synchronisieren</div>
+                        <div class="title text-color-white op" data-langkey="sync">Synchronisieren</div>
                     </div>
                 </div>
 
                 <div class="page-content syncing dropdown-menu list" style="margin: 0; background: #171717">
                     <div class="list-group">
                         <ul>
-                            <li class="sync dropdown-header list-group-title">Koppeln</li>
+                            <li class="sync dropdown-header list-group-title" data-langkey="link">Koppeln</li>
                         </ul>
                     </div>
                     <div class="list-group">
                         <ul>
-                            <li class="unsync dropdown-header list-group-title">Entkoppeln</li>
+                            <li class="unsync dropdown-header list-group-title" data-langkey="unlink">Entkoppeln</li>
                         </ul>
                     </div>
                     <div class="list-group">
                         <ul>
-                            <li id="preset" class="dropdown-header list-group-title">voreingestellte Gruppen</li>
+                            <li id="preset" class="dropdown-header list-group-title" data-langkey="predef_groups">voreingestellte Gruppen</li>
                             <li class="item-content">
-                                <div id="party" class="item-inner dropdown-item text-color-white op">Party Modus (Alle Koppeln)</div>
+                                <div id="party" class="item-inner dropdown-item text-color-white op" data-langkey="party_mode">Party Modus (Alle Koppeln)</div>
                             </li>
                             <!--<li class="item-content" href="#">
                                 <div id="no-party" class="item-inner dropdown-item">Alle Entkoppeln</div>
@@ -543,5 +543,34 @@
 <script async src="[% webroot %]m.js"></script>
 
 <script type="text/javascript" src="[% webroot %]mf7.js"></script>
+<script type="text/javascript">
+    let language = navigator.language;
+    if (language.toLowerCase().indexOf('de') !== -1) {
+        language = 'de';
+    } else {
+        language = 'en';
+    }
+    console.log("Language of the browser: " + language);
+    let langDocument = {};
+    let xhttp = new XMLHttpRequest();
+
+    function processLangDocument(){
+        let tags = document.querySelectorAll('span,img,a,label,li,option,h1,h2,h3,h4,h5,h6,p,q,div');
+        Array.from(tags).forEach(function(value, index){
+            let key = value.dataset.langkey;
+            if(langDocument[key]) value.innerText = langDocument[key];
+        });
+    }
+
+    xhttp.onreadystatechange = function(){
+        if (this.readyState === 4 && this.status === 200) {
+            langDocument = JSON.parse(this.responseText);
+            processLangDocument();
+        }
+    };
+
+    xhttp.open("GET", "http://" +  document.location.hostname + "/lang/m/" + language + ".json", true);
+    xhttp.send();
+</script>
 </body>
 </html>
