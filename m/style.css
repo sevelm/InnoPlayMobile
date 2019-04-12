@@ -437,18 +437,18 @@ button {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: #ffffffcc;
+    background: #d9d9d9;
     cursor: pointer;
     -webkit-transition: background 0.15s ease-in-out;
     transition: background 0.15s ease-in-out;
 }
 
 .range-slider__range::-webkit-slider-thumb:hover {
-    background: #ffffffcc;
+    background: #d9d9d9;
 }
 
 .range-slider__range:active::-webkit-slider-thumb {
-    background: #ffffffcc;
+    background: #d9d9d9;
 }
 
 .range-slider__range::-moz-range-thumb {
@@ -456,18 +456,18 @@ button {
     height: 20px;
     border: 0;
     border-radius: 50%;
-    background: #ffffffcc;
+    background: #d9d9d9;
     cursor: pointer;
     -webkit-transition: background 0.15s ease-in-out;
     transition: background 0.15s ease-in-out;
 }
 
 .range-slider__range::-moz-range-thumb:hover {
-    background: #ffffffcc;
+    background: #d9d9d9;
 }
 
 .range-slider__range:active::-moz-range-thumb {
-    background: #ffffffcc;
+    background: #d9d9d9;
 }
 
 .range-slider__value {
