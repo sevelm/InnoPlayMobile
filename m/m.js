@@ -427,68 +427,69 @@ function browse_menu(menus) {
 
     /* last item is the active leaf */
     let menu = menus.slice(-1)[0];
-    menu.items.forEach(item => log('Menu item', item));
-
-    $('#browser .menu')
-        .empty()
-        .append(menu.items.map(
-            item => {
-                if(item.cmd == "search")
-                {
-                    return from_template('#menu-item-template')
-                        .find('.title')
-                        .attr('display', 'none')
-                        .end()
-                        .find('.search')
-                        .addClass('active')
-                        .keypress(function(e) {
-                            if(e.keyCode == 13) {
-                                menu_item_clicked(menu.context, item);
-                            }
-                        })
-                        .end()
-                        .find('.item-content')
-                        .addClass('item-input')
-                        .end()
-                        .find('img.icon2')
-                        .attr('src', /fa-/.test(item.icon) ? item.icon : '')
-                        .end()
-                        .find('img.icon')
-                        .each((_, img) => rescaled(
-                        $(img),
-                        'browser',
-                        /fa-/.test(item.icon) ? '' :
-                            item.icon ||
-                            item.image ||
-                            '/music/' + (item.coverid || item.id) + '/cover.jpg', true))
-                        .end()
-                        .find('img.icon')
-                        .click(() => menu_item_clicked(menu.context, item))
-                        .end();
-                } else {
-                    return from_template('#menu-item-template')
-                        .find('.title')
-                        .text(item.name || item.title || item.filename)
-                        .end()
-                        .find('.search')
-                        .remove()
-                        .end()
-                        .find('img.icon2')
-                        .attr('src', /fa-/.test(item.icon) ? item.icon : '')
-                        .end()
-                        .find('img.icon')
-                        .each((_, img) => rescaled(
-                        $(img),
-                        'browser',
-                        /fa-/.test(item.icon) ? '' :
-                            item.icon ||
-                            item.image ||
-                            '/music/' + (item.coverid || item.id) + '/cover.jpg', true))
-                        .end()
-                        .click(() => menu_item_clicked(menu.context, item));
+    if (menu !== undefined && menu.items !== undefined) {
+        menu.items.forEach(item => log('Menu item', item));
+        $('#browser .menu')
+            .empty()
+            .append(menu.items.map(
+                item => {
+                    if(item.cmd == "search")
+                    {
+                        return from_template('#menu-item-template')
+                            .find('.title')
+                            .attr('display', 'none')
+                            .end()
+                            .find('.search')
+                            .addClass('active')
+                            .keypress(function(e) {
+                                if(e.keyCode == 13) {
+                                    menu_item_clicked(menu.context, item);
+                                }
+                            })
+                            .end()
+                            .find('.item-content')
+                            .addClass('item-input')
+                            .end()
+                            .find('img.icon2')
+                            .attr('src', /fa-/.test(item.icon) ? item.icon : '')
+                            .end()
+                            .find('img.icon')
+                            .each((_, img) => rescaled(
+                                $(img),
+                                'browser',
+                                /fa-/.test(item.icon) ? '' :
+                                    item.icon ||
+                                    item.image ||
+                                    '/music/' + (item.coverid || item.id) + '/cover.jpg', true))
+                            .end()
+                            .find('img.icon')
+                            .click(() => menu_item_clicked(menu.context, item))
+                            .end();
+                    } else {
+                        return from_template('#menu-item-template')
+                            .find('.title')
+                            .text(item.name || item.title || item.filename)
+                            .end()
+                            .find('.search')
+                            .remove()
+                            .end()
+                            .find('img.icon2')
+                            .attr('src', /fa-/.test(item.icon) ? item.icon : '')
+                            .end()
+                            .find('img.icon')
+                            .each((_, img) => rescaled(
+                                $(img),
+                                'browser',
+                                /fa-/.test(item.icon) ? '' :
+                                    item.icon ||
+                                    item.image ||
+                                    '/music/' + (item.coverid || item.id) + '/cover.jpg', true))
+                            .end()
+                            .click(() => menu_item_clicked(menu.context, item));
+                    }
                 }
-            }
-        ));
+            ));
+    }
 }
 
 
