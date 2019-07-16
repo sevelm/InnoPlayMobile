@@ -190,7 +190,8 @@ var app = new Framework7({
             on: {
                 pageBeforeIn: function (event, page) {
                     processLangDocument();
-                    $.get('http://' + document.location.hostname + '/api/helper.php?activedevices', function (data) {
+                    $.ajax({ url: 'http://' + document.location.hostname + '/api/helper.php?activedevices',
+                        success: function (data) {
                         var devices = [];
                         var devIds = data.split(';');
                         var count = 1;
@@ -315,7 +316,13 @@ var app = new Framework7({
                                     });
                             }
                         });
-                    });
+                    },
+                    error: function() {
+                        from_template('#devicetemplate')
+                            .attr('id', "-1")
+                            .appendTo('#devicelist')
+                            .find('.item-title').text("Keine Zonen gefunden").end();
+                    }});
                 },
                 pageBeforeOut: function (event, page) {
                     app.dialog.close();
@@ -359,7 +366,8 @@ var app = new Framework7({
             on: {
                 pageBeforeIn: function (event, page) {
                     processLangDocument();
-                    $.get('http://' + document.location.hostname + '/api/helper.php?activedevices', function (data) {
+                    $.ajax({url: 'http://' + document.location.hostname + '/api/helper.php?activedevices',
+                        success: function (data) {
                         var devices = [];
                         var devIds = data.split(';');
                         var count = 1;
@@ -485,7 +493,13 @@ var app = new Framework7({
                                     });
                             }
                         });
-                    });
+                    },
+                    error: function() {
+                        from_template('#devicetemplate')
+                            .attr('id', "-1")
+                            .appendTo('#devicelist')
+                            .find('.item-title').text("Keine Zonen gefunden").end();
+                    }});
                 },
                 pageBeforeOut: function (event, page) {
                     app.dialog.close();
@@ -513,8 +527,8 @@ var app = new Framework7({
             on: {
                 pageBeforeIn: function (event, page) {
                     processLangDocument();
-                    $.get('http://' + document.location.hostname + '/api/helper.php?radiohistory',
-                        function (data) {
+                    $.ajax({ url: 'http://' + document.location.hostname + '/api/helper.php?radiohistory',
+                        success: function (data) {
                             if (data !== '') {
                                 let history = [];
                                 let lines = data.split('\n');
@@ -562,7 +576,16 @@ var app = new Framework7({
                                     })
                                     .appendTo('#historycontent');
                             }
-                        });
+                        },
+                        error: function (){
+                            from_template('#menu-item-template')
+                                .find('.title')
+                                .text(langDocument['history_empty'])
+                                .end()
+                                .click(() => {
+                                })
+                                .appendTo('#historycontent');
+                        }});
                 },
                 pageBeforeOut: function (event, page) {
                     app.dialog.close();
