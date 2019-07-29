@@ -65,8 +65,15 @@ class Server {
             data: JSON.stringify(data),
             timeout: AJAX_TIMEOUT
         }).then(res => {
-            log('RPC response ', res.result, res);
+            if ($('#error').hasClass('modal-in')) {
+                document.getElementById('close-popup-error').click();
+            }
             return res;
+        }).fail(function(xhr, status, error) {
+            // error handling
+            if (!$('#error').hasClass('modal-in')) {
+                document.getElementById('show-error').click();
+            }
         });
     }
 
