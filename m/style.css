@@ -156,13 +156,13 @@ button.btn {
 /* Tablet Landscape */
 @media (orientation: landscape) {
     .covermain {
-        width: 35%;
-        height: 35%;
+        width: 30%;
+        height: 30%;
         margin: auto;
     }
 
     .covermain_active {
-        width: 40%;
+        width: 32%;
     }
 
     .bottomcontrols {
