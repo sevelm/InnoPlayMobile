@@ -31,7 +31,7 @@
 
     <!-- Path to your custom app styles
     <link rel="stylesheet" href="path/to/my-app.css">-->
-    <link rel="stylesheet" href="[% webroot %]style.css?v=1.0"/>
+    <link rel="stylesheet" href="[% webroot %]style.css?v=1.2.1"/>
     <link rel="apple-touch-icon" href="[% webroot %]html/images/apple-touch-icon.png"/>
     <link rel="icon" href="[% webroot %]favicon.ico"/>
 
@@ -107,6 +107,17 @@
                             <div class="item-inner">
                                 <div class="item-title text-color-white op-menu" data-langkey="browser">Medien-Browser
                                 </div>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/linein/" class="item-link item-content" onclick="{app.panel.close('left', true);}">
+                            <div class="item-media">
+                                <img class="op-menu" style="width: 40%; margin-left: 10%;"
+                                     src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAQAAAC0NkA6AAAAAmJLR0QA/4ePzL8AAAGaSURBVFjD7dZLSiNRFMbxsiNONLoHCQ5bnao0iLgLDbiFHvTAx9B2C5pswMcWxMcifOBYIYoRuhPB2a9nkjKVSkzuFRryjQru43/POd85VJIMNVQ3GbXmQkO2Xv0aFFBQdidfr2EAdzZMtqwg6/uzgG/W3wFlox9WA0GqnQBZkJQe7BnrDfJGNqArBH5nHVpVdauZ3pnzhJx0WcDDxwMzLrNN0ydkEffp7T+8oGbTrPFg6dpNR/GCQxNt11TeC1/4JOTebqrwLnFoJNPC5RYLF/q2sFXU2qNoGSetzTjVH6SKzQBjpZl3wS2+9zRe1lz42wnhZ97hBp2TFWqEfwmkx3QNBqlgKzZkBTXF2JhzHGU1Y0hISR3HkaOxpI5H2+YjOk3JmUHVdKNipZsFDlx3/OnpXedK8bIxbs6WGuqW4ta36Aj1iNEkSZIYcYyz2J1X9EgXCwTAbOMgNmQON7EhE2jEhkziz1ek6zo2ZAf7sZP1hOW4zXiC07hRnODZdCzbztvxhGeL6aXwOm2LIuDlDVf2o5Z7qP9H/wDHh5QZiBQKGQAAAABJRU5ErkJggg==">
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title text-color-white op-menu" data-langkey="linein">Line-In</div>
                             </div>
                         </a>
                     </li>
@@ -582,11 +593,14 @@
             <div class="page" data-name="error">
                 <div class="page-content">
                     <a id="close-popup-error" class="link popup-close" style="display: none" href="#"></a>
-                    <p class="text-color-white" style="width: 80%; margin: 15px auto"><b data-langkey="error_con_title">Verbindung zum Server wurde unterbrochen!</b></p>
+                    <p class="text-color-white" style="width: 80%; margin: 15px auto"><b data-langkey="error_con_title">Verbindung
+                        zum Server wurde unterbrochen!</b></p>
                     <div class="progressbar-infinite" style="width: 80%; margin: 15px auto"></div>
-                    <p class="text-color-white" style="width: 80%; margin: 15px auto" data-langkey="error_con">Sie werden automatisch verbunden, sobald der Server wieder erreichbar ist.</p>
+                    <p class="text-color-white" style="width: 80%; margin: 15px auto" data-langkey="error_con">Sie
+                        werden automatisch verbunden, sobald der Server wieder erreichbar ist.</p>
                     <a data-href="innodeeplink://home" href="innodeeplink://home" class="button link external"
-                       style="width: 80%; margin: 30px auto; background: black" data-langkey="disconnect">Verbindung trennen</a>
+                       style="width: 80%; margin: 30px auto; background: black" data-langkey="disconnect">Verbindung
+                        trennen</a>
                 </div>
             </div>
         </div>
@@ -622,7 +636,7 @@
 <script src="[% webroot %]swipe.js?v=1.0"></script>
 <script async src="[% webroot %]m.js?v=1.1"></script>
 
-<script type="text/javascript" src="[% webroot %]mf7.js?v=1.1"></script>
+<script type="text/javascript" src="[% webroot %]mf7.js?v=1.2.2"></script>
 <script type="text/javascript">
     let language = navigator.language;
     if (language.toLowerCase().indexOf('de') !== -1) {
@@ -691,7 +705,15 @@
             master_vol_text: "Wählen Sie eine Zone um die Master-Lautstärke zu regulieren.",
             equalizer_text: "Wählen Sie eine Zone um den Equalizer zu regulieren.",
             history_empty: "Kein Radios im Verlauf",
-            search_placeholder: "Suchtext eingeben..."
+            search_placeholder: "Suchtext eingeben...",
+            error_con_title: "Verbindung zum Server wurde unterbrochen!",
+            error_con: "Sie werden automatisch verbunden, sobald der Server wieder erreichbar ist.",
+            volreg: "Lautstärkenregelung",
+            input: "Eingang",
+            output: "Ausgang",
+            select_amp: "Amp auswählen",
+            select_input: "Eingang auswählen",
+            linein: "Line-In"
         }
     }
 

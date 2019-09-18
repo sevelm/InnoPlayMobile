@@ -190,139 +190,141 @@ var app = new Framework7({
             on: {
                 pageBeforeIn: function (event, page) {
                     processLangDocument();
-                    $.ajax({ url: 'http://' + document.location.hostname + '/api/helper.php?activedevices',
+                    $.ajax({
+                        url: 'http://' + document.location.hostname + '/api/helper.php?activedevices',
                         success: function (data) {
-                        var devices = [];
-                        var devIds = data.split(';');
-                        var count = 1;
-                        var c = 1;
-                        devIds.forEach(function (value) {
-                            if (value != "") {
-                                if (count < 10) {
-                                    value = "0" + count;
-                                } else {
-                                    value = count;
-                                }
-                                count++;
-                                $.get('http://' + document.location.hostname + '/api/helper.php?getdevice&dev=' + value,
-                                    function (data) {
-                                        devData = data.split(';');
-                                        var devId;
-                                        if (c < 10) {
-                                            devId = "0" + c;
-                                        } else {
-                                            devId = c;
-                                        }
-                                        var name;
-                                        if (devData[1] != "") {
-                                            name = devData[1];
-                                        } else {
-                                            name = devData[2] + " - " + devData[3];
-                                        }
-                                        var mode;
-                                        switch (parseInt(devData[0])) {
-                                            case 0:
-                                                mode = "Aus";
-                                                break;
-                                            case 1:
-                                                mode = "Normal";
-                                                break;
-                                            case 2:
-                                                mode = "Geteilt";
-                                                break;
-                                        }
-                                        var dev = {'id': devId, 'mode': mode, 'name': name, 'mac': devData[4]};
-                                        devices.push(dev);
-                                        c++;
-                                        from_template('#devicetemplate')
-                                            .attr('id', dev.id)
-                                            .appendTo('#devicelist')
-                                            .find('.item-title').text(dev.name).end()
-                                            .find('.item-subtitle').text(dev.mode).end()
-                                            .click(function () {
-                                                app.dialog.progress();
-                                                $.get('http://' + document.location.hostname + '/api/helper.php?vol&dev=' + dev.id,
-                                                    function (data) {
-                                                        var playersName = ["MPD", "Squeezebox", "Airplay & Spotify", "Line-In"];
-                                                        var playersCmd = ["mpd", "squeeze", "airplay", "LineIn"];
-                                                        var vol = data.split(';');
-                                                        var popup = app.popup.create({
-                                                            content:
-                                                                '<div class="popup theme-dark popup-mv">' +
-                                                                '   <div id="pop-title" class="title text-color-white op"' +
-                                                                '       style="text-align: center; padding: 15px; font-weight: bold;' +
-                                                                '       background: black"></div>' +
-                                                                '   <div class="list" style="margin: 0">' +
-                                                                '       <ul id="vollist" class="side-padding"></ul>' +
-                                                                '       <template id="voltemplate">' +
-                                                                '           <li class="item-content" style="display: block;' +
-                                                                '               padding: 15px">' +
-                                                                '               <div class="title text-color-white op"></div>' +
-                                                                '               <div class="range-slider" style="display: table;' +
-                                                                '                       margin: 5px auto; text-align: center">' +
-                                                                '                   <input style="display: inline-block; width: 75%"' +
-                                                                '                       class="range-slider__range" type="range"' +
-                                                                '                       min="0" max="100" step="10">' +
-                                                                '                   <span class="range-slider__value op"></span>' +
-                                                                '               </div>' +
-                                                                '           </li>' +
-                                                                '       </template>' +
-                                                                '   </div>' +
-                                                                '   <button class="button link popup-close text-color-white op"' +
-                                                                '       style="width: 80%; margin: 15px auto;' +
-                                                                '       background: black" data-langkey="close">' + langDocument['close'] +  '</button>' +
-                                                                '</div>',
-                                                            on: {
-                                                                open: function (popup) {
-                                                                    processLangDocument();
-                                                                    app.dialog.close();
-                                                                    $('#pop-title').text(dev.name).attr('dev', dev.id);
-                                                                    var c2 = 0;
-                                                                    vol.forEach(function (volEl) {
-                                                                        if (volEl != "") {
-                                                                            from_template('#voltemplate')
-                                                                                .appendTo('#vollist')
-                                                                                .find('.title').text(playersName[c2]).end()
-                                                                                .find('.range-slider__value').text(volEl)
-                                                                                .attr('id', 'val' + c2).end()
-                                                                                .find('.range-slider__range')
-                                                                                .attr('id', 'input' + c2)
-                                                                                .attr('value', parseInt(volEl))
-                                                                                .on('input', function () {
-                                                                                    var id = parseInt($(this).attr('id')
-                                                                                        .toString().replace("input", ""));
-                                                                                    $('#val' + id).text($(this).val());
-                                                                                })
-                                                                                .on('change', function () {
-                                                                                    var id = parseInt($(this).attr('id')
-                                                                                        .toString().replace("input", ""));
-                                                                                    $.get('http://' + document.location.hostname
-                                                                                        + '/api/helper.php?vol_set'
-                                                                                        + '&dev=' + $('#pop-title').attr('dev')
-                                                                                        + '&player=' + playersCmd[id]
-                                                                                        + '&value=' + $(this).val(),
-                                                                                        function (data) {
-                                                                                        });
-                                                                                });
-                                                                        }
-                                                                        c2++;
-                                                                    });
+                            var devices = [];
+                            var devIds = data.split(';');
+                            var count = 1;
+                            var c = 1;
+                            devIds.forEach(function (value) {
+                                if (value != "") {
+                                    if (count < 10) {
+                                        value = "0" + count;
+                                    } else {
+                                        value = count;
+                                    }
+                                    count++;
+                                    $.get('http://' + document.location.hostname + '/api/helper.php?getdevice&dev=' + value,
+                                        function (data) {
+                                            devData = data.split(';');
+                                            var devId;
+                                            if (c < 10) {
+                                                devId = "0" + c;
+                                            } else {
+                                                devId = c;
+                                            }
+                                            var name;
+                                            if (devData[1] != "") {
+                                                name = devData[1];
+                                            } else {
+                                                name = devData[2] + " - " + devData[3];
+                                            }
+                                            var mode;
+                                            switch (parseInt(devData[0])) {
+                                                case 0:
+                                                    mode = "Aus";
+                                                    break;
+                                                case 1:
+                                                    mode = "Normal";
+                                                    break;
+                                                case 2:
+                                                    mode = "Geteilt";
+                                                    break;
+                                            }
+                                            var dev = {'id': devId, 'mode': mode, 'name': name, 'mac': devData[4]};
+                                            devices.push(dev);
+                                            c++;
+                                            from_template('#devicetemplate')
+                                                .attr('id', dev.id)
+                                                .appendTo('#devicelist')
+                                                .find('.item-title').text(dev.name).end()
+                                                .find('.item-subtitle').text(dev.mode).end()
+                                                .click(function () {
+                                                    app.dialog.progress();
+                                                    $.get('http://' + document.location.hostname + '/api/helper.php?vol&dev=' + dev.id,
+                                                        function (data) {
+                                                            var playersName = ["MPD", "Squeezebox", "Airplay & Spotify", "Line-In"];
+                                                            var playersCmd = ["mpd", "squeeze", "airplay", "LineIn"];
+                                                            var vol = data.split(';');
+                                                            var popup = app.popup.create({
+                                                                content:
+                                                                    '<div class="popup theme-dark popup-mv">' +
+                                                                    '   <div id="pop-title" class="title text-color-white op"' +
+                                                                    '       style="text-align: center; padding: 15px; font-weight: bold;' +
+                                                                    '       background: black"></div>' +
+                                                                    '   <div class="list" style="margin: 0">' +
+                                                                    '       <ul id="vollist" class="side-padding"></ul>' +
+                                                                    '       <template id="voltemplate">' +
+                                                                    '           <li class="item-content" style="display: block;' +
+                                                                    '               padding: 15px">' +
+                                                                    '               <div class="title text-color-white op"></div>' +
+                                                                    '               <div class="range-slider" style="display: table;' +
+                                                                    '                       margin: 5px auto; text-align: center">' +
+                                                                    '                   <input style="display: inline-block; width: 75%"' +
+                                                                    '                       class="range-slider__range" type="range"' +
+                                                                    '                       min="0" max="100" step="10">' +
+                                                                    '                   <span class="range-slider__value op"></span>' +
+                                                                    '               </div>' +
+                                                                    '           </li>' +
+                                                                    '       </template>' +
+                                                                    '   </div>' +
+                                                                    '   <button class="button link popup-close text-color-white op"' +
+                                                                    '       style="width: 80%; margin: 15px auto;' +
+                                                                    '       background: black" data-langkey="close">' + langDocument['close'] + '</button>' +
+                                                                    '</div>',
+                                                                on: {
+                                                                    open: function (popup) {
+                                                                        processLangDocument();
+                                                                        app.dialog.close();
+                                                                        $('#pop-title').text(dev.name).attr('dev', dev.id);
+                                                                        var c2 = 0;
+                                                                        vol.forEach(function (volEl) {
+                                                                            if (volEl != "") {
+                                                                                from_template('#voltemplate')
+                                                                                    .appendTo('#vollist')
+                                                                                    .find('.title').text(playersName[c2]).end()
+                                                                                    .find('.range-slider__value').text(volEl)
+                                                                                    .attr('id', 'val' + c2).end()
+                                                                                    .find('.range-slider__range')
+                                                                                    .attr('id', 'input' + c2)
+                                                                                    .attr('value', parseInt(volEl))
+                                                                                    .on('input', function () {
+                                                                                        var id = parseInt($(this).attr('id')
+                                                                                            .toString().replace("input", ""));
+                                                                                        $('#val' + id).text($(this).val());
+                                                                                    })
+                                                                                    .on('change', function () {
+                                                                                        var id = parseInt($(this).attr('id')
+                                                                                            .toString().replace("input", ""));
+                                                                                        $.get('http://' + document.location.hostname
+                                                                                            + '/api/helper.php?vol_set'
+                                                                                            + '&dev=' + $('#pop-title').attr('dev')
+                                                                                            + '&player=' + playersCmd[id]
+                                                                                            + '&value=' + $(this).val(),
+                                                                                            function (data) {
+                                                                                            });
+                                                                                    });
+                                                                            }
+                                                                            c2++;
+                                                                        });
+                                                                    }
                                                                 }
-                                                            }
+                                                            });
+                                                            popup.open();
                                                         });
-                                                        popup.open();
-                                                    });
-                                            });
-                                    });
-                            }
-                        });
-                    },
-                    error: function() {
-                        from_template('#devicetemplate')
-                            .attr('id', "-1")
-                            .appendTo('#devicelist')
-                            .find('.item-title').text("Keine Zonen gefunden").end();
-                    }});
+                                                });
+                                        });
+                                }
+                            });
+                        },
+                        error: function () {
+                            from_template('#devicetemplate')
+                                .attr('id', "-1")
+                                .appendTo('#devicelist')
+                                .find('.item-title').text("Keine Zonen gefunden").end();
+                        }
+                    });
                 },
                 pageBeforeOut: function (event, page) {
                     app.dialog.close();
@@ -366,140 +368,142 @@ var app = new Framework7({
             on: {
                 pageBeforeIn: function (event, page) {
                     processLangDocument();
-                    $.ajax({url: 'http://' + document.location.hostname + '/api/helper.php?activedevices',
+                    $.ajax({
+                        url: 'http://' + document.location.hostname + '/api/helper.php?activedevices',
                         success: function (data) {
-                        var devices = [];
-                        var devIds = data.split(';');
-                        var count = 1;
-                        var c = 1;
-                        devIds.forEach(function (value) {
-                            if (value != "") {
-                                if (count < 10) {
-                                    value = "0" + count;
-                                } else {
-                                    value = count;
-                                }
-                                count++;
-                                $.get('http://' + document.location.hostname + '/api/helper.php?getdevice&dev=' + value,
-                                    function (data) {
-                                        devData = data.split(';');
-                                        var devId;
-                                        if (c < 10) {
-                                            devId = "0" + c;
-                                        } else {
-                                            devId = c;
-                                        }
-                                        var name;
-                                        if (devData[1] != "") {
-                                            name = devData[1];
-                                        } else {
-                                            name = devData[2] + " - " + devData[3];
-                                        }
-                                        var mode;
-                                        switch (parseInt(devData[0])) {
-                                            case 0:
-                                                mode = "Aus";
-                                                break;
-                                            case 1:
-                                                mode = "Normal";
-                                                break;
-                                            case 2:
-                                                mode = "Geteilt";
-                                                break;
-                                        }
-                                        var dev = {'id': devId, 'mode': mode, 'name': name, 'mac': devData[4]};
-                                        devices.push(dev);
-                                        c++;
-                                        from_template('#devicetemplate')
-                                            .attr('id', dev.id)
-                                            .appendTo('#devicelist')
-                                            .find('.item-title').text(dev.name).end()
-                                            .find('.item-subtitle').text(dev.mode).end()
-                                            .click(function () {
-                                                app.dialog.progress();
-                                                $.get('http://' + document.location.hostname + '/api/helper.php?eq&dev=' + dev.id,
-                                                    function (data) {
-                                                        var eqdata = data.split(';');
-                                                        var popup = app.popup.create({
-                                                            content:
-                                                                '<div class="popup theme-dark popup-mv">' +
-                                                                '   <div id="pop-title" class="title text-color-white op"' +
-                                                                '       style="text-align: center; padding: 15px; font-weight: bold;' +
-                                                                '       background: black"></div>' +
-                                                                '   <div class="list" style="margin: 0">' +
-                                                                '       <ul id="eqlist" class="side-padding"></ul>' +
-                                                                '       <template id="eqtemplate">' +
-                                                                '           <li class="item-content" style="display: block;' +
-                                                                '               padding: 15px">' +
-                                                                '               <div class="title text-color-white op"></div>' +
-                                                                '               <div class="range-slider" style="display: table;' +
-                                                                '                       margin: 5px auto; text-align: center">' +
-                                                                '                   <input style="display: inline-block; width: 75%"' +
-                                                                '                       class="range-slider__range" type="range"' +
-                                                                '                       min="0" max="100" step="10">' +
-                                                                '                   <span class="range-slider__value op"></span>' +
-                                                                '               </div>' +
-                                                                '           </li>' +
-                                                                '       </template>' +
-                                                                '   </div>' +
-                                                                '   <button class="button link popup-close text-color-white op"' +
-                                                                '       style="width: 80%; margin: 15px auto;' +
-                                                                '       background: black" data-langkey="close">' + langDocument['close'] +  '</button>' +
-                                                                '</div>',
-                                                            on: {
-                                                                open: function (popup) {
-                                                                    processLangDocument();
-                                                                    app.dialog.close();
-                                                                    $('#pop-title').text(dev.name).attr('dev', dev.id);
-                                                                    var freqName = ['Tiefen', 'Mitten', 'Höhen'];
-                                                                    var freqCmd = ['low', 'mid', 'high'];
-                                                                    var c2 = 0;
-                                                                    eqdata.forEach(function (eqVal) {
-                                                                        if (eqVal != "") {
-                                                                            var val = Math.round(parseInt(eqVal) / 10) * 10;
-                                                                            from_template('#eqtemplate')
-                                                                                .appendTo('#eqlist')
-                                                                                .find('.title').text(freqName[c2]).end()
-                                                                                .find('.range-slider__value').text(val)
-                                                                                .attr('id', 'val' + c2).end()
-                                                                                .find('.range-slider__range')
-                                                                                .attr('id', 'input' + c2)
-                                                                                .attr('value', val)
-                                                                                .on('input', function () {
-                                                                                    var id = parseInt($(this).attr('id')
-                                                                                        .toString().replace("input", ""));
-                                                                                    $('#val' + id).text($(this).val());
-                                                                                })
-                                                                                .on('change', function () {
-                                                                                    var id = parseInt($(this).attr('id')
-                                                                                        .toString().replace("input", ""));
-                                                                                    $.get('http://' + document.location.hostname
-                                                                                        + '/api/helper.php?eq_set'
-                                                                                        + '&dev=' + $('#pop-title').attr('dev')
-                                                                                        + '&freq=' + freqCmd[id]
-                                                                                        + '&value=' + $(this).val(),
-                                                                                        function (data) {
-                                                                                        });
-                                                                                });
-                                                                        }
-                                                                        c2++;
-                                                                    });
+                            var devices = [];
+                            var devIds = data.split(';');
+                            var count = 1;
+                            var c = 1;
+                            devIds.forEach(function (value) {
+                                if (value != "") {
+                                    if (count < 10) {
+                                        value = "0" + count;
+                                    } else {
+                                        value = count;
+                                    }
+                                    count++;
+                                    $.get('http://' + document.location.hostname + '/api/helper.php?getdevice&dev=' + value,
+                                        function (data) {
+                                            devData = data.split(';');
+                                            var devId;
+                                            if (c < 10) {
+                                                devId = "0" + c;
+                                            } else {
+                                                devId = c;
+                                            }
+                                            var name;
+                                            if (devData[1] != "") {
+                                                name = devData[1];
+                                            } else {
+                                                name = devData[2] + " - " + devData[3];
+                                            }
+                                            var mode;
+                                            switch (parseInt(devData[0])) {
+                                                case 0:
+                                                    mode = "Aus";
+                                                    break;
+                                                case 1:
+                                                    mode = "Normal";
+                                                    break;
+                                                case 2:
+                                                    mode = "Geteilt";
+                                                    break;
+                                            }
+                                            var dev = {'id': devId, 'mode': mode, 'name': name, 'mac': devData[4]};
+                                            devices.push(dev);
+                                            c++;
+                                            from_template('#devicetemplate')
+                                                .attr('id', dev.id)
+                                                .appendTo('#devicelist')
+                                                .find('.item-title').text(dev.name).end()
+                                                .find('.item-subtitle').text(dev.mode).end()
+                                                .click(function () {
+                                                    app.dialog.progress();
+                                                    $.get('http://' + document.location.hostname + '/api/helper.php?eq&dev=' + dev.id,
+                                                        function (data) {
+                                                            var eqdata = data.split(';');
+                                                            var popup = app.popup.create({
+                                                                content:
+                                                                    '<div class="popup theme-dark popup-mv">' +
+                                                                    '   <div id="pop-title" class="title text-color-white op"' +
+                                                                    '       style="text-align: center; padding: 15px; font-weight: bold;' +
+                                                                    '       background: black"></div>' +
+                                                                    '   <div class="list" style="margin: 0">' +
+                                                                    '       <ul id="eqlist" class="side-padding"></ul>' +
+                                                                    '       <template id="eqtemplate">' +
+                                                                    '           <li class="item-content" style="display: block;' +
+                                                                    '               padding: 15px">' +
+                                                                    '               <div class="title text-color-white op"></div>' +
+                                                                    '               <div class="range-slider" style="display: table;' +
+                                                                    '                       margin: 5px auto; text-align: center">' +
+                                                                    '                   <input style="display: inline-block; width: 75%"' +
+                                                                    '                       class="range-slider__range" type="range"' +
+                                                                    '                       min="0" max="100" step="10">' +
+                                                                    '                   <span class="range-slider__value op"></span>' +
+                                                                    '               </div>' +
+                                                                    '           </li>' +
+                                                                    '       </template>' +
+                                                                    '   </div>' +
+                                                                    '   <button class="button link popup-close text-color-white op"' +
+                                                                    '       style="width: 80%; margin: 15px auto;' +
+                                                                    '       background: black" data-langkey="close">' + langDocument['close'] + '</button>' +
+                                                                    '</div>',
+                                                                on: {
+                                                                    open: function (popup) {
+                                                                        processLangDocument();
+                                                                        app.dialog.close();
+                                                                        $('#pop-title').text(dev.name).attr('dev', dev.id);
+                                                                        var freqName = ['Tiefen', 'Mitten', 'Höhen'];
+                                                                        var freqCmd = ['low', 'mid', 'high'];
+                                                                        var c2 = 0;
+                                                                        eqdata.forEach(function (eqVal) {
+                                                                            if (eqVal != "") {
+                                                                                var val = Math.round(parseInt(eqVal) / 10) * 10;
+                                                                                from_template('#eqtemplate')
+                                                                                    .appendTo('#eqlist')
+                                                                                    .find('.title').text(freqName[c2]).end()
+                                                                                    .find('.range-slider__value').text(val)
+                                                                                    .attr('id', 'val' + c2).end()
+                                                                                    .find('.range-slider__range')
+                                                                                    .attr('id', 'input' + c2)
+                                                                                    .attr('value', val)
+                                                                                    .on('input', function () {
+                                                                                        var id = parseInt($(this).attr('id')
+                                                                                            .toString().replace("input", ""));
+                                                                                        $('#val' + id).text($(this).val());
+                                                                                    })
+                                                                                    .on('change', function () {
+                                                                                        var id = parseInt($(this).attr('id')
+                                                                                            .toString().replace("input", ""));
+                                                                                        $.get('http://' + document.location.hostname
+                                                                                            + '/api/helper.php?eq_set'
+                                                                                            + '&dev=' + $('#pop-title').attr('dev')
+                                                                                            + '&freq=' + freqCmd[id]
+                                                                                            + '&value=' + $(this).val(),
+                                                                                            function (data) {
+                                                                                            });
+                                                                                    });
+                                                                            }
+                                                                            c2++;
+                                                                        });
+                                                                    }
                                                                 }
-                                                            }
+                                                            });
+                                                            popup.open();
                                                         });
-                                                        popup.open();
-                                                    });
-                                            });
-                                    });
-                            }
-                        });
-                    },
-                    error: function() {
-                        from_template('#devicetemplate')
-                            .attr('id', "-1")
-                            .appendTo('#devicelist')
-                            .find('.item-title').text("Keine Zonen gefunden").end();
-                    }});
+                                                });
+                                        });
+                                }
+                            });
+                        },
+                        error: function () {
+                            from_template('#devicetemplate')
+                                .attr('id', "-1")
+                                .appendTo('#devicelist')
+                                .find('.item-title').text("Keine Zonen gefunden").end();
+                        }
+                    });
                 },
                 pageBeforeOut: function (event, page) {
                     app.dialog.close();
@@ -527,7 +531,8 @@ var app = new Framework7({
             on: {
                 pageBeforeIn: function (event, page) {
                     processLangDocument();
-                    $.ajax({ url: 'http://' + document.location.hostname + '/api/helper.php?radiohistory',
+                    $.ajax({
+                        url: 'http://' + document.location.hostname + '/api/helper.php?radiohistory',
                         success: function (data) {
                             if (data !== '') {
                                 let history = [];
@@ -564,7 +569,10 @@ var app = new Framework7({
                                                 item.image ||
                                                 '/music/' + (item.coverid || item.id) + '/cover.jpg', true))
                                         .end()
-                                        .click(() => {history_item_clicked(item); window.location.href = "/m";})
+                                        .click(() => {
+                                            history_item_clicked(item);
+                                            window.location.href = "/m";
+                                        })
                                         .appendTo('#historycontent');
                                 });
                             } else {
@@ -577,7 +585,7 @@ var app = new Framework7({
                                     .appendTo('#historycontent');
                             }
                         },
-                        error: function (){
+                        error: function () {
                             from_template('#menu-item-template')
                                 .find('.title')
                                 .text(langDocument['history_empty'])
@@ -585,7 +593,355 @@ var app = new Framework7({
                                 .click(() => {
                                 })
                                 .appendTo('#historycontent');
-                        }});
+                        }
+                    });
+                },
+                pageBeforeOut: function (event, page) {
+                    app.dialog.close();
+                }
+            }
+        }, {
+            name: 'linein',
+            path: '/linein/',
+            content:
+                '<div data-name="linein" class="page">' +
+                '    <div class="navbar">' +
+                '        <div class="navbar-inner" style="background: black">' +
+                '            <div class="left">' +
+                '                <a class="link back" href="/">' +
+                '                    <i class="icon icon-back"></i>' +
+                '                    <span class="ios-only" data-langkey="back">Zurück</span>' +
+                '                </a>' +
+                '            </div>' +
+                '            <div class="title" data-langkey="linein">Line-In</div>' +
+                '        </div>' +
+                '    </div>' +
+                '    <div class="page-content side-padding">' +
+                '       <div class="block-title" data-langkey="input">Eingang</div>' +
+                '       <div class="list">' +
+                '           <ul>' +
+                '               <li>' +
+                '                   <div class="item-content item-input">' +
+                '                       <div class="item-inner">' +
+                '                           <div class="item-input-wrap op">' +
+                '                               <input type="text" placeholder="Amp auswählen" readonly="readonly" id="demo-picker-device"/>' +
+                '                           </div>' +
+                '                       </div>' +
+                '                   </div>' +
+                '               </li>' +
+                '           </ul>' +
+                '       </div>' +
+                '       <div class="block-title" data-langkey="output">Ausgang</div>' +
+                '       <div class="list">' +
+                '           <ul id="lineincontent"></ul>' +
+                '           <template id="lineintemplate">' +
+                '               <li>' +
+                '                   <label class="item-checkbox item-content op">' +
+                '                       <input class="linecheckbox" name="lineincb" type="checkbox" />' +
+                '                       <i class="icon icon-checkbox"></i>' +
+                '                       <div class="item-inner">' +
+                '                           <div class="item-title"></div>' +
+                '                           <span class="item-after"></span>' +
+                '                       </div>' +
+                '                   </label>' +
+                '               </li>' +
+                '           </template>' +
+                '       </div>' +
+                '       <a href="#" id="linevol" class="button op" style="width: 94%; margin-left: 3%" data-langkey="volreg"></a>' +
+                '       <div style="text-align: center; margin-top: 5%">' +
+                '           <img id="lineplay" class="op" style="margin-right: 3%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAQAAAC0NkA6AAAAAmJLR0QA/4ePzL8AAADuSURBVFjD7ZcxDgFRFEUnolDpFFo6hYSSygKUtqBV2oItqCRKW9ArjHZChWglOgUJ139RaGf+OJOIOd2vTjLz/v33BUFOjqG2DjpqqCIpmelNpD4nWejDSl1eIj3duU5LjLumqtAS46KxSrTEOLmZK9ASY6MeLzGWavIS6aG5qrTEuGqiMi0xzhp5xU8iibHTgJf4xI+XJGn8eEqSxU8KSfz4SSmJFz9fkBhrNXiJG+0sJFteEtKfC//x+AjjlzGDWMEDEo96/NHCn98MigReiUK63OE1FS/cN3p1sLio0etc54cX05b2+Iqd8x+8AM9nigEsE2kdAAAAAElFTkSuQmCC">' +
+                '           <img id="linestop" class="op" style="margin-left: 3%" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAQAAAC0NkA6AAAAAmJLR0QA/4ePzL8AAABcSURBVFjD7dbBDYAwDMXQLAqqYGRSpon0WSEJUi+1F3hXmxHR9unSVKhSaGpUiFvd8ozeNuJ5JNpI5JEfgYCAgICAgIAsQJYs0WwjTx4ZbeQwqzBeHm7XaUS0fR9VcPL3YQju1wAAAABJRU5ErkJggg==">' +
+                '       </div>' +
+                '    </div>' +
+                '    <div id="picker-backdrop" class="picker-backdrop"></div>' +
+                '</div>',
+            on: {
+                pageBeforeIn: function (event, page) {
+                    processLangDocument();
+                    document.getElementById("demo-picker-device").placeholder = langDocument['select_amp'];
+
+                    $.ajax({
+                        url: 'http://' + document.location.hostname + '/api/helper.php?activedevices',
+                        success: function (data) {
+                            var sourceIds = [];
+                            var sourceDisplay = [];
+                            var outputDevices = [];
+                            var devIds = data.split(';');
+                            var count = 1;
+                            var c = 1;
+                            var i = 0;
+                            devIds.forEach(function (value) {
+                                if (value != "") {
+                                    if (count < 10) {
+                                        value = "0" + count;
+                                    } else {
+                                        value = count;
+                                    }
+                                    count++;
+                                    $.get('http://' + document.location.hostname + '/api/helper.php?getdevice&dev=' + value,
+                                        function (data) {
+                                            let devData = data.split(';');
+
+                                            sourceIds.push(value);
+
+                                            let name = undefined;
+                                            let nameL = undefined;
+                                            let nameR = undefined;
+                                            if (devData[1] != "") {
+                                                name = devData[1];
+                                                sourceDisplay.push(name);
+                                                outputDevices.push({id: value, mode: undefined, name: name});
+
+                                                from_template('#lineintemplate')
+                                                    .find('.item-title')
+                                                    .text(name)
+                                                    .end()
+                                                    .find('.linecheckbox')
+                                                    .val(i)
+                                                    .end()
+                                                    .find('.item-after')
+                                                    .attr('id', 'linestate' + value)
+                                                    .end()
+                                                    .appendTo('#lineincontent');
+
+                                                i++;
+                                            } else {
+                                                nameL = devData[2];
+                                                nameR = devData[3];
+                                                sourceDisplay.push(nameL + ' - ' + nameR);
+                                                outputDevices.push({id: value, mode: 'li', name: nameL});
+
+                                                from_template('#lineintemplate')
+                                                    .find('.item-title')
+                                                    .text(nameL)
+                                                    .end()
+                                                    .find('.linecheckbox')
+                                                    .val(i)
+                                                    .end()
+                                                    .find('.item-after')
+                                                    .attr('id', 'linestate' + value + 'li')
+                                                    .end()
+                                                    .appendTo('#lineincontent');
+                                                i++;
+
+                                                outputDevices.push({id: value, mode: 're', name: nameR});
+
+                                                from_template('#lineintemplate')
+                                                    .find('.item-title')
+                                                    .text(nameR)
+                                                    .end()
+                                                    .find('.linecheckbox')
+                                                    .val(i)
+                                                    .end()
+                                                    .find('.item-after')
+                                                    .attr('id', 'linestate' + value + 're')
+                                                    .end()
+                                                    .appendTo('#lineincontent');
+                                                i++;
+                                            }
+                                            c++;
+                                        });
+                                }
+                            });
+
+                            let sourcePicker = app.picker.create({
+                                inputEl: '#demo-picker-device',
+                                cols: [
+                                    {
+                                        textAlign: 'center',
+                                        values: sourceDisplay
+                                    }
+                                ],
+                                renderToolbar: function () {
+                                    return '<div class="toolbar">' +
+                                                '<div class="toolbar-inner">' +
+                                                    '<div class="left"></div>' +
+                                                    '<div class="right">' +
+                                                        '<a href="#" class="link sheet-close popover-close" data-langkey="select_input">Eingang auswählen</a>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>';
+                                },
+                                on : {
+                                    opened: function () {
+                                        processLangDocument();
+                                        let backdrop = document.getElementById('picker-backdrop');
+
+                                        if (backdrop !== undefined && backdrop !== null) {
+                                            backdrop.style.visibility = "visible";
+                                            backdrop.style.opacity = 1;
+                                            backdrop.onclick = function () {
+                                                sourcePicker.close();
+                                            };
+                                        }
+                                    },
+                                    closed: function () {
+                                        let backdrop = document.getElementById('picker-backdrop');
+
+                                        if (backdrop !== undefined && backdrop !== null) {
+                                            backdrop.style.opacity = 0;
+                                            backdrop.style.visibility = "hidden";
+                                            backdrop.onclick = function () {};
+                                        }
+                                    }
+                                }
+                            });
+
+                            $('#lineplay').click(function () {
+                                let elements = document.getElementsByName("lineincb");
+                                if (sourcePicker.getValue() !== undefined && sourcePicker.getValue().length > 0) {
+                                    let source = sourcePicker.getValue()[0];
+                                    let sourceId = sourceIds[sourceDisplay.indexOf(source)];
+                                    elements.forEach(function (element) {
+                                        if (element.checked) {
+                                            let out = outputDevices[element.value];
+
+                                            let parameter = '&card_in=' + sourceId + '&card_out=' + out.id;
+                                            if (out.mode !== undefined) {
+                                                parameter = parameter + '&mode=' + out.mode;
+                                            }
+
+                                            $.get('http://' + document.location.hostname + '/api/helper.php?setlinein' + parameter,
+                                                function () {
+                                                    if (out.mode === undefined) {
+                                                        $('#linestate' + out.id).text('(playing)');
+                                                    } else {
+                                                        $('#linestate' + out.id + out.mode).text('(playing)');
+                                                    }
+                                                });
+                                        }
+                                    });
+                                }
+                            });
+
+                            $('#linestop').click(function () {
+                                let elements = document.getElementsByName("lineincb");
+
+                                elements.forEach(function (element) {
+                                    if (element.checked) {
+                                        let out = outputDevices[element.value];
+                                        let parameter = out.id;
+                                        if (out.mode !== undefined) {
+                                            parameter = parameter + out.mode;
+                                        }
+
+                                        $.get('http://' + document.location.hostname + '/api/helper.php?setlinein&card_out=' + parameter,
+                                            function () {
+                                                if (out.mode === undefined) {
+                                                    $('#linestate' + out.id).text('');
+                                                } else {
+                                                    $('#linestate' + out.id + out.mode).text('');
+                                                }
+                                            });
+                                    }
+                                });
+                            });
+
+                            setTimeout(function () {
+                                count = 1;
+                                devIds.forEach(function (value) {
+                                    if (value != "") {
+                                        if (count < 10) {
+                                            value = "0" + count;
+                                        } else {
+                                            value = count;
+                                        }
+                                        count++;
+                                        $.get('http://' + document.location.hostname + '/api/helper.php?lineinstatus&dev=' + value,
+                                            function (lineinstatus) {
+                                                if (lineinstatus.includes(';')) {
+                                                    let data = lineinstatus.split(';');
+                                                    if (data[0] !== "") {
+                                                        $('#linestate' + value + 're').val('(playing)');
+                                                    }
+                                                    if (data[1] !== "") {
+                                                        $('#linestate' + value + 'li').text('(playing)');
+                                                    }
+                                                } else {
+                                                    if (lineinstatus.replace('\n', '') !== "") {
+                                                        $('#linestate' + value).text('(playing)');
+                                                    }
+                                                }
+                                            });
+                                    }
+                                });
+                            }, 1000);
+
+
+                            $('#linevol').click(function () {
+                                app.dialog.progress();
+                                var popup = app.popup.create({
+                                    content:
+                                        '<div class="popup theme-dark popup-mv">' +
+                                        '   <div id="pop-title" class="title text-color-white op"' +
+                                        '       style="text-align: center; padding: 15px; font-weight: bold;' +
+                                        '       background: black" data-langkey="volreg">Lautstärkenregelung</div>' +
+                                        '   <div class="list" style="margin: 0">' +
+                                        '       <ul id="eqlist" class="side-padding"></ul>' +
+                                        '       <template id="eqtemplate">' +
+                                        '           <li class="item-content" style="display: block;' +
+                                        '               padding: 15px">' +
+                                        '               <div class="title text-color-white op"></div>' +
+                                        '               <div class="range-slider" style="display: table;' +
+                                        '                       margin: 5px auto; text-align: center">' +
+                                        '                   <input style="display: inline-block; width: 75%"' +
+                                        '                       class="range-slider__range" type="range"' +
+                                        '                       min="0" max="100" step="10">' +
+                                        '                   <span class="range-slider__value op"></span>' +
+                                        '               </div>' +
+                                        '           </li>' +
+                                        '       </template>' +
+                                        '   </div>' +
+                                        '   <button class="button link popup-close text-color-white op"' +
+                                        '       style="width: 80%; margin: 15px auto;' +
+                                        '       background: black" data-langkey="close">' + langDocument['close'] + '</button>' +
+                                        '</div>',
+                                    on: {
+                                        open: function (popup) {
+                                            processLangDocument();
+
+                                            sourceIds.forEach(function (id) {
+                                                $.get('http://' + document.location.hostname + '/api/helper.php?vol&dev=' + id,
+                                                    function (data) {
+                                                        let voldata = data.split(';');
+                                                        let linevol = Math.round(parseInt(voldata[3]) / 10) * 10;
+
+                                                        from_template('#eqtemplate')
+                                                            .appendTo('#eqlist')
+                                                            .find('.title').text(sourceDisplay[sourceIds.indexOf(id)]).end()
+                                                            .find('.range-slider__value').text(linevol)
+                                                            .attr('id', 'val' + id).end()
+                                                            .find('.range-slider__range')
+                                                            .attr('id', 'input' + id)
+                                                            .attr('value', linevol)
+                                                            .on('input', function () {
+                                                                $('#val' + id).text($(this).val());
+                                                            })
+                                                            .on('change', function () {
+                                                                $.get('http://' + document.location.hostname
+                                                                    + '/api/helper.php?vol_set'
+                                                                    + '&dev=' + id
+                                                                    + '&player=LineIn'
+                                                                    + '&value=' + $(this).val(),
+                                                                    function (data) {
+                                                                    });
+                                                            });
+                                                    });
+                                            });
+
+                                            setTimeout(function () {
+                                                app.dialog.close();
+                                            }, 1000);
+                                        }
+                                    }
+                                });
+                                popup.open();
+                            });
+                        },
+                        error: function () {
+                            console.log("Keine Zonen gefunden");
+                        }
+                    });
                 },
                 pageBeforeOut: function (event, page) {
                     app.dialog.close();
