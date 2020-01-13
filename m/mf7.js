@@ -75,7 +75,7 @@ var app = new Framework7({
                     $('#address').html(langDocument['hostname'] + document.location.hostname);
                     $('#port').html(langDocument['port'] + document.location.port);
 
-                    $('#available').load('https://raw.githubusercontent.com/JHoerbst/InnoTune/master/version.txt',
+                    $('#available').load('https://raw.githubusercontent.com/sevelm/InnoTune/master/version.txt',
                         function (response, status, xhr) {
                             if (status == "success") {
                                 $('#available').html(langDocument['newest_version'] + response);
