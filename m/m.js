@@ -276,7 +276,7 @@ function player_created(_, server, player) {
                         .attr('href', '#')
                         .text(player.name)
                         .click(() => { sync
-                                       ? player.sync(active_player)
+                                       ? active_player.sync(player)
                                        : player.unsync(); })));
     $('.dropdown-item#party').click(() => {
         server
