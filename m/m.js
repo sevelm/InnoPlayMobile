@@ -595,7 +595,7 @@ function player_updated(_, server, player) {
                format_time(player.track_duration)].join(' | '));
     /*$elm.find('.volume .progress-bar')
         .width(player.volume + '%');*/
-    if(player.volume != $elm.find('.volume .range-slider__range').val()
+    if (player.volume != $elm.find('.volume .range-slider__range').val()
         && !sliding) {
         console.log('val: ' + player.volume);
         $elm.find('.volume .range-slider__range').val(player.volume);
@@ -674,5 +674,5 @@ $(() => {
     $(new Server())
         .on('player_created', player_created)
         .on('player_updated', player_updated)
-        .one('server_ready', server_ready);
+        .on('server_ready', server_ready);
 });

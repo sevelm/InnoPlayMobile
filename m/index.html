@@ -31,8 +31,8 @@
 
     <!-- Path to your custom app styles
     <link rel="stylesheet" href="path/to/my-app.css">-->
-    <link rel="stylesheet" href="[% webroot %]style.css?v=1.2.1"/>
-    <link rel="apple-touch-icon" href="[% webroot %]html/images/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="[% webroot %]style.css?v=1.2.3"/>
+    <link rel="apple-touch-icon" href="[%webroot %]html/images/apple-touch-icon.png"/>
     <link rel="icon" href="[% webroot %]favicon.ico"/>
 
     <link rel="manifest" href="manifest.js"/>
@@ -315,10 +315,10 @@
                                             <div class="volume range-slider"
                                                  style="width: 55%; text-align: center; margin: 0">
                                                 <input class="volume range-slider__range" type="range" min="0" max="100"
-                                                       step="5"
+                                                       step="5" value="0"
                                                        style="height: 2px; display: inline-block; width: 90%">
                                                 <span class="volume range-slider__value op"
-                                                      style="display: none"></span>
+                                                      style="display: none">0</span>
                                             </div>
                                             <div>
                                                 <button type="button" class="volume_up" style="padding-left: 0">
@@ -464,9 +464,9 @@
                                                 <div class="volume range-slider" style="width: 100%; text-align: center;
                                                     margin: 5px 0; display: table; padding-right: 1.25rem">
                                                     <input class="volume range-slider__range" type="range" min="0"
-                                                           max="100" step="5"
+                                                           max="100" step="5" value="0"
                                                            style="display: inline-block; width: 75%">
-                                                    <span class="volume range-slider__value op"></span>
+                                                    <span class="volume range-slider__value op">0</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -634,7 +634,7 @@
 
 <script src="[% webroot %]lms.js?v=1.0"></script>
 <script src="[% webroot %]swipe.js?v=1.0"></script>
-<script async src="[% webroot %]m.js?v=1.1"></script>
+<script async src="[% webroot %]m.js?v=1.2"></script>
 
 <script type="text/javascript" src="[% webroot %]mf7.js?v=1.2.3"></script>
 <script type="text/javascript">

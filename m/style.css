@@ -331,7 +331,7 @@ button.btn {
 }
 
 /* iPhone X portrait */
-@media (orientation: portrait) and (max-width: 375px) and (min-width: 374px) and (min-height: 800px) {
+/*@media (orientation: portrait) and (max-width: 375px) and (min-width: 374px) and (min-height: 800px) {
     .page-content {
         margin-top: 25px;
         height: calc(100% - 25px);
@@ -348,7 +348,7 @@ button.btn {
     .panel.panel-left.panel-cover {
         margin-top: 25px;
     }
-}
+}*/
 
 ol.playlist {
     display: none;
