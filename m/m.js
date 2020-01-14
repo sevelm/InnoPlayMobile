@@ -649,25 +649,23 @@ function player_updated(_, server, player) {
             ));
     }
 
-    if(player.html_id == active_player.html_id) {
+    if(player.html_id === active_player.html_id) {
         $('.dropdown-menu.syncing .dropdown-item').hide();
+        $('#current_link').text(player.name).show();
+
+        server.players.forEach(other => {
+            if (other.html_id !== active_player.html_id) {
+                if (/*!other.is_slave && */!player.group.includes(other))
+                    $('.dropdown-item.sync.' + other.html_id).show();
+                if (player.sync_partners.includes(other))
+                    $('.dropdown-item.unsync.' + other.html_id)
+                        .text(other.name)
+                        .show();
+                if (player.group.length !== server.players.length)
+                    $('.dropdown-item#party').show();
+            }
+        });
     }
-    server.players.forEach(other => {
-        if (other.html_id != active_player.html_id) {
-            if (!other.is_slave && !player.group.includes(other))
-                $('.dropdown-item.sync.' + other.html_id).show();
-            if (player.sync_partners.includes(other))
-                $('.dropdown-item.unsync.' + other.html_id)
-                    .text(other.name)
-                    .show();
-            if (player.group.length != server.players.length)
-                $('.dropdown-item#party').show();
-            /* FIXME: To be able to set the state of the 'Unsync all'
-               menu item we must know the sync state for all players
-               - by sending periodic 'syncgroups ?'-queries */
-            /* $('.dropdown-item#no-party').show(); */
-        }
-    });
 }
 
 $(() => {
