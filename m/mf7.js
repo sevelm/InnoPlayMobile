@@ -94,61 +94,76 @@ var app = new Framework7({
                         });
 
                     $$('.open-confirm').on('click', function () {
-                        app.dialog.create({
-                            title: langDocument['update_title'],
-                            text: langDocument['update_text'],
-                            buttons: [
-                                {
-                                    text: langDocument['update_cancel']
-                                },
-                                {
-                                    text: langDocument['update_start'],
-                                    onClick: function () {
-                                        console.log('start update');
-                                        app.dialog.preloader(langDocument['update_status']);
-                                        $('#updatelink').load('http://' + document.location.hostname + '/api/helper.php?update',
-                                            function (response, status, xhr) {
-                                                app.dialog.close();
-                                                if (status == "success") {
-                                                    console.log('update finished');
-                                                    app.dialog.preloader(langDocument['update_reboot']);
-                                                    $('#updatelink').load('http://' + document.location.hostname +
-                                                        '/api/helper.php?reboot',
-                                                        function (response, status, xhr) {
-                                                            console.log('reboot: ' + status);
-                                                            setInterval(function () {
-                                                                $('#updatelink').load('http://' + document.location.hostname + ':' +
-                                                                    document.location.port + '/m/',
-                                                                    function (response, status, xhr) {
-                                                                        if (status == "success") {
-                                                                            setTimeout(function () {
-                                                                                location.reload(true);
-                                                                            }, 10000);
-                                                                        } else {
-                                                                            console.log('error');
-                                                                        }
-                                                                    })
-                                                            }, 4000);
-                                                        });
-                                                } else {
-                                                    console.log('update failed');
-                                                    app.dialog.create({
-                                                        title: langDocument['update_error_title'],
-                                                        text: langDocument['update_error_text'],
-                                                        buttons: [
-                                                            {
-                                                                text: langDocument['update_error_button']
-                                                            }
-                                                        ],
-                                                        verticalButtons: false
-                                                    }).open();
-                                                }
-                                            });
+                        if (!internetLost &&
+                            $('#available').html() !== langDocument['current_version'] + ' ' &&
+                            $('#available').html() !== langDocument['available_error']) {
+                            app.dialog.create({
+                                title: langDocument['update_title'],
+                                text: langDocument['update_text'],
+                                buttons: [
+                                    {
+                                        text: langDocument['update_cancel']
+                                    },
+                                    {
+                                        text: langDocument['update_start'],
+                                        onClick: function () {
+                                            console.log('start update');
+                                            app.dialog.preloader(langDocument['update_status']);
+                                            $('#updatelink').load('http://' + document.location.hostname + '/api/helper.php?update',
+                                                function (response, status, xhr) {
+                                                    app.dialog.close();
+                                                    if (status == "success") {
+                                                        console.log('update finished');
+                                                        app.dialog.preloader(langDocument['update_reboot']);
+                                                        $('#updatelink').load('http://' + document.location.hostname +
+                                                            '/api/helper.php?reboot',
+                                                            function (response, status, xhr) {
+                                                                console.log('reboot: ' + status);
+                                                                setInterval(function () {
+                                                                    $('#updatelink').load('http://' + document.location.hostname + ':' +
+                                                                        document.location.port + '/m/',
+                                                                        function (response, status, xhr) {
+                                                                            if (status == "success") {
+                                                                                setTimeout(function () {
+                                                                                    location.reload(true);
+                                                                                }, 10000);
+                                                                            } else {
+                                                                                console.log('error');
+                                                                            }
+                                                                        })
+                                                                }, 4000);
+                                                            });
+                                                    } else {
+                                                        console.log('update failed');
+                                                        app.dialog.create({
+                                                            title: langDocument['update_error_title'],
+                                                            text: langDocument['update_error_text'],
+                                                            buttons: [
+                                                                {
+                                                                    text: langDocument['update_error_button']
+                                                                }
+                                                            ],
+                                                            verticalButtons: false
+                                                        }).open();
+                                                    }
+                                                });
+                                        }
                                     }
-                                }
-                            ],
-                            verticalButtons: false
-                        }).open();
+                                ],
+                                verticalButtons: false
+                            }).open();
+                        } else {
+                            app.dialog.create({
+                                title: 'Update nicht möglich',
+                                text: 'Es besteht derzeit keine Internetverbindung, deshalb kann kein Update nicht durchgeführt werden.',
+                                buttons: [
+                                    {
+                                        text: 'Verstanden!'
+                                    }
+                                ],
+                                verticalButtons: false
+                            }).open();
+                        }
                     });
                 }
             }
@@ -754,15 +769,15 @@ var app = new Framework7({
                                 ],
                                 renderToolbar: function () {
                                     return '<div class="toolbar">' +
-                                                '<div class="toolbar-inner">' +
-                                                    '<div class="left"></div>' +
-                                                    '<div class="right">' +
-                                                        '<a href="#" class="link sheet-close popover-close" data-langkey="select_input">Eingang auswählen</a>' +
-                                                    '</div>' +
-                                                '</div>' +
-                                            '</div>';
+                                        '<div class="toolbar-inner">' +
+                                        '<div class="left"></div>' +
+                                        '<div class="right">' +
+                                        '<a href="#" class="link sheet-close popover-close" data-langkey="select_input">Eingang auswählen</a>' +
+                                        '</div>' +
+                                        '</div>' +
+                                        '</div>';
                                 },
-                                on : {
+                                on: {
                                     opened: function () {
                                         processLangDocument();
                                         let backdrop = document.getElementById('picker-backdrop');
@@ -781,7 +796,8 @@ var app = new Framework7({
                                         if (backdrop !== undefined && backdrop !== null) {
                                             backdrop.style.opacity = 0;
                                             backdrop.style.visibility = "hidden";
-                                            backdrop.onclick = function () {};
+                                            backdrop.onclick = function () {
+                                            };
                                         }
                                     }
                                 }
@@ -965,3 +981,43 @@ $$('.popup-volumes').on('popup:closed', function (e, popup) {
     $('.popup-volumes').removeClass('show');
     $('.modal-open').removeClass('modal-open');
 });
+
+var notification = app.notification.create({
+    title: 'Internetverbindung unterbrochen',
+    text: 'Ihr InnoServer hat derzeit keine Verbindung zum Internet.',
+    closeButton: true,
+    on: {
+        opened: function () {
+            console.log('notify opened')
+        },
+        closed: function () {
+            console.log('notify closed')
+        }
+    }
+});
+
+var notificationShowing = false;
+var internetLost = false;
+var internetCheck = function () {
+    $.get('http://' + document.location.hostname + '/api/helper.php?ping',
+        function (data) {
+            if (data !== '') {
+                internetLost = data !== '0';
+            } else {
+                internetLost = true;
+            }
+
+            if (internetLost) {
+                if (!notificationShowing) {
+                    notificationShowing = true;
+                    notification.open();
+                }
+            } else {
+                notificationShowing = false;
+                notification.close();
+            }
+        });
+};
+
+internetCheck();
+setInterval(internetCheck, 60000);

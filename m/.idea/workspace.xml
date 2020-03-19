@@ -1,9 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b537340-2199-4b0f-ba72-02ada5e6a8ee" name="Default" comment="fixed sync multiple zones to currently selected zone">
+    <list default="true" id="9b537340-2199-4b0f-ba72-02ada5e6a8ee" name="Default" comment="added version check to show update dialog on main page">
+      <change afterPath="$PROJECT_DIR$/local/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/bootstrap.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/jquery.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/jquery.touchSwipe.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/popper.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/robo_font.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fABc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fBxc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fCBc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fCRc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fChc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fCxc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fABc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fBBc4AMP6lQ.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fBxc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fCBc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fCRc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fChc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fCxc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfABc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfBxc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfCBc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfCRc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfChc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfCxc4AMP6lbBP.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu4WxKKTU1Kvnz.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu5mxKKTU1Kvnz.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu7GxKKTU1Kvnz.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu7WxKKTU1Kvnz.woff2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu7mxKKTU1Kvnz.woff2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mf7.js" beforeDir="false" afterPath="$PROJECT_DIR$/mf7.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,6 +50,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="HTML File" />
+        <option value="CSS File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -24,6 +62,9 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/mf7.js" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -60,6 +101,7 @@
     <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.jscs" value="true" />
     <property name="node.js.detected.package.prettier" value="true" />
@@ -79,6 +121,9 @@
     <property name="settings.editor.selected.configurable" value="inlay.hints" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/local/woff" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/html/images" />
     </key>
@@ -164,7 +209,11 @@
       <workItem from="1579760363729" duration="1023000" />
       <workItem from="1579761959548" duration="78000" />
       <workItem from="1579762049598" duration="365000" />
-      <workItem from="1581919791335" duration="2475000" />
+      <workItem from="1581919791335" duration="2814000" />
+      <workItem from="1582720880079" duration="53000" />
+      <workItem from="1582720962191" duration="1090000" />
+      <workItem from="1583387479896" duration="777000" />
+      <workItem from="1584606723744" duration="4946000" />
     </task>
     <task id="LOCAL-00001" summary="fixed volume slider">
       <created>1545202799759</created>
@@ -271,7 +320,14 @@
       <option name="project" value="LOCAL" />
       <updated>1579014051019</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="added version check to show update dialog on main page">
+      <created>1581951630530</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1581951630530</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,17 +349,30 @@
     <MESSAGE value="fixed broken volume text" />
     <MESSAGE value="added current zone to sync, fixed sync display bug" />
     <MESSAGE value="fixed sync multiple zones to currently selected zone" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed sync multiple zones to currently selected zone" />
+    <MESSAGE value="added version check to show update dialog on main page" />
+    <option name="LAST_COMMIT_MESSAGE" value="added version check to show update dialog on main page" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="437" y="250" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584612837908">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="437" y="250" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900/1440.-180.1920.1080@0.0.1440.900" timestamp="1584612837907" />
     <state x="408" y="185" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1579761974526">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="408" y="185" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1579761974526" />
+    <state x="326" y="0" key="CommitChangelistDialog2" timestamp="1581951630283">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="326" y="0" key="CommitChangelistDialog2/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1581951630283" />
     <state x="221" y="89" key="SettingsEditor" timestamp="1579762080318">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="221" y="89" key="SettingsEditor/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1579762080318" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1582720996859">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1582720996859" />
   </component>
   <component name="masterDetails">
     <states>

@@ -1,3 +1,6 @@
+.notification-title {
+    color: darkred !important;
+}
 a {
     text-decoration: none !important;
 }
