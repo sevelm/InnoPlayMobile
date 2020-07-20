@@ -56,6 +56,21 @@ var app = new Framework7({
                 '               <li class="item-content">' +
                 '                   <div id="port" class="item-inner text-color-white op"></div>' +
                 '               </li>' +
+                '               <li class="item-divider" data-langkey="vpn_title">Fernwartungszugang (VPN)</li>' +
+                '               <li class="item-content">' +
+                '                   <div id="vpn_state" class="item-inner text-color-white op"></div>' +
+                '               </li>' +
+                '               <li class="item-content">' +
+                '                   <div class="item-inner">' +
+                '                       <div id="vpn_conn" class="item-title text-color-white op" data-langkey="grant_access">Zugriff gewähren: </div>' +
+                '                       <div class="item-after">' +
+                '                           <label class="toggle toggle-init op">' +
+                '                               <input id="vpn_checkbox" type="checkbox"/>' +
+                '                               <span class="toggle-icon"></span>' +
+                '                           </label>' +
+                '                       </div>' +
+                '                   </div>' +
+                '               </li>' +
                 '               <li class="item-divider" data-langkey="more_info">Weitere Informationen</li>' +
                 '               <li>' +
                 '                   <a class="item-link link external item-content text-color-white op" target="_blank"' +
@@ -92,6 +107,61 @@ var app = new Framework7({
                                 $('#actual').html(langDocument['current_error']);
                             }
                         });
+
+
+                    $('#vpn_state').load('http://' + document.location.hostname + '/api/helper.php?vpn_running',
+                        function (response, status, xhr) {
+                            if (status == "success") {
+                                if (response == "1\n") {
+                                    $('#vpn_checkbox').attr('checked', 'checked');
+                                    $('#vpn_state').html(langDocument['vpn_state_conn']);
+                                } else {
+                                    $('#vpn_state').html(langDocument['vpn_state_disc']);
+                                }
+                            } else {
+                                $('#vpn_state').html(langDocument['vpn_state_error']);
+                            }
+                        });
+
+
+                    $('#vpn_checkbox').change(function () {
+                        console.log('checkbox: ' + this.checked);
+                        var url = 'http://' + document.location.hostname + '/api/helper.php?';
+                        if (this.checked) {
+                            url = url + 'vpn_connect';
+                        } else {
+                            url = url + 'vpn_disconnect';
+                        }
+                        var dialog = app.dialog.create({
+                            title: langDocument['vpn_title'],
+                            text: langDocument['vpn_text'],
+                            buttons: [
+                                {
+                                    text: langDocument['update_error_button']
+                                }
+                            ],
+                            verticalButtons: false
+                        }).open();
+
+                        $('#vpn_checkbox').load(url,
+                            function (response, status, xhr) {
+                                setTimeout(function() {
+                                    $('#vpn_state').load('http://' + document.location.hostname + '/api/helper.php?vpn_running',
+                                        function (response, status, xhr) {
+                                            if (status == "success") {
+                                                if (response == "1\n") {
+                                                    $('#vpn_state').html(langDocument['vpn_state_conn']);
+                                                } else {
+                                                    $('#vpn_state').html(langDocument['vpn_state_disc']);
+                                                }
+                                            } else {
+                                                $('#vpn_state').html(langDocument['vpn_state_error']);
+                                            }
+                                            dialog.close();
+                                        });
+                                }, 5000);
+                            });
+                    });
 
                     $$('.open-confirm').on('click', function () {
                         if (!internetLost &&
@@ -154,11 +224,11 @@ var app = new Framework7({
                             }).open();
                         } else {
                             app.dialog.create({
-                                title: 'Update nicht möglich',
-                                text: 'Es besteht derzeit keine Internetverbindung, deshalb kann kein Update nicht durchgeführt werden.',
+                                title: langDocument['update_no_internet'],
+                                text: langDocument['update_no_internet_text'],
                                 buttons: [
                                     {
-                                        text: 'Verstanden!'
+                                        text: langDocument['update_error_button']
                                     }
                                 ],
                                 verticalButtons: false

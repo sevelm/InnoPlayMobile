@@ -1,45 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b537340-2199-4b0f-ba72-02ada5e6a8ee" name="Default" comment="added version check to show update dialog on main page">
-      <change afterPath="$PROJECT_DIR$/local/bootstrap.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/bootstrap.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/jquery.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/jquery.touchSwipe.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/popper.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/robo_font.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fABc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fBxc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fCBc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fCRc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fChc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmEU9fCxc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fABc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fBBc4AMP6lQ.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fBxc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fCBc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fCRc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fChc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmSU5fCxc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfABc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfBxc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfCBc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfCRc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfChc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOlCnqEu92Fr1MmWUlfCxc4AMP6lbBP.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu4WxKKTU1Kvnz.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu5mxKKTU1Kvnz.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu7GxKKTU1Kvnz.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu7WxKKTU1Kvnz.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local/woff/KFOmCnqEu92Fr1Mu7mxKKTU1Kvnz.woff2" afterDir="false" />
+    <list default="true" id="9b537340-2199-4b0f-ba72-02ada5e6a8ee" name="Default" comment="added local css/js files&#10;showing notification when server has no internet connection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lang/de.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/de.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/en.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mf7.js" beforeDir="false" afterPath="$PROJECT_DIR$/mf7.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +26,7 @@
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
         <option value="Alexander Elmecker &lt;alexander.elmecker@gmail.com&gt;" />
+        <option value="Ale" />
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -92,7 +60,6 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -214,6 +181,12 @@
       <workItem from="1582720962191" duration="1090000" />
       <workItem from="1583387479896" duration="777000" />
       <workItem from="1584606723744" duration="4946000" />
+      <workItem from="1584621915841" duration="345000" />
+      <workItem from="1586845520970" duration="137000" />
+      <workItem from="1586845685691" duration="341000" />
+      <workItem from="1595245256793" duration="204000" />
+      <workItem from="1595245512011" duration="98000" />
+      <workItem from="1595245669100" duration="6187000" />
     </task>
     <task id="LOCAL-00001" summary="fixed volume slider">
       <created>1545202799759</created>
@@ -327,11 +300,18 @@
       <option name="project" value="LOCAL" />
       <updated>1581951630530</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="added local css/js files&#10;showing notification when server has no internet connection">
+      <created>1584621970641</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1584621970641</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="2" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fixed volume slider" />
@@ -350,29 +330,26 @@
     <MESSAGE value="added current zone to sync, fixed sync display bug" />
     <MESSAGE value="fixed sync multiple zones to currently selected zone" />
     <MESSAGE value="added version check to show update dialog on main page" />
-    <option name="LAST_COMMIT_MESSAGE" value="added version check to show update dialog on main page" />
+    <MESSAGE value="added local css/js files&#10;showing notification when server has no internet connection" />
+    <option name="LAST_COMMIT_MESSAGE" value="added local css/js files&#10;showing notification when server has no internet connection" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="437" y="250" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1584612837908">
+    <state x="408" y="193" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1595245519163">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="437" y="250" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1440.900/1440.-180.1920.1080@0.0.1440.900" timestamp="1584612837907" />
-    <state x="408" y="185" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1579761974526">
+    <state x="408" y="193" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1595245519163" />
+    <state x="301" y="0" key="CommitChangelistDialog2" timestamp="1595245332536">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="408" y="185" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1579761974526" />
-    <state x="326" y="0" key="CommitChangelistDialog2" timestamp="1581951630283">
+    <state x="301" y="0" key="CommitChangelistDialog2/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1595245332536" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1586845594792">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="326" y="0" key="CommitChangelistDialog2/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1581951630283" />
-    <state x="221" y="89" key="SettingsEditor" timestamp="1579762080318">
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900/1440.-180.1920.1080@0.0.1440.900" timestamp="1586845594791" />
+    <state x="507" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595247873690">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="221" y="89" key="SettingsEditor/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1579762080318" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1582720996859">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1582720996859" />
+    <state x="507" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1595247873690" />
   </component>
   <component name="masterDetails">
     <states>
