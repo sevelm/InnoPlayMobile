@@ -1,3 +1,7 @@
+/*
+Main file for framework7 app initialization.
+All Routes are found here.
+ */
 var app = new Framework7({
     // App root element
     root: '#app',
@@ -87,9 +91,11 @@ var app = new Framework7({
             on: {
                 pageBeforeIn: function (event, page) {
                     processLangDocument();
+                    //shows the server address and port
                     $('#address').html(langDocument['hostname'] + document.location.hostname);
                     $('#port').html(langDocument['port'] + document.location.port);
 
+                    //shows available server version (read from github)
                     $('#available').load('https://raw.githubusercontent.com/sevelm/InnoTune/master/version.txt',
                         function (response, status, xhr) {
                             if (status == "success") {
@@ -99,6 +105,7 @@ var app = new Framework7({
                             }
                         });
 
+                    //shows current installed version
                     $('#actual').load('http://' + document.location.hostname + '/api/helper.php?getversion',
                         function (response, status, xhr) {
                             if (status == "success") {
@@ -108,7 +115,7 @@ var app = new Framework7({
                             }
                         });
 
-
+                    //loads the vpn state
                     $('#vpn_state').load('http://' + document.location.hostname + '/api/helper.php?vpn_running',
                         function (response, status, xhr) {
                             if (status == "success") {
@@ -123,7 +130,7 @@ var app = new Framework7({
                             }
                         });
 
-
+                    //checkbox to change vpn state
                     $('#vpn_checkbox').change(function () {
                         console.log('checkbox: ' + this.checked);
                         var url = 'http://' + document.location.hostname + '/api/helper.php?';
@@ -163,6 +170,7 @@ var app = new Framework7({
                             });
                     });
 
+                    //button for updating the server
                     $$('.open-confirm').on('click', function () {
                         if (!internetLost &&
                             $('#available').html() !== langDocument['current_version'] + ' ' &&
@@ -275,6 +283,7 @@ var app = new Framework7({
             on: {
                 pageBeforeIn: function (event, page) {
                     processLangDocument();
+                    //get active devices
                     $.ajax({
                         url: 'http://' + document.location.hostname + '/api/helper.php?activedevices',
                         success: function (data) {
@@ -290,6 +299,7 @@ var app = new Framework7({
                                         value = count;
                                     }
                                     count++;
+                                    //get device info
                                     $.get('http://' + document.location.hostname + '/api/helper.php?getdevice&dev=' + value,
                                         function (data) {
                                             devData = data.split(';');
@@ -453,6 +463,7 @@ var app = new Framework7({
             on: {
                 pageBeforeIn: function (event, page) {
                     processLangDocument();
+                    //get active devices
                     $.ajax({
                         url: 'http://' + document.location.hostname + '/api/helper.php?activedevices',
                         success: function (data) {
@@ -468,6 +479,7 @@ var app = new Framework7({
                                         value = count;
                                     }
                                     count++;
+                                    //read device infos
                                     $.get('http://' + document.location.hostname + '/api/helper.php?getdevice&dev=' + value,
                                         function (data) {
                                             devData = data.split(';');
@@ -619,6 +631,7 @@ var app = new Framework7({
                     $.ajax({
                         url: 'http://' + document.location.hostname + '/api/helper.php?radiohistory',
                         success: function (data) {
+                            //shows a history of radios
                             if (data !== '') {
                                 let history = [];
                                 let lines = data.split('\n');
@@ -745,6 +758,7 @@ var app = new Framework7({
                     processLangDocument();
                     document.getElementById("demo-picker-device").placeholder = langDocument['select_amp'];
 
+                    //gets active devices for line-in input/output
                     $.ajax({
                         url: 'http://' + document.location.hostname + '/api/helper.php?activedevices',
                         success: function (data) {
@@ -763,6 +777,7 @@ var app = new Framework7({
                                         value = count;
                                     }
                                     count++;
+                                    //gets each devices infos
                                     $.get('http://' + document.location.hostname + '/api/helper.php?getdevice&dev=' + value,
                                         function (data) {
                                             let devData = data.split(';');
@@ -829,6 +844,7 @@ var app = new Framework7({
                                 }
                             });
 
+                            //creates a picker for the sources
                             let sourcePicker = app.picker.create({
                                 inputEl: '#demo-picker-device',
                                 cols: [
@@ -873,6 +889,7 @@ var app = new Framework7({
                                 }
                             });
 
+                            //starts to play line in with selected input/output
                             $('#lineplay').click(function () {
                                 let elements = document.getElementsByName("lineincb");
                                 if (sourcePicker.getValue() !== undefined && sourcePicker.getValue().length > 0) {
@@ -900,6 +917,7 @@ var app = new Framework7({
                                 }
                             });
 
+                            //stop line in with selected output
                             $('#linestop').click(function () {
                                 let elements = document.getElementsByName("lineincb");
 
@@ -923,6 +941,7 @@ var app = new Framework7({
                                 });
                             });
 
+                            //reads the line in state of a output (with timeout)
                             setTimeout(function () {
                                 count = 1;
                                 devIds.forEach(function (value) {
@@ -953,7 +972,7 @@ var app = new Framework7({
                                 });
                             }, 1000);
 
-
+                            //shows popup for the line in volume
                             $('#linevol').click(function () {
                                 app.dialog.progress();
                                 var popup = app.popup.create({
@@ -986,6 +1005,7 @@ var app = new Framework7({
                                         open: function (popup) {
                                             processLangDocument();
 
+                                            //gets the line vols from the helper api and sets the sliders with the values
                                             sourceIds.forEach(function (id) {
                                                 $.get('http://' + document.location.hostname + '/api/helper.php?vol&dev=' + id,
                                                     function (data) {
@@ -1052,6 +1072,7 @@ $$('.popup-volumes').on('popup:closed', function (e, popup) {
     $('.modal-open').removeClass('modal-open');
 });
 
+//internet connection lost notification
 var notification = app.notification.create({
     title: 'Internetverbindung unterbrochen',
     text: 'Ihr InnoServer hat derzeit keine Verbindung zum Internet.',
@@ -1068,6 +1089,11 @@ var notification = app.notification.create({
 
 var notificationShowing = false;
 var internetLost = false;
+
+/*
+checks if the server (and not the client with the webbrowser) has a working internet connection
+shows a notification popup if the connection is lost
+ */
 var internetCheck = function () {
     $.get('http://' + document.location.hostname + '/api/helper.php?ping',
         function (data) {
@@ -1089,5 +1115,6 @@ var internetCheck = function () {
         });
 };
 
+//checks the internet in a minute interval
 internetCheck();
 setInterval(internetCheck, 60000);

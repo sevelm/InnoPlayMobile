@@ -1,5 +1,6 @@
 'use strict';
 
+//this file is from the base github project
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open('cache').then(cache => {

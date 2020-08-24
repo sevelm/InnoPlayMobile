@@ -627,6 +627,7 @@
 
 <script type="text/javascript" src="[% webroot %]mf7.js?v=1.2.6"></script>
 <script type="text/javascript">
+    //reads the language of the browser for internationalization
     let language = navigator.language;
     if (language.toLowerCase().indexOf('de') !== -1) {
         language = 'de';
@@ -637,6 +638,7 @@
     let langDocument = {};
     let xhttp = new XMLHttpRequest();
 
+    //processes the loaded json language file and sets them in the document
     function processLangDocument() {
         let tags = document.querySelectorAll('span,img,a,label,li,option,h1,h2,h3,h4,h5,h6,p,q,div');
         Array.from(tags).forEach(function (value, index) {
@@ -645,6 +647,7 @@
         });
     }
 
+    //sets the default language values in the document
     function defaultLangDocument() {
         langDocument = {
             sources: "Quellen",
@@ -714,6 +717,7 @@
         }
     }
 
+    //http callback
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             langDocument = JSON.parse(this.responseText);
@@ -726,6 +730,8 @@
     xhttp.open("GET", "http://" + document.location.hostname + "/lang/m/" + language + ".json?v=1.1", true);
     xhttp.send();
 
+    //loads the newest available version of the innotune system
+    //if a newer is found a popup for notifying the user aber the new version is shown
     let httpCurrentVersion = new XMLHttpRequest();
     httpCurrentVersion.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {

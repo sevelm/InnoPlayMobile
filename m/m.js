@@ -2,6 +2,8 @@
 
 'use strict';
 
+//this file is from the base github project
+//this file handles the jsonrpc connection to the lms
 /* FIXME: Use jekyll to generate installable file */
 /* FIXME: Create proper plugin */
 /* FIXME: Number of items returner currently capped */

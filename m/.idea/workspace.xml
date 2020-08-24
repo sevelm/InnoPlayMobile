@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9b537340-2199-4b0f-ba72-02ada5e6a8ee" name="Default" comment="added local css/js files&#10;showing notification when server has no internet connection">
+    <list default="true" id="9b537340-2199-4b0f-ba72-02ada5e6a8ee" name="Default" comment="added remote maintenance connection (vpn) to general settings screen, fixed some language issues">
+      <change afterPath="$PROJECT_DIR$/README.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang/de.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/de.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lang/en.json" beforeDir="false" afterPath="$PROJECT_DIR$/lang/en.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lms.js" beforeDir="false" afterPath="$PROJECT_DIR$/lms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/m.js" beforeDir="false" afterPath="$PROJECT_DIR$/m.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mf7.js" beforeDir="false" afterPath="$PROJECT_DIR$/mf7.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sw.js" beforeDir="false" afterPath="$PROJECT_DIR$/sw.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/swipe.js" beforeDir="false" afterPath="$PROJECT_DIR$/swipe.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,6 +98,7 @@
       <recent name="$PROJECT_DIR$/html/images" />
     </key>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -186,7 +190,10 @@
       <workItem from="1586845685691" duration="341000" />
       <workItem from="1595245256793" duration="204000" />
       <workItem from="1595245512011" duration="98000" />
-      <workItem from="1595245669100" duration="6187000" />
+      <workItem from="1595245669100" duration="6538000" />
+      <workItem from="1598247433453" duration="22000" />
+      <workItem from="1598247477950" duration="474000" />
+      <workItem from="1598247986505" duration="2100000" />
     </task>
     <task id="LOCAL-00001" summary="fixed volume slider">
       <created>1545202799759</created>
@@ -307,11 +314,18 @@
       <option name="project" value="LOCAL" />
       <updated>1584621970641</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="added remote maintenance connection (vpn) to general settings screen, fixed some language issues">
+      <created>1595252832451</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1595252832451</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fixed volume slider" />
@@ -331,25 +345,32 @@
     <MESSAGE value="fixed sync multiple zones to currently selected zone" />
     <MESSAGE value="added version check to show update dialog on main page" />
     <MESSAGE value="added local css/js files&#10;showing notification when server has no internet connection" />
-    <option name="LAST_COMMIT_MESSAGE" value="added local css/js files&#10;showing notification when server has no internet connection" />
+    <MESSAGE value="added remote maintenance connection (vpn) to general settings screen, fixed some language issues" />
+    <option name="LAST_COMMIT_MESSAGE" value="added remote maintenance connection (vpn) to general settings screen, fixed some language issues" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="408" y="193" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1595245519163">
+    <state x="408" y="193" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1598247908346">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="408" y="193" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1595245519163" />
-    <state x="301" y="0" key="CommitChangelistDialog2" timestamp="1595245332536">
+    <state x="408" y="193" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1598247908346" />
+    <state x="248" y="0" key="CommitChangelistDialog2" timestamp="1598247439546">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="301" y="0" key="CommitChangelistDialog2/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1595245332536" />
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1586845594792">
+    <state x="248" y="0" key="CommitChangelistDialog2/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1598247439546" />
+    <state x="301" y="0" key="CommitChangelistDialog2/0.0.1440.900/-1920.23.1920.1057@0.0.1440.900" timestamp="1595252832253" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2" timestamp="1598247442614">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900/1440.-180.1920.1080@0.0.1440.900" timestamp="1586845594791" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1598247442614" />
+    <state x="320" y="186" key="Vcs.Push.Dialog.v2/0.0.1440.900/-1920.23.1920.1057@0.0.1440.900" timestamp="1595252846733" />
     <state x="507" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595247873690">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="507" y="371" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.900/-1920.0.1920.1080@0.0.1440.900" timestamp="1595247873690" />
+    <state x="506" y="340" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1595252760478">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="506" y="340" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1440.900/-1920.23.1920.1057@0.0.1440.900" timestamp="1595252760478" />
   </component>
   <component name="masterDetails">
     <states>
