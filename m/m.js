@@ -299,8 +299,12 @@ function player_created(_, server, player) {
 
     $elm.find('.volume .range-slider__range').on('input', function () {
         sliding = true;
-        player.volume = parseInt($(this).val());
-        $elm.find('.volume .range-slider__value').text($(this).val());
+        let volumeString = $(this).val();
+        let volume = 0;
+        if (!isNaN(volumeString)) {
+            volume = parseInt(volumeString);
+        }
+        $elm.find('.volume .range-slider__value').text(volume);
         console.log('slide: ' + sliding);
     });
 
@@ -599,9 +603,15 @@ function player_updated(_, server, player) {
         .width(player.volume + '%');*/
     if (player.volume != $elm.find('.volume .range-slider__range').val()
         && !sliding) {
-        console.log('val: ' + player.volume);
-        $elm.find('.volume .range-slider__range').val(player.volume);
-        $elm.find('.volume .range-slider__value').text(player.volume);
+        let volumeInput = player.volume;
+        let volume = 0;
+        if (!isNaN(volumeInput)) {
+            volume = parseInt(volumeInput);
+        }
+        console.log('val: ' + volume);
+
+        $elm.find('.volume .range-slider__range').val(volume);
+        $elm.find('.volume .range-slider__value').text(volume);
     }
 
     $elm.removeClass('on off playing paused stopped ' +
