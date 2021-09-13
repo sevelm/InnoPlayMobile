@@ -130,6 +130,7 @@ function rescaled($img, context, url) {
 /*                                                                          */
 /* ------------------------------------------------------------------------ */
 
+var intervalCount = 10;
 var sliding = false;
 var menuback = undefined;
 var active_player = null;
@@ -295,12 +296,6 @@ function player_created(_, server, player) {
     // on volume change listeners for both volume view and active player view
     $elm.find('.volume .range-slider__range').on('change', function () {
         sliding = false;
-        console.log('range on change volume: ' + $(this).val() + ', sliding: ' + sliding);
-    });
-
-    // on volume input listeners for both volume view and active player view
-    $elm.find('.volume .range-slider__range').on('input', function () {
-        sliding = true;
         let volumeString = $(this).val();
         let volume = 0;
         if (!isNaN(volumeString)) {
@@ -311,9 +306,16 @@ function player_created(_, server, player) {
         }
 
         player.volume = volume;
+        intervalCount = 0;
         $elm.find('.volume .range-slider__range').val(volume);
         $elm.find('.volume .range-slider__value').text(volume);
-        console.log('slide: ' + sliding);
+        console.log('volume sliding stopped:  ' + $(this).val());
+    });
+
+    // on volume input listeners for both volume view and active player view
+    $elm.find('.volume .range-slider__range').on('input', function () {
+        sliding = true;
+        console.log('sliding volume changing: ' + $(this).val());
     });
 
     $elm.find('.progress.duration').click(e => {
@@ -617,10 +619,11 @@ function player_updated(_, server, player) {
     }
 
     // updates the volume range of the current activly shown player
-    if (volume != $elm.find('.volume .range-slider__range').val() && !sliding) {
+    if (intervalCount >= 10 && volume != $elm.find('.volume .range-slider__range').val() && !sliding) {
         console.log('volume changes and is not sliding: ' + volume);
         $elm.find('.volume .range-slider__range').val(volume);
         $elm.find('.volume .range-slider__value').text(volume);
+        intervalCount = 0;
     }
 
     $elm.removeClass('on off playing paused stopped ' +
@@ -687,6 +690,8 @@ function player_updated(_, server, player) {
             }
         });
     }
+
+    intervalCount++;
 }
 
 $(() => {
