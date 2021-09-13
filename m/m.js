@@ -130,6 +130,7 @@ function rescaled($img, context, url) {
 /*                                                                          */
 /* ------------------------------------------------------------------------ */
 
+var intervalCount = 10;
 var sliding = false;
 var menuback = undefined;
 var active_player = null;
@@ -292,20 +293,29 @@ function player_created(_, server, player) {
         .forEach(action => $elm.find('button.'+action)
                  .click(() => player[action]()));
 
+    // on volume change listeners for both volume view and active player view
     $elm.find('.volume .range-slider__range').on('change', function () {
         sliding = false;
-        console.log('volume: ' + $(this).val() + ' ' + sliding);
-    });
-
-    $elm.find('.volume .range-slider__range').on('input', function () {
-        sliding = true;
         let volumeString = $(this).val();
         let volume = 0;
         if (!isNaN(volumeString)) {
             volume = parseInt(volumeString);
+            console.log('volume input: ' + volume);
+        } else {
+            console.error('volume input is not a number was: ' + volumeString);
         }
+
+        player.volume = volume;
+        intervalCount = 0;
+        $elm.find('.volume .range-slider__range').val(volume);
         $elm.find('.volume .range-slider__value').text(volume);
-        console.log('slide: ' + sliding);
+        console.log('volume sliding stopped:  ' + $(this).val());
+    });
+
+    // on volume input listeners for both volume view and active player view
+    $elm.find('.volume .range-slider__range').on('input', function () {
+        sliding = true;
+        console.log('sliding volume changing: ' + $(this).val());
     });
 
     $elm.find('.progress.duration').click(e => {
@@ -599,19 +609,21 @@ function player_updated(_, server, player) {
               format_time(player.track_position) :
               [format_time(player.track_position),
                format_time(player.track_duration)].join(' | '));
-    /*$elm.find('.volume .progress-bar')
-        .width(player.volume + '%');*/
-    if (player.volume != $elm.find('.volume .range-slider__range').val()
-        && !sliding) {
-        let volumeInput = player.volume;
-        let volume = 0;
-        if (!isNaN(volumeInput)) {
-            volume = parseInt(volumeInput);
-        }
-        console.log('val: ' + volume);
 
+    let volumeInput = player.volume;
+    let volume = 0;
+    if (!isNaN(volumeInput)) {
+        volume = parseInt(volumeInput);
+    } else {
+        console.error('player volume is not a number, was "' + player.volume + '"!');
+    }
+
+    // updates the volume range of the current activly shown player
+    if (intervalCount >= 10 && volume != $elm.find('.volume .range-slider__range').val() && !sliding) {
+        console.log('volume changes and is not sliding: ' + volume);
         $elm.find('.volume .range-slider__range').val(volume);
         $elm.find('.volume .range-slider__value').text(volume);
+        intervalCount = 0;
     }
 
     $elm.removeClass('on off playing paused stopped ' +
@@ -678,6 +690,8 @@ function player_updated(_, server, player) {
             }
         });
     }
+
+    intervalCount++;
 }
 
 $(() => {
