@@ -378,17 +378,38 @@ function browse_menu(menus) {
         }
     });
 
-    function browse_level(parent, ...params) {
-        if(parent.cmd == "search") {
-            parent.name = $('#search').val();
-        }
-        params.splice(params.slice(-1)[0] instanceof Object ? -1 : params.length, 0, 0, 99);
-        active_player.query(...params).then(
-            res => browse_menu(
-                menus.concat([{title: parent.name || parent.title || parent.filename,
-                               items: res.result[Object.keys(res.result).find(key => /loop/.test(key))],
-                               context: params[0]}])))
-    }
+/* function browse_level START */
+
+   function browse_level(parent, ...params) {
+	if(parent.cmd == "search" || parent.type == "search") {
+	    parent.name = $('#search').val();
+	}
+    params.splice(params.slice(-1)[0] instanceof Object ? -1 : params.length, 0, 0, 99);
+
+    console.log('BROWSE_LEVEL parent:', parent);
+    console.log('BROWSE_LEVEL params:', params);
+
+    active_player.query(...params).then(res => {
+        console.log('BROWSE_LEVEL response JSON:', JSON.stringify(res, null, 2));
+
+        let loopKey = Object.keys(res.result).find(key => /loop/.test(key));
+        console.log('BROWSE_LEVEL loopKey:', loopKey);
+        console.log('BROWSE_LEVEL items JSON:', JSON.stringify(res.result[loopKey], null, 2));
+
+        browse_menu(
+            menus.concat([{
+                title: parent.name || parent.title || parent.filename,
+                items: res.result[loopKey],
+                context: params[0]
+            }])
+        );
+    });
+}
+
+
+
+/* function browse_level END */
+
 
     function menu_item_clicked(context, item) {
         log('Clicked', item);
@@ -449,17 +470,40 @@ function browse_menu(menus) {
             $('#imgmenu').css('padding', '1% 0 1% 0');
             $('#imgmenu').css('width', '2.6%');
         } else if (item._cmd)
-            browse_level(item, item._cmd, {want_url: 1})
+            browse_level(item, item._cmd, {want_url: 0})
         else if (item.cmd) {
             if(item.cmd != "search") {
-                browse_level(item, item.cmd, 'items', {want_url: 1})
+                browse_level(item, item.cmd, 'items', {want_url: 0})
             } else {
                 if($('#search').val() != undefined && $('#search').val() != "") {
-                    browse_level(item, item.cmd, 'items', {want_url: 1, search: $('#search').val()})
+                    browse_level(item, item.cmd, 'items', {want_url: 0, search: $('#search').val()})
                 }
             }
         } else if (item.id && item.hasitems)
-            browse_level(item, context, 'items', {item_id: item.id, want_url: 1});
+            if (item.type == 'search') {
+
+let args = {
+    item_id: item.id,
+    want_url: 0
+};
+
+if($('#search').val() != undefined && $('#search').val() != "") {
+    args.search = $('#search').val();
+}
+
+browse_level(item, context, 'items', args);
+
+
+
+} else {
+    browse_level(item, context, 'items', {item_id: item.id, want_url: 0});
+}
+
+
+
+
+
+
         else if (item.id && item.type == 'folder')
             browse_level(item, 'musicfolder', {type: 'audio', folder_id: item.id, tags: 'cdu'})
     }
@@ -472,7 +516,7 @@ function browse_menu(menus) {
             .empty()
             .append(menu.items.map(
                 item => {
-                    if(item.cmd == "search")
+                    if(item.cmd == "search" || item.type == "search")
                     {
                         return from_template('#menu-item-template')
                             .find('.title')
